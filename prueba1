@@ -100,3 +100,48 @@ densididad sampling clster:23
 [2, 4, 7]
 Creando carpetas de clusters...
 Asignando documentos a los clusters
+
+7-Zip 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,2 CPUs)
+Scanning
+
+Creating archive 2.7z
+
+Compressing  clusters/2/alev2aa      
+Compressing  clusters/2/alev3aa      
+Compressing  clusters/2/alev5aa      
+Compressing  clusters/2/alev6aa      
+Compressing  clusters/2/alev8aa      
+
+Everything is Ok
+
+7-Zip 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,2 CPUs)
+Scanning
+
+Creating archive 0.7z
+
+Compressing  clusters/0/rusv0aa      
+Compressing  clusters/0/rusv2aa      
+Compressing  clusters/0/rusv4aa      
+Compressing  clusters/0/rusv5aa      
+Compressing  clusters/0/rusv8aa      
+Compressing  clusters/0/rusv9aa      
+
+Everything is Ok
+
+7-Zip 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,2 CPUs)
+Scanning
+
+Creating archive 1.7z
+
+Compressing  clusters/1/chilev11aa      
+Compressing  clusters/1/chilev2aa      
+Compressing  clusters/1/chilev4aa      
+Compressing  clusters/1/chilev6aa      
+Compressing  clusters/1/chilev7aa      
+Compressing  clusters/1/chilev9aa      
+
+Everything is Ok
+

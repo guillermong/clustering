@@ -82,3 +82,67 @@ densididad sampling clster:8
 [1, 1, 1, 1, 8]
 Creando carpetas de clusters...
 Asignando documentos a los clusters
+Asignando documentos a los clusters
+
+7-Zip 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,2 CPUs)
+Scanning
+
+Creating archive 2.7z
+
+
+Everything is Ok
+
+7-Zip 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,2 CPUs)
+Scanning
+
+Creating archive 0.7z
+
+
+Everything is Ok
+
+7-Zip 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,2 CPUs)
+Scanning
+
+Creating archive 3.7z
+
+
+Everything is Ok
+
+7-Zip 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,2 CPUs)
+Scanning
+
+Creating archive 1.7z
+
+
+Everything is Ok
+
+7-Zip 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,2 CPUs)
+Scanning
+
+Creating archive 4.7z
+
+Compressing  clusters/4/alev2aa      
+Compressing  clusters/4/alev3aa      
+Compressing  clusters/4/alev5aa      
+Compressing  clusters/4/alev6aa      
+Compressing  clusters/4/alev8aa      
+Compressing  clusters/4/chilev11aa      
+Compressing  clusters/4/chilev2aa      
+Compressing  clusters/4/chilev4aa      
+Compressing  clusters/4/chilev6aa      
+Compressing  clusters/4/chilev7aa      
+Compressing  clusters/4/chilev9aa      
+Compressing  clusters/4/rusv0aa      
+Compressing  clusters/4/rusv2aa      
+Compressing  clusters/4/rusv4aa      
+Compressing  clusters/4/rusv5aa      
+Compressing  clusters/4/rusv8aa      
+Compressing  clusters/4/rusv9aa      
+
+Everything is Ok
+
