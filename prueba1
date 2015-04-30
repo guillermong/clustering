@@ -1,0 +1,102 @@
+sampling cargado, buscando las distancias minimas...
+t1:0 contra t2:1=0.965338245144
+t1:0 contra t2:2=0.964104515474
+t1:0 contra t2:3=0.961757039696
+t1:0 contra t2:4=0.951088843693
+t1:0 contra t2:5=0.963999324724
+t1:0 contra t2:6=0.955266887104
+t1:0 contra t2:7=0.962982808663
+t1:0 contra t2:8=0.962976195793
+t1:0 contra t2:9=0.951455347845
+t1:0 contra t2:10=0.962982808663
+t1:0 contra t2:11=0.962792567447
+t1:0 contra t2:12=0.962976195793
+t1:1 contra t2:2=0.953240120563
+t1:1 contra t2:3=0.955249497656
+t1:1 contra t2:4=0.971073342264
+t1:1 contra t2:5=0.952947086403
+t1:1 contra t2:6=0.969775619558
+t1:1 contra t2:7=0.958389149364
+t1:1 contra t2:8=0.958389149364
+t1:1 contra t2:9=0.970654722036
+t1:1 contra t2:10=0.958389149364
+t1:1 contra t2:11=0.958305425318
+t1:1 contra t2:12=0.958389149364
+t1:2 contra t2:3=0.953788263149
+t1:2 contra t2:4=0.971334348047
+t1:2 contra t2:5=0.951886553558
+t1:2 contra t2:6=0.969643159141
+t1:2 contra t2:7=0.956874682902
+t1:2 contra t2:8=0.957043801793
+t1:2 contra t2:9=0.970869271098
+t1:2 contra t2:10=0.956874682902
+t1:2 contra t2:11=0.956832403179
+t1:2 contra t2:12=0.957043801793
+t1:3 contra t2:4=0.970473870871
+t1:3 contra t2:5=0.953785768549
+t1:3 contra t2:6=0.970431141307
+t1:3 contra t2:7=0.957655001496
+t1:3 contra t2:8=0.957655001496
+t1:3 contra t2:9=0.970132034355
+t1:3 contra t2:10=0.957655001496
+t1:3 contra t2:11=0.95769773106
+t1:3 contra t2:12=0.957655001496
+t1:4 contra t2:5=0.964168143834
+t1:4 contra t2:6=0.955361360416
+t1:4 contra t2:7=0.962804197365
+t1:4 contra t2:8=0.962797552588
+t1:4 contra t2:9=0.95155451976
+t1:4 contra t2:10=0.962804197365
+t1:4 contra t2:11=0.962747900661
+t1:4 contra t2:12=0.962797552588
+t1:5 contra t2:6=0.969190512366
+t1:5 contra t2:7=0.957119945978
+t1:5 contra t2:8=0.957204355533
+t1:5 contra t2:9=0.970034607918
+t1:5 contra t2:10=0.957119945978
+t1:5 contra t2:11=0.957119945978
+t1:5 contra t2:12=0.957204355533
+t1:6 contra t2:7=0.958919401652
+t1:6 contra t2:8=0.958912062882
+t1:6 contra t2:9=0.953046764289
+t1:6 contra t2:10=0.958919401652
+t1:6 contra t2:11=0.958817223513
+t1:6 contra t2:12=0.958912062882
+t1:7 contra t2:8=0.947756195579
+t1:7 contra t2:9=0.975262335343
+t1:7 contra t2:10=0.947845501228
+t1:7 contra t2:11=0.947622237106
+t1:7 contra t2:12=0.947756195579
+t1:8 contra t2:9=0.975302576928
+t1:8 contra t2:10=0.947800848404
+t1:8 contra t2:11=0.947568219374
+t1:8 contra t2:12=0.94779152338
+t1:9 contra t2:10=0.962625586068
+t1:9 contra t2:11=0.962569233518
+t1:9 contra t2:12=0.962618909383
+t1:10 contra t2:11=0.947622237106
+t1:10 contra t2:12=0.947756195579
+t1:11 contra t2:12=0.947836184181
+creando clusters
+densididad sampling clster:1
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2]
+densididad sampling clster:2
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3]
+densididad sampling clster:4
+[1, 1, 1, 1, 1, 1, 1, 1, 3, 2]
+densididad sampling clster:11
+[1, 1, 1, 1, 1, 1, 3, 2, 2]
+densididad sampling clster:12
+[1, 1, 1, 1, 1, 3, 2, 3]
+densididad sampling clster:14
+[1, 1, 1, 3, 2, 3, 2]
+densididad sampling clster:15
+[1, 1, 3, 2, 3, 3]
+densididad sampling clster:16
+[1, 3, 2, 3, 4]
+densididad sampling clster:18
+[3, 2, 4, 4]
+densididad sampling clster:23
+[2, 4, 7]
+Creando carpetas de clusters...
+Asignando documentos a los clusters
