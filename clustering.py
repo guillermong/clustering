@@ -117,7 +117,7 @@ if __name__ == "__main__":
 					cl=data.index(j)
 
 		shutil.copyfile(str(sys.argv[4])+str(document), sys.argv[3]+str(cl)+'/'+str(document))
-		#os.system('cp '+str(sys.argv[4])+str(document)+' '+sys.argv[3]+str(cl)+'/')				
+		#shutil.move(str(sys.argv[4])+str(document), sys.argv[3]+str(cl)+'/'+str(document))		
 		f.close()
 	
 	comprimir()	
