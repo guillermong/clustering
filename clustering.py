@@ -92,7 +92,7 @@ if __name__ == "__main__":
 		data.append(test3+test4)
 		
 		densidad=[]		
-		print "densididad sampling clster:"+str(i)
+		print "densididad sampling clster:"+str(test[i][0])
 		for t in data:
 			densidad.append(len(t))
 		print densidad
