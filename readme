@@ -6,6 +6,8 @@ python clustering.py doclust/ 4 clusters/ documents/
 	argv[2]= Numero de clusters deseado
 	argv[3]= carpeta guardar clusters
 	argv[4]= carpeta de documentos
+	argv[5]= max cluster size
+	argv[6]= calidad distancia documento 0-9
 """
 
 getsampling.py

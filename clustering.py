@@ -4,6 +4,8 @@
 	argv[2]= Numero de clusters deseado
 	argv[3]= carpeta guardar clusters
 	argv[4]= carpeta de documentos
+	argv[5]= max cluster size
+	argv[6]= calidad distancia documento 0-9
 """
 import os, sys ,getopt
 import editdist
@@ -53,7 +55,7 @@ if __name__ == "__main__":
 			for j in range(k+1,len(data)):
 				#comp=editdist.distance(data[k][0],data[j][0])
 				#comp=distance.hamming(data[k][0],data[j][0])
-				comp=distancia_zip(data[k][0],data[j][0],9)
+				comp=distancia_zip(data[k][0],data[j][0],int(sys.argv[6]))
 				print "t1:"+str(k)+" contra t2:"+str(j)+"="+str(comp)
 				test.append([comp,data[k][0],data[j][0]])          
 	test.sort()
@@ -61,12 +63,12 @@ if __name__ == "__main__":
 	#print "los primeros 10 textos mas pequeos en distancia:"
 	#for h in range(20):
 	#	print test[h][0]
-		
+	print len(test)	
 		
 		
 	print "creando clusters"
 	i=0
-	while len(data)>1 and len(data) > clusters :
+	while len(data)>1 and len(data) > clusters and i < len(test):
 		cluster1=[]
 		cluster2=[]
 		t1=False
@@ -82,7 +84,7 @@ if __name__ == "__main__":
 					t2= True
 					cluster2=data.index(j)
 		i=i+1
-		if cluster2 ==cluster1: 
+		if cluster2 ==cluster1 or (len(data[cluster1])+len(data[cluster2])) > int(sys.argv[5]) : 
 			continue
 		test3=data.pop(cluster2)		
 		if cluster2<cluster1:
@@ -111,7 +113,7 @@ if __name__ == "__main__":
 			for k in range(len(j)):
 				#comp=editdist.distance(j[k],texto)
 				#comp=distance.hamming(j[k],texto)	
-				comp=distancia_zip(j[k],texto,9)		
+				comp=distancia_zip(j[k],texto,int(sys.argv[6]))		
 				if minimo > comp:
 					minimo=comp
 					cl=data.index(j)
