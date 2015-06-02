@@ -1,0 +1,90 @@
+\chapter[Solución]{Solución}\label{ch:capitulo3}
+\fpar
+
+
+
+
+\section{Algoritmo de agrupamiento }\label{chsub:Algoritmo de agrupamiento}
+
+El algoritmo de agrupamiento es un proceso en la cual se tiene varios "puntos" suponiendo que se encuentra en un espacio eucladiano y se crean grupos de esos objetos en funcion de una medida de similitud.
+
+Los algoritmo de agrupamiento se pueden dividir en dos grupos , jerarquicos  y no jerarquicos. En los algoritmo de agrupamiento jerarquicos pueden ser aglomerativo o divisivo.
+Cuando es aglomerativo cada punto en el espacio eucladiano representa un cluster y en cada iteracion se unen los cluster hasta llegar a los numeros de clusters deseados, en cambio, los divisivos todos los puntos se encuentran en un solo cluster y en cada iteracion se divide los clusters.
+
+
+\subsection{Medida de distancia }\label{Medida de distancia}
+
+Unos de los puntos mas importante al momento de implementar un algoritmo de agrupamiento es la medida de similitud o de distancia entre los "puntos", en este caso los "puntos" representan los strings.
+
+
+Existen varios metodos para calcular la similitud entre string como por ejemplo edicion de distancia ,Jaccard,coseno. Una de las medidas que se puede obtener una buena calidad de similitud es la edicion de distancia, pero presenta una desventaja, el algoritmo de edicion de distancia es de O(n*m) , donde n y m  son el largo de ambas secuencias de strings.
+
+La medida de similitud implementado para el algoritmo de agrupacion es una distancia de compresion,  utilizando algun metodo de compresion como lzma,gzip o bzip.se aplica la siguiente formula para obtener la $distancia$ :
+
+\begin{equation}
+distancia = (d12 - d2)/ d1 
+\end{equation}
+
+donde :
+\begin{description}
+\item[d1] es el tamaño comprimido del documento mas grande
+\item[d2] es el tamaño comprimido del documento mas pequeño
+\item[d12] es el tamaño de la union de d1 y d2 comprimidos
+\end{description}
+
+Los valores de $distancia$ estan aproximadamente entre los rangos [0.5-1] , entre mas pequeño el valor significa que ambos documentos son muy similares, y entre mas grande los valores significa que los documentos son diferentes. En comparacion con la edicion de distancia tambien obtiene una buena calidad de similitud pero comparacion de las secuencias es mucho mas rapido.
+
+\subsection{Algoritmo de agrupamiento propuesto}\label{Algoritmo de agrupamiento propuesto}
+
+El algoritmo de agrupacion implementado para la distribucion de los string es una variante del algoritmo cure [cite] que utiliza un algoritmo jerarquicos para formar los cluster iniciales.
+
+A continuacion se muestra las etapas que sigue el algoritmo implementado:
+
+\begin{enumerate}
+  \item Primero se selecciona una muestra de la coleccion de datos y se le aplica un algoritmo de jerarquico.
+  \item Luego de formar los cluster iniciales se asigna cada documento de la coleccion al cluster mas cercano.
+  \item Finalmente se comprime cada Cluster.
+\end{enumerate}
+
+En el primer paso se debe seleccionar un algoritmo jerarquico , la implementacion es un algoritmo aglomerativo. Se ingresa cada documento de la muestra a un cluster, y se calcula la similitud de los documentos segun la medida de distancia nombrada anteriormente \ref{Medida de distancia} , despues se selecciona los dos documentos que tengan la menor distancia y se hace un merge de ambos clusters, antes de unirlos se pueden agregar varias reglas, por ejemplo, que los cluster tengan un limite de documentos que puedan contener para balancear los clusters.
+
+En la segunda parte del algoritmo , a diferencia de cure que toma $n$ puntos de un clusters que seran los puntos mas alejados entre si representara al cluster llamados  \textit{puntos representativos}, el algoritmo toma todos los puntos como representativos. Unos de los objetivos que se  busca es  obtener un balance del espacio ocupado en cada agrupacion, para esto el documento antes de ser ingresado al grupo mas cercano se comprueba que:
+
+
+\begin{equation}
+  cl < tamaño(g/n) 
+\end{equation}
+
+donde :
+\begin{description}
+\item[cl] Agrupacion mas cercano al documento
+\item[g] espacio en memoria de la coleccion
+\item[n] numero de agrupaciones
+\end{description}
+
+
+
+\subsection{pruebas }\label{pruebas}
+
+Las pruebas se realizaran comparando dos tipos de algoritmo de agrupamiento :
+
+\begin{itemize}
+  \item Algoritmo de agrupamiento propuesto
+  \item Algoritmo de agrupamiento random
+\end{itemize}
+
+El Algoritmo de agrupamiento crea $n$ clusters y asigna de manera aleatoria cada secuencia de string a un cluster a diferencia del algoritmo propuesto anteriormente que es determinista. Tambien  manteniene el balance de espacio en memoria en cada cluster. 
+
+Con ambos algoritmo se pretende demostrar que agrupando los grupos de manera inteligente se pueda obtener mejores resultados que agrupandolos aleatoriamiente.
+
+En el algoritmo de agrupamiento propuesto existen distintas variables que pueden determinar un buen agrupamiento de la coleccion tales como:
+
+
+\begin{itemize}
+  \item Cantidad de clusters: Es dificil determinar la cantidad exacta de clusters que se necesita, 
+  \item Tamaño de la muestra: si la muestra es muy pequeña es muy probable que no represente todos los tipos de grupos que se encuentra en la coleccion.
+  \item Medida de similitud: Si la medida de similitud no obtiene una buana calidad es posible que agregue "puntos" de otro grupo, en la compresion se permite determinar el nivel de compresion, mietrnas que sea mayor el nivel la comresion es mayor pero es mucho mas lento.
+
+\end{itemize}
+
+Las pruebas se realizon de un dataset de Wikipedia que contiene 16384 documentos de 1 MB c/u, en su totalidad es de 16.384 GB . La coleccion esta formada por documentos versionados.

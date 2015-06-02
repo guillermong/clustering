@@ -1,0 +1,180 @@
+%
+% ---------------------------------------------------------------
+% template para escribir tesis/memorias en
+% la Universidad Diego Portales
+% ---------------------------------------------------------------
+%
+\documentclass[thesis,final]{udpbook}
+%
+\usepackage[latin1]{inputenc}    % esto NO es portable
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+
+\usepackage{amsmath} %%% para split
+\usepackage{makeidx,color}  % allows for indexgeneration
+\usepackage{graphicx}
+
+\usepackage{tabulary}
+
+\usepackage{fixltx2e}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage{longtable}
+\usepackage{float}
+
+
+%\usepackage{fancyvrb}
+%\DefineVerbatimEnvironment{code}{Verbatim}{fontsize=\small}
+%\DefineVerbatimEnvironment{example}{Verbatim}{fontsize=\small}
+
+
+
+%\providecommand{\abs}[1]{\lvert#1\rvert} 
+%\providecommand{\norm}[1]{\lVert#1\rVert} 
+
+
+%
+% ----------------------------------------------------------------
+% defina su escuela
+%
+\udpEscuela{Escuela Ingeniería Informática}{Facultad de Ingeniería}
+%
+% ---------------------------------------------------------------
+% Comienzo del documento
+% ---------------------------------------------------------------
+\usepackage{hyperref}
+\hypersetup{%
+    pdfborder = {0 0 0}
+}
+\usepackage[numbered]{bookmark}
+\begin{document}
+\frontmatter
+%
+% ----------------------------------------------------------------
+% pagina de titulo
+% ----------------------------------------------------------------
+%
+\begin{titlepage}
+\title{Compresión de datos distribuida basado en clustering}
+\author{Guillermo Andrés Navarro Giglio}
+\degreedoc{Tesis}{título}{Ingeniero Civil en Informática y Telecomunicaciones}
+\chairperson{Francisco Claude-Faust}      %
+\committee{Roberto Konow}     % separados por \\
+\date{(Julio), (2015)}	% (Ej: Enero, 2006)
+\end{titlepage}                      %
+%
+% ----------------------------------------------------------------
+% pagina de firmas
+% ----------------------------------------------------------------
+% (maximo seis firmas)
+%
+\begin{signaturepage}                   %
+\approval{Francisco Claude-Faust\\Profesor guía}        %
+\approval{Roberto Konow\\Comité}%
+\end{signaturepage}                     %
+%
+% ----------------------------------------------------------------
+% pagina dedicatoria
+% ----------------------------------------------------------------
+% separadas por \\ si es mas de una linea
+%
+\begin{dedicatory}                      %
+Dedico esta tesis a todas las personas que me apoyaron.                %
+\end{dedicatory}                        %
+%
+% ----------------------------------------------------------------
+% Indices de materia, figuras y tablas
+% ----------------------------------------------------------------
+% paginas de contenido (indice de materias), lista de figuras
+% y lista de tablas.
+%
+\tableofcontents                        % tabla de contenido
+\listoffigures                          % índice de figuras
+\listoftables                           % índice de tablas
+%
+% ----------------------------------------------------------------
+% pagina de agradecimientos
+% ----------------------------------------------------------------
+%
+%\begin{acknowledgment}                  %
+
+
+%\end{acknowledgment}                    %
+%
+% ----------------------------------------------------------------
+% pagina de abstract
+% ----------------------------------------------------------------
+%
+\begin{abstract}                        %
+Keep versioned documents it is important when you recall information prior to the current version but have a great cost in memory space, making it necessary to distribute this data. This thesis proposes to implement a mechanism for grouping of data according to their similarity for maximum compressibility possible and ideally the groups have similar sizes to compress.
+\end{abstract}                          %
+%
+% ----------------------------------------------------------------
+% pagina de resumen
+% ----------------------------------------------------------------
+%
+\begin{resumen}                         %
+
+En esta tesis intenta buscar un mecanismo eficiente de distribuir una colección de datos para luego obtener el máximo de compresibilidad. Primero se explica la importancia de los documentos versionados en la actualidad y por que se hace necesario distribuir los datos, luego se implementa un mecanismo de distribución de la colección de datos y finalmente se forma una conclusión de los resultados obtenidos.
+
+
+\end{resumen}                           %
+%
+% ----------------------------------------------------------------
+% Fin de las paginas iniciales
+% ----------------------------------------------------------------
+%
+\cleardoublepage                        %
+\mainmatter                             %
+                                        %
+% ----------------------------------------------------------------
+% Capítulos y secciones del documento
+% ----------------------------------------------------------------
+% aca se incluyen los archivos con el texto de los capitulos
+% (Ej.: cha-intro.tex es el archivo con un capitulo)
+%
+\input{intro}
+\input{obj}
+\input{CapI}
+\input{result}
+\input{conclu}
+
+% ... mas archivos de capitulos
+%
+% ---------------------------------------------------------------
+% Bibliografía
+% ---------------------------------------------------------------
+% tubiblio.bib es el archivo con la base de datos bibliografica
+%
+\bibliographystyle{ieeetr}
+\bibliography{referencias}
+%
+% ---------------------------------------------------------------
+% Simbología y glosario
+% ---------------------------------------------------------------
+% simbolos.tex es el archivo de simbolos (y glosario)
+%
+%\begin{symbology}
+%\input{simbolos}  % archivo propio de simbolos
+%\end{symbology}
+%
+% ---------------------------------------------------------------
+% Anexos
+% ---------------------------------------------------------------
+\appendix
+%
+% aca se incluyen los archivos con el texto de los anexos
+% (Ej.: anx-uno.tex es el archivo de un anexo)
+%
+\input{Anexo}
+% ... mas archivos de anexos
+%
+% ---------------------------------------------------------------
+% Fin del documento
+% NO ESCRIBIR DESPUÉS DE ESTA LINEA
+\backmatter
+\end{document}
+% ---------------------------------------------------------------

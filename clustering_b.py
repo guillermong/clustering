@@ -108,6 +108,11 @@ if __name__ == "__main__":
 			densidad.append(len(t))
 		print densidad
 		
+	densidad=[]		
+	print "IMPRIMIR CLUSTER"
+	for t in data:
+		densidad.append(len(t))
+	print densidad
 	
 	print "Creando carpetas de clusters..."
 	

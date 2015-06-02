@@ -1,0 +1,16 @@
+\begin{thebibliography}{1}
+
+\bibitem{flanagan1998javascript}
+D.~Flanagan, {\em JavaScript}.
+\newblock O'Reilly Media, Inc., 1998.
+
+\bibitem{stonebraker1991postgres}
+M.~Stonebraker and G.~Kemnitz, ``The postgres next generation database
+  management system,'' {\em Communications of the ACM}, vol.~34, no.~10,
+  pp.~78--92, 1991.
+
+\bibitem{SCDPreguntas}
+P.~F. SCD, ``Licencias,
+  http://www.scd.cl/www/index.php/preguntas-frecuentes/,'' 2013.
+
+\end{thebibliography}
