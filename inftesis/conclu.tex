@@ -1,6 +1,6 @@
 \chapter[Conclusión ]{Conclusión}\label{ch:capitulo4}
 \fpar
 
-Se puede concluir que agrupando las secuencias de string de manera inteligente se obtiene mejores resultados que agrupandolos aleatoriamente.
+Se puede concluir que agrupando las secuencias de string de manera inteligente se obtiene mejores resultados que agrupandolos aleatoriamente, pero intentar balancear la carga de espacio en cada agrupacion se paga un costo al comprimir. Parte importante para obtener una buena agrupacion es la medida de similitud , para agrupar grandes cantidades de string es necesario que la medida de similitud entre dos string sea rapido ya que cada secuencia de string debe compararse con cada secuencia del sampling. La ventaja de este algoritmo son que los resultados son determinista, es decir, cuantas veces se ejecuta el algoritmo para una misma coleccion siempre entrega el mismo resulatdo, entonces al momento de obtener las agrupaciones con el sampling es posible asignar string en varios procesos rebajando el tiempo de ejecucion.
 
-....
+El plan de trabajo para la segunda etapa de la tesis consistira en intentar mejorar los resultados de la compresion de la coleccion de datos obtenidos en esta primera parte , por ejemplo, cambiando las distintas variables que influyen en agrupacion de strings como el numero de agrupaciones , para obtener mejores resultados en la compresion de las agrupaciones.

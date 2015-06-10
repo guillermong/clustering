@@ -1,46 +1,44 @@
 \chapter[Resultados ]{Resultados }\label{ch:capitulo2}
-\fpar
 
-\parindent=0ptEn las pruebas se tomo una muesta no superior a 30 documentos ya que al aumetnar la muestra el tiempo de ejecucion crece exponencialmente*. La muestra se obtuvo aleatoriamente de la coleccion de documentos, como la muestra es insignificante en comparacion al tamaño de la muestra es muy probable que ningun documentos perteneciera a un documento de la misma version. Este problema orgina que la mayoria de los documentos pertecescan a un solo grupo y el resto solamente es representado por 1 documento.
-\vspace{0.5cm}
+
+En las pruebas se tomo una muesta no superior a 30 documentos ya que al aumetnar la muestra el tiempo de ejecucion crece exponencialmente. La muestra se obtuvo aleatoriamente de la coleccion de documentos, como la muestra es insignificante en comparacion al tamaño de la muestra es muy probable que ningun documentos perteneciera a un documento de la misma version. Este problema orgina que la mayoria de los documentos pertecescan a un solo grupo y el resto solamente es representado por 1 documento. Tambien cabe mencionar que la eleccion de la cantidad de agrupaciones es arbitraria, pero la cantidad de agrupaciones es una variable importante al momento de obtener buenos resultados en las agrupaciones, en este caso las pruebas se realizaron con un numero fijo de agrupaciones para observar el comportamientos de otras variables que afectan a las agrupaciones. 
 
 
 %--------------------------------%
 
-En la tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 cluster.}  muestra el resultado del algoritmo de agrupamiento aleatorio formando 10 clusters.
-
+En la tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 cluster.}  muestra los resultados  de cada metodo con una cantidad de 10 agrupaciones, en cada agrupacion se muestra el resultado de la compresion. El $Metodo 1$  utiliza el algoritmo de agrupacion aleatoria , en los metodos siguientes se utiliza el algoritmo de agrupacion propuesto pero modificando algunas variables para observar su comportamiento, mas adelante se menciona los cambios que se realizaron.
 
 
 \begin{table}[H]
 \begin{center}
-\resizebox{8cm}{!} {
+\resizebox{15cm}{!} {
 
-\begin{tabular}{|p{3cm}|p{3cm}|}
+\begin{tabular}{|p{3cm}|p{3cm}||p{3cm}||p{3cm}||p{3cm}|}
 
 \hline
-Clusters & Tamaño(KiB) \\
+Clusters & Metodo 1(KiB)  & Metodo 2(KiB)  & Metodo 3(KiB)  & Metodo 4(KiB) \\
 \hline
-Cluster 1 & 19.445 \\
+Cluster 1 & 19.445 & 1.089 & 5.595 & 5.168 \\
 \hline
-Cluster 2 & 19.445 \\
+Cluster 2 & 19.445 & 1.442 & 7.102 & 8.271 \\
 \hline
-Cluster 3 & 19.445 \\
+Cluster 3 & 19.445 & 1.020 & 3.406 & 3.831 \\
 \hline
-Cluster 4 & 19.445 \\
+Cluster 4 & 19.445 & 2.851 & 3.465 & 3.353 \\
 \hline
-Cluster 5 & 19.445 \\
+Cluster 5 & 19.445 & 857 & 4.523 & 3.570 \\
 \hline
-Cluster 6 & 19.445 \\
+Cluster 6 & 19.445 & 1.455 & 2.729 & 4.343 \\
 \hline
-Cluster 7 & 19.445 \\
+Cluster 7 & 19.445 & 756  & 2.678 & 4.349 \\
 \hline
-Cluster 8 & 19.445 \\
+Cluster 8 & 19.445 & 1.106 & 2.748 & 3.239 \\
 \hline
-Cluster 9 & 19.445 \\
+Cluster 9 & 19.445 & 16.551 & 2.473 & 4.306 \\
 \hline
-Cluster 10 & 19.445 \\
+Cluster 10 & 19.445  & 2.245 & 1.318 & 5.209 \\
 \hline
-Total  & 194.450 \\
+Total  & 194.450 & 29.371 & 36.036 & 45.639 \\
 \hline
 \end{tabular}
 }
@@ -51,144 +49,17 @@ Total  & 194.450 \\
 
 \end{table}	
 
+%--------------------------------%
 
+El $Metodo 2$  se puede observar una gran mejora con respecto al algoritmo de agrupamiento aleatorio, aqui la muestra es de 30 documentos.
 
 %--------------------------------%
 
-
-
-La tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 cluster.} con 10 clusters y 30 documetnos de muestra, se puede observar una gran mejora con respecto al algoritmo de agrupamiento aleatorio.
-
-\begin{table}[H]
-\begin{center}
-\resizebox{8cm}{!} {
-
-\begin{tabular}{|p{3cm}|p{3cm}|}
-
-\hline
-Clusters & Tamaño(KiB) \\
-\hline
-Cluster 1 & 1.089 \\
-\hline
-Cluster 2 & 1.442 \\
-\hline
-Cluster 3 & 1.020 \\
-\hline
-Cluster 4 & 2.851 \\
-\hline
-Cluster 5 & 857 \\
-\hline
-Cluster 6 & 1.455 \\
-\hline
-Cluster 7 & 756 \\
-\hline
-Cluster 8 & 1.106 \\
-\hline
-Cluster 9 & 16.551 \\
-\hline
-Cluster 10 & 2.245 \\
-\hline
-Total  & 29.371 \\
-\hline
-\end{tabular}
-}
-\end{center}
-\caption{Resultado algoritmo de agrupamiento aleatorio con 10 cluster.}
-
-\label{Resultado algoritmo de agrupamiento aleatorio con 10 cluster.}
-\end{table}	
-
-
+En el $Metodo 3$ se balancea la cantidad de muestras en cada agrupacion. Para esto cada grupo no tendra una muestra de documentos superior a 3 en un universo de 30 documentos. Con esto se busca balancear la cantidad de documentos en cada agrupacion.
+En comparacion con el algoritmo de agrupamiento aleatorio sigue siendo una mejor alternativa pero comparando con los resulado del metodo 2 aumenta.
 
 %--------------------------------%
 
-
-La tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 cluster balanceando las muestras.} con 10 clusters y 30 documentos de muestra pero cada grupo no tendra una muestra de documentos superior a 3. Con esto se busca balancear los grupos.
-En comparacion con el algoritmo de agrupamiento aleatorio sigue siendo una mejor alternativa pero comparando con los resulado de la tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 cluster.} aumenta.
-
-\begin{table}[H]
-\begin{center}
-\resizebox{8cm}{!} {
-
-\begin{tabular}{|p{3cm}|p{3cm}|}
-
-\hline
-Clusters & Tamaño(KiB) \\
-\hline
-Cluster 1 & 5.595 \\
-\hline
-Cluster 2 & 7.102 \\
-\hline
-Cluster 3 & 3.406 \\
-\hline
-Cluster 4 & 3.465 \\
-\hline
-Cluster 5 & 4.523 \\
-\hline
-Cluster 6 & 2.729 \\
-\hline
-Cluster 7 & 2.678 \\
-\hline
-Cluster 8 & 2.748 \\
-\hline
-Cluster 9 & 2.473 \\
-\hline
-Cluster 10 & 1.318 \\
-\hline
-Total  & 36.036 \\
-\hline
-\end{tabular}
-}
-\end{center}
-\caption{Resultado algoritmo de agrupamiento aleatorio con 10 cluster balanceando las muestras.}
-
-\label{Resultado algoritmo de agrupamiento aleatorio con 10 cluster balanceando las muestras.}
-\end{table}	
-
-
-%--------------------------------%
-
-
-La tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 cluster balanceando las muestra y clusters.} , se hace la misma prueba pero se agrega una condicion de que el tamaño en espacio de memoria no supere un limite 
-
-\begin{table}[H]
-\begin{center}
-\resizebox{8cm}{!} {
-
-\begin{tabular}{|p{3cm}|p{3cm}|}
-
-\hline
-Clusters & Tamaño(KiB) \\
-\hline
-Cluster 1 & 5.168 \\
-\hline
-Cluster 2 & 8.271 \\
-\hline
-Cluster 3 & 3.831 \\
-\hline
-Cluster 4 & 3.353 \\
-\hline
-Cluster 5 & 3.570 \\
-\hline
-Cluster 6 & 4.343 \\
-\hline
-Cluster 7 & 4.349 \\
-\hline
-Cluster 8 & 3.239 \\
-\hline
-Cluster 9 & 4.306 \\
-\hline
-Cluster 10 & 5.209 \\
-\hline
-Total  & 45.639 \\
-\hline
-\end{tabular}
-}
-\end{center}
-\caption{Resultado algoritmo de agrupamiento aleatorio con 10 cluster balanceando las muestra y clusters.}
-
-\label{Resultado algoritmo de agrupamiento aleatorio con 10 cluster balanceando las muestra y clusters.}
-\end{table}	
-
+En el $Metodo 4$  , se hace la misma prueba que en el metodo anterior  pero se agrega una condicion de que el tamaño en espacio de memoria no supere un limite, el limite en esta caso es el tamaño en memoria de la coleccion de datos divido por la cantidad de agrupaciones. 
 
 

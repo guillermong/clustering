@@ -1,3 +1,5 @@
+
+
 \chapter[Solución]{Solución}\label{ch:capitulo3}
 \fpar
 
@@ -6,7 +8,7 @@
 
 \section{Algoritmo de agrupamiento }\label{chsub:Algoritmo de agrupamiento}
 
-El algoritmo de agrupamiento es un proceso en la cual se tiene varios "puntos" suponiendo que se encuentra en un espacio eucladiano y se crean grupos de esos objetos en funcion de una medida de similitud.
+El algoritmo de agrupamiento es un proceso en la cual se tiene varios "puntos" suponiendo que se encuentra en un espacio eucladiano y se crean grupos de esos "puntos" en funcion de una medida de similitud.
 
 Los algoritmo de agrupamiento se pueden dividir en dos grupos , jerarquicos  y no jerarquicos. En los algoritmo de agrupamiento jerarquicos pueden ser aglomerativo o divisivo.
 Cuando es aglomerativo cada punto en el espacio eucladiano representa un cluster y en cada iteracion se unen los cluster hasta llegar a los numeros de clusters deseados, en cambio, los divisivos todos los puntos se encuentran en un solo cluster y en cada iteracion se divide los clusters.
@@ -17,12 +19,31 @@ Cuando es aglomerativo cada punto en el espacio eucladiano representa un cluster
 Unos de los puntos mas importante al momento de implementar un algoritmo de agrupamiento es la medida de similitud o de distancia entre los "puntos", en este caso los "puntos" representan los strings.
 
 
-Existen varios metodos para calcular la similitud entre string como por ejemplo edicion de distancia ,Jaccard,coseno. Una de las medidas que se puede obtener una buena calidad de similitud es la edicion de distancia, pero presenta una desventaja, el algoritmo de edicion de distancia es de O(n*m) , donde n y m  son el largo de ambas secuencias de strings.
+Existen varios metodos para calcular la similitud entre string como por ejemplo : 
+ coseno. 
 
-La medida de similitud implementado para el algoritmo de agrupacion es una distancia de compresion,  utilizando algun metodo de compresion como lzma,gzip o bzip.se aplica la siguiente formula para obtener la $distancia$ :
+\begin{itemize}
+  \item Edicion de distancia : Se tiene dos cadenas de caracteres \(A\) y \(B\) Es la cantidad minima de insertar,sustitución o eliminar necesarios para transformar de  \(A\)  en \(B\). Con edicion de distancia se logran una buena calidad en la similitud, pero presenta una desventaja, el algoritmo de edicion de distancia es de $O(n*m)$ , donde $n$ y $m$  son el largo de ambas secuencias de strings. Por ejemplo para las cadenas "abracadabra" y "alabaralabarda" se necestia 7 operaciones.
+  
+  \item Jaccard : Es una medida de similitud que esta definido por defined el tamaño de la intersección de dos secuencias divido por el tamaño de la union de ambas secuencias, un ejemplo en la medida de similitud entre las secuencias  "night" y "nacht" es de 0.3.
+  
+  \item Distancia Hamming : Se tiene dos cadenas de caracteres de igual tamaño , es la cantidad de sustituciones necesarios para transformar de una cadena de caracteres a otra.
+  Por ejemplo "gato" y "pera" se necesita 4 sustituciones.
+  
+  
+  %\item Similitud Coseno :%
+  
+  
+\end{itemize}
 
-\begin{equation}
-distancia = (d12 - d2)/ d1 
+
+  
+
+
+La medida de similitud implementado para el algoritmo de agrupacion es una distancia de compresion,  utilizando algun metodo de compresion como lzma,gzip o bzip.se aplica la siguiente formula para obtener la $distancia$ \ref{eq1} :
+
+\begin{equation}\label{eq1}
+distancia = \frac{(d12 - d2)}{d1 }
 \end{equation}
 
 donde :
@@ -32,27 +53,36 @@ donde :
 \item[d12] es el tamaño de la union de d1 y d2 comprimidos
 \end{description}
 
-Los valores de $distancia$ estan aproximadamente entre los rangos [0.5-1] , entre mas pequeño el valor significa que ambos documentos son muy similares, y entre mas grande los valores significa que los documentos son diferentes. En comparacion con la edicion de distancia tambien obtiene una buena calidad de similitud pero comparacion de las secuencias es mucho mas rapido.
+La variable $d12$ depende de la similitud de los strings comprimidos, si los strings tienen un grado de similitud la compresion sera mucho mas efectiva ya que se necesita un diccionario mucho menor para comprimir, al contrario ocurre cuando los strings son muy distintos entre si.
+
+Entre mas pequeño el valor significa que ambos documentos son muy similares, y entre mas grande los valores significa que los documentos son diferentes. En comparacion con la edicion de distancia tambien obtiene una buena calidad de similitud pero el tiempo de ejecucion es considerablemente mejor que edicion de distancia, lo que hace una buena opcion al momento de seleccionar una medida de similud para grandes colecciones de datos. 
+
+
+Por ejemplo, si se utiliza el compresor LZ78 en la secuencia $S1$ = \textit{'abracadabra'} , $S2$ = \textit{'abracadadah'} y la suma $S1S2$=\textit{'abracadabraabracadadah'} se tiene: $S1$ = <0,a>,<0,b>,<0,r>,<1,c>,<1,d>,<1,b>,<3,a> de tamaño 7, $S2$ = <0,a>,<0,b>,<0,r>,<1,c>,<1,d>,<5,a>,<0,h> de tamaño 7, $S1S2$ = < 0,a>,<0,b>,<0,r>,<1,c>,<1,d>,<1,b>,<3,a>,<6,r>,<4,a>,<0,d>,<5,a>,<0,h> de tamaño 12, al aplicar la formula \ref{eq1} se obtiene el valor 0,71 .
+
+Ahora que pasa si cambiamos la segunda secuencia a $S2$= 'casasyperro', que no tiene similitud con la primera secuencia : $S1$ = <0,a>,<0,b>,<0,r>,<1,c>,<1,d>,<1,b>,<3,a> de tamaño 7 $S2$ = <0,c>,<0,a><0,s>,<2,s>,<0,y>,<0,p>,<0,e>,<0,r>,<8,o> de tamaño 9
+$S1S2$ = <0,a>,<0,b>,<0,r>,<1,c>,<1,d>,<1,b>,<3,a>,<0,c>,<1,s>,<9,y>,<9,p>,<3,e>,<3,r>,<0,o> de tamaño 14 se obtiene el valor 0.77, se observa que con menor similitud entre los strings mayor es el valor, entonces al tener strings que son similares el valor se aproxima al 0.
+
 
 \subsection{Algoritmo de agrupamiento propuesto}\label{Algoritmo de agrupamiento propuesto}
 
-El algoritmo de agrupacion implementado para la distribucion de los string es una variante del algoritmo cure [cite] que utiliza un algoritmo jerarquicos para formar los cluster iniciales.
+El algoritmo de agrupacion implementado para la distribucion de los string es una variante del algoritmo cure \cite{baz} que utiliza un algoritmo jerarquicos para formar los cluster iniciales.
 
 A continuacion se muestra las etapas que sigue el algoritmo implementado:
 
 \begin{enumerate}
-  \item Primero se selecciona una muestra de la coleccion de datos y se le aplica un algoritmo de jerarquico.
-  \item Luego de formar los cluster iniciales se asigna cada documento de la coleccion al cluster mas cercano.
+  \item Primero se selecciona una muestra de la coleccion de datos y se aplica un algoritmo de jerarquico.
+  \item Luego de formar los cluster iniciales se asigna cada string de la coleccion al cluster mas cercano.
   \item Finalmente se comprime cada Cluster.
 \end{enumerate}
 
-En el primer paso se debe seleccionar un algoritmo jerarquico , la implementacion es un algoritmo aglomerativo. Se ingresa cada documento de la muestra a un cluster, y se calcula la similitud de los documentos segun la medida de distancia nombrada anteriormente \ref{Medida de distancia} , despues se selecciona los dos documentos que tengan la menor distancia y se hace un merge de ambos clusters, antes de unirlos se pueden agregar varias reglas, por ejemplo, que los cluster tengan un limite de documentos que puedan contener para balancear los clusters.
+En el primer paso se debe seleccionar un algoritmo jerarquico , la implementacion es un algoritmo aglomerativo. Se ingresa cada string de la muestra a un cluster, y se calcula la similitud de los strings segun la medida de distancia nombrada anteriormente \ref{Medida de distancia} , despues se selecciona ambos string que tengan la menor distancia y se juntan los clusters de cada string, antes de unirlos se pueden agregar varias reglas, por ejemplo, que las agrupaciones tengan un limite en el numero de strings, es medida puede servir para balancear los clusters.
 
-En la segunda parte del algoritmo , a diferencia de cure que toma $n$ puntos de un clusters que seran los puntos mas alejados entre si representara al cluster llamados  \textit{puntos representativos}, el algoritmo toma todos los puntos como representativos. Unos de los objetivos que se  busca es  obtener un balance del espacio ocupado en cada agrupacion, para esto el documento antes de ser ingresado al grupo mas cercano se comprueba que:
+En la segunda parte del algoritmo , a diferencia de cure que selecciona $n$ puntos mas alejados entre si del clusters que representaran al cluster, llamados  \textit{puntos representativos}. El algoritmo toma todos los puntos como representativos. Unos de los objetivos que se  busca es  obtener un balance del espacio ocupado en cada agrupacion, para esto el documento antes de ser ingresado al grupo mas cercano se comprueba que:
 
 
 \begin{equation}
-  cl < tamaño(g/n) 
+  cl < size(\frac{g}{n}) 
 \end{equation}
 
 donde :
@@ -61,6 +91,64 @@ donde :
 \item[g] espacio en memoria de la coleccion
 \item[n] numero de agrupaciones
 \end{description}
+
+A continuacion se muestra un pseudo-codigo para entender con mayor claridad el algoritmo propuesto\ref{alg1} :
+\vspace{5mm} %5mm vertical space
+\begin{algorithm}
+\begin{algorithmic}[1]
+\STATE $Sampling=\{d_{1}, \dots, d_{n} \}$ \label{lin:linea1}
+\STATE $S \leftarrow \langle\ \rangle$
+\FOR{\textbf{each} s1 in $Sampling$}
+\STATE \FOR{\textbf{each} s2 in $Sampling$} 
+			\STATE ADD($S$, [ SIMILITUD(s1,s2) , s1 ,s2] )
+		\ENDFOR
+\ENDFOR
+
+\STATE Sort($S$)
+\STATE $i = 0$
+\WHILE {Stop when $j$ clusters in $C$}
+	\STATE $Cluster1 \leftarrow	Sampling[S[i][1]]$
+	\STATE $Cluster2 \leftarrow	Sampling[S[i][2]]$	
+	\STATE MERGE(Cluster1,Cluster2)
+	\STATE $i = i +1$
+\ENDWHILE
+
+\STATE $Collection=\{d_{1}, \dots, d_{k} \}$ \label{lin:linea2}
+\STATE $Cluster \leftarrow size j$
+\FOR{\textbf{each} s in $Collection$}
+	\STATE $i \leftarrow Cluster con mayor Similitud s en Sampling$
+	\STATE ADD(Cluster[$i$],s)
+\ENDFOR
+
+\FOR{\textbf{each} c in $Cluster$}
+	\STATE COMPRESS(c)
+\ENDFOR
+
+\end{algorithmic}
+\caption{Algoritmo de agrupamiento propuesto}\label{alg1} 
+\end{algorithm}
+
+%------------------------------------%
+
+El algoritmo~\ref{alg1} en la linea \ref{lin:linea1} es la muestra tomada de la coleccion de strings y \ref{lin:linea2} es la coleccion de strings. En el Algoritmo \ref{similitud} muestra la funcion similitud.
+
+
+%------------------------------------%
+
+\begin{algorithm}
+\begin{algorithmic}[1]
+\REQUIRE String1
+\REQUIRE String2
+\STATE $s1 \leftarrow COMPRESS(String1)$
+\STATE $s2 \leftarrow COMPRESS(String2)$
+\STATE $s1_2 \leftarrow COMPRESS(String1+ String2)$
+\RETURN $size(s1_2)-size(s2)/size(s1)$
+
+\end{algorithmic}
+\caption{Funcion SIMILITUD}\label{similitud}
+\end{algorithm}
+
+
 
 
 

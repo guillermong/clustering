@@ -9,9 +9,8 @@
 \contentsline {chapter}{{Cap\'{i}tulo 3\ \ Soluci\'on}}{5}{chapter.3}
 \contentsline {section}{\numberline {3.1}Algoritmo de agrupamiento }{5}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Medida de distancia }{5}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Algoritmo de agrupamiento propuesto}{6}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}pruebas }{7}{subsection.3.1.3}
-\contentsline {chapter}{{Cap\'{i}tulo 4\ \ Resultados }}{9}{chapter.4}
+\contentsline {subsection}{\numberline {3.1.2}Algoritmo de agrupamiento propuesto}{7}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}pruebas }{8}{subsection.3.1.3}
+\contentsline {chapter}{{Cap\'{i}tulo 4\ \ Resultados }}{11}{chapter.4}
 \contentsline {chapter}{{Cap\'{i}tulo 5\ \ Conclusi\'on }}{13}{chapter.5}
 \contentsline {chapter}{{Anexo A\ \ PRIMER ANEXO}}{19}{appendix.Alph1}
-\contentsline {chapter}{{Anexo B\ \ SEGUNDO ANEXO}}{21}{appendix.Alph2}
