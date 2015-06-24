@@ -27,7 +27,7 @@ print data"""
 
 #os.rename(str(sys.argv[1])+str(2),sys.argv[2]+str(0)+"/"+str(2))
 #os.system('ls')
-f = open("1mdoc1")
+"""f = open("1mdoc1")
 t1=f.read()
 f = open("1mdoc2")
 t2=f.read()
@@ -54,7 +54,24 @@ if len(compressed1) > len(compressed2):
 else:
         n = (len(compressed12) - len (compressed1)) / float(len(compressed2))
 print "otra formula:" 
-print n
+print n"""
+#!/usr/bin/python
+import glob
+import os,sys
+import random
+
+""" argv[1]= carpeta de documentos
+	argv[2]= n clusters
+	argv[3]= carpeta sampling
+"""
+
+
+#lista= glob.glob(str(sys.argv[1])+"*")
+print sys.argv[1]
+lista=os.listdir(str(sys.argv[1]))
+random.seed()
+print lista
+print len(lista)
 
 
 
