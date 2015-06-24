@@ -6,7 +6,7 @@ import shutil
 
 """ argv[1]= carpeta de documentos
 	argv[2]= n clusters
-	argv[3]= carpeta sampling
+	argv[3]= carpeta resultados
 """
 
 

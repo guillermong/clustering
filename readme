@@ -16,3 +16,10 @@ getsampling.py
 	argv[2]= tamano sampling
 	argv[3]= carpeta sampling
 """
+
+clusteing random
+
+""" argv[1]= carpeta de documentos
+	argv[2]= n clusters
+	argv[3]= carpeta resultados
+"""
