@@ -1,10 +1,21 @@
 
 
+
 %==================================================ANEXOS========================================%
-\chapter{PRIMER ANEXO}
+\chapter{CODIGO ALGORITMO DE AGRUPAMIENTO BASE}
 \label{ch:Codigo Metodo de agrupación propuesto}
 
-\begin{lstlisting}
+
+
+%\begin{minted}{python}
+\begin{python}
+
+
+
+
+
+
+
 #!/usr/bin/python
 
 """ argv[1]= carpeta de documetnos para generar clusters
@@ -61,24 +72,17 @@ if __name__ == "__main__":
 		data.append([f.read()])
 		f.close()
 
-	#Crear cluster
-	#data=[["asdasdf"],["asdasdg"],["qweqweq"],["qweqwew"],["ghjghjk"],["ghj4hjy"],["gregrec"],["vfetyuj"],["sssssss"],["egergei"]]
 
 	#lista documentos ordenados por sus distancias 
 	test=[]
 	print "sampling cargado, buscando las distancias minimas..."
 	for k in range(len(data)):
 			for j in range(k+1,len(data)):
-				#comp=editdist.distance(data[k][0],data[j][0])
-				#comp=distance.hamming(data[k][0],data[j][0])
 				comp=distancia_zip(data[k][0],data[j][0],int(sys.argv[6]))
 				print "t1:"+str(k)+" contra t2:"+str(j)+"="+str(comp)
 				test.append([comp,data[k][0],data[j][0]])          
 	test.sort()
 	
-	#print "los primeros 10 textos mas pequeos en distancia:"
-	#for h in range(20):
-	#	print test[h][0]
 	print len(test)	
 		
 		
@@ -150,7 +154,6 @@ if __name__ == "__main__":
 			if clust_size[s[1]] < div:
 				shutil.copyfile(str(sys.argv[4])+str(document), sys.argv[3]+str(s[1])+'/'+str(document))
 				clust_size[s[1]]+=doc_z
-				#shutil.move(str(sys.argv[4])+str(document), sys.argv[3]+str(s[1])+'/'+str(document))	
 				break
 		f.close()
 	
@@ -161,9 +164,54 @@ if __name__ == "__main__":
 	
 	
 
+\end{python}
+%\end{minted}
 
 
-\end{lstlisting}
+\chapter{CODIGO ALGORITMO DE AGRUPAMIENTO ALEATORIO}
+\label{ch:Codigo Metodo de agrupación random}
+
+\begin{python}
+#!/usr/bin/python
+import glob
+import os,sys
+import random
+import shutil
+
+""" argv[1]= carpeta de documentos
+	argv[2]= n clusters
+	argv[3]= carpeta resultados
+"""
+
+print sys.argv[1]
+lista=os.listdir(str(sys.argv[1]))
+random.seed()
+print len(lista)
+
+
+print "Creando carpetas de clusters..."
+	
+for t in range(int(sys.argv[2])):
+	os.mkdir( sys.argv[3]+str(t));
+
+div=len(lista)/int(sys.argv[2])
+print div
+
+
+
+for i in range(int(sys.argv[2])) :
+	for j in range(div) :	
+		rand = random.randint(0,len(lista)-1)	
+		texto= lista.pop(rand)	
+		shutil.copyfile( sys.argv[1]+texto , sys.argv[3]+str(i)+"/"+texto)
+		
+		
+
+
+
+\end{python}
+
+
 
 
 

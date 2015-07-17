@@ -7,6 +7,9 @@
 \documentclass[thesis,final]{udpbook}
 %
 \usepackage[latin1]{inputenc}    % esto NO es portable
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+
 
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
@@ -15,11 +18,60 @@
 \usepackage{makeidx,color}  % allows for indexgeneration
 \usepackage{graphicx}
 
+
 \usepackage{tabulary}
 
 \usepackage{fixltx2e}
 
+\usepackage{mdframed}
+
+\usepackage{dsfont}
+
+\newcommand{\algorithmicbreak}{\textbf{break}}
+\newcommand{\BREAK}{\STATE \algorithmicbreak}
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
 \usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle = \ttm\tiny,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\tiny\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+breaklines=true,
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
 \usepackage{color}
 \usepackage{rotating}
 \usepackage{longtable}
@@ -27,10 +79,12 @@
 
 \usepackage{algorithm}
 \usepackage{algorithmic}
-
+\usepackage[nottoc]{tocbibind}
 %\usepackage{fancyvrb}
 %\DefineVerbatimEnvironment{code}{Verbatim}{fontsize=\small}
 %\DefineVerbatimEnvironment{example}{Verbatim}{fontsize=\small}
+
+
 
 
 
@@ -65,7 +119,7 @@
 \degreedoc{Tesis}{título}{Ingeniero Civil en Informática y Telecomunicaciones}
 \chairperson{Francisco Claude-Faust}      %
 \committee{Roberto Konow}     % separados por \\
-\date{(Julio), (2015)}	% (Ej: Enero, 2006)
+\date{Julio, 2015}	% (Ej: Enero, 2006)
 \end{titlepage}                      %
 %
 % ----------------------------------------------------------------
@@ -84,7 +138,7 @@
 % separadas por \\ si es mas de una linea
 %
 \begin{dedicatory}                      %
-Dedico esta tesis a todas las personas que me apoyaron.                %
+Dedico esta tesis a todas las personas.                %
 \end{dedicatory}                        %
 %
 % ----------------------------------------------------------------
@@ -110,9 +164,9 @@ Dedico esta tesis a todas las personas que me apoyaron.                %
 % pagina de abstract
 % ----------------------------------------------------------------
 %
-\begin{abstract}                        %
-Keep versioned documents it is important when you recall information prior to the current version but have a great cost in memory space, making it necessary to distribute this data. This thesis proposes to implement a mechanism for grouping of data according to their similarity for maximum compressibility possible and ideally the groups have similar sizes to compress.
-\end{abstract}                          %
+%\begin{abstract}                        %
+%This report tries to find an efficient mechanism to distribute a collection of data and then get the maximum compressibility maintaining a balance with regard to the use of resources on multiple servers. First the importance of the documents currently version explained and it is necessary to distribute the data, then a mechanism for distribution of data collection is implemented and finally a conclusion of the results is formed. The latter allows us to bring our program forward for the second stage of this report.
+%\end{abstract}                          %
 %
 % ----------------------------------------------------------------
 % pagina de resumen
@@ -120,7 +174,8 @@ Keep versioned documents it is important when you recall information prior to th
 %
 \begin{resumen}                         %
 
-En esta tesis intenta buscar un mecanismo eficiente de distribuir una colección de datos para luego obtener el máximo de compresibilidad. Primero se explica la importancia de los documentos versionados en la actualidad y por que se hace necesario distribuir los datos, luego se implementa un mecanismo de distribución de la colección de datos y finalmente se forma una conclusión de los resultados obtenidos.
+Está memoria intenta buscar un mecanismo eficiente de distribuir una colección de datos para luego obtener el máximo de compresibilidad manteniendo un balance en lo que respecta al uso de recursos en multiples servidores. Primero se explica la importancia de los documentos versionados en la actualidad y por que se hace necesario distribuir los datos, luego se implementa un mecanismo de distribución de la colección de datos y finalmente se forma una conclusión de los resultados obtenidos. Esto último nos permite plantear nuestro programa de avance para la segunda etapa de esta memoria.
+
 
 
 \end{resumen}                           %
@@ -151,8 +206,8 @@ En esta tesis intenta buscar un mecanismo eficiente de distribuir una colección 
 % ---------------------------------------------------------------
 % tubiblio.bib es el archivo con la base de datos bibliografica
 %
-\bibliographystyle{ieeetr}
-\bibliography{referencias}
+\bibliographystyle{unsrt}
+\bibliography{udpthesis}
 %
 % ---------------------------------------------------------------
 % Simbología y glosario

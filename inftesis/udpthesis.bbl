@@ -1,16 +1,37 @@
 \begin{thebibliography}{1}
 
-\bibitem{flanagan1998javascript}
-D.~Flanagan, {\em JavaScript}.
-\newblock O'Reilly Media, Inc., 1998.
+\bibitem{wiki}
+Wikipedia.
+\newblock https://en.wikipedia.org/.
 
-\bibitem{stonebraker1991postgres}
-M.~Stonebraker and G.~Kemnitz, ``The postgres next generation database
-  management system,'' {\em Communications of the ACM}, vol.~34, no.~10,
-  pp.~78--92, 1991.
+\bibitem{git}
+Git.
+\newblock https://git-scm.com/.
 
-\bibitem{SCDPreguntas}
-P.~F. SCD, ``Licencias,
-  http://www.scd.cl/www/index.php/preguntas-frecuentes/,'' 2013.
+\bibitem{blackblaze}
+Backblaze.
+\newblock
+  https://www.backblaze.com/blog/storage-pod-4-5-tweaking-a-proven-design/.
+
+\bibitem{handhookcompresion}
+David~Salomon abd Giovanni~Motta.
+\newblock {\em Handbook of Data Compression}.
+\newblock Springer London, 2012.
+
+\bibitem{superlibro}
+Anand Rajaraman and Jeffrey~David Ullman.
+\newblock Mining of massive datasets.
+\newblock pages 221--260, 2011.
+
+\bibitem{profe2}
+S.~Kreft and G.~Navarro.
+\newblock On compressing and indexing repetitive sequences,theoretical computer
+  science.
+\newblock 483:115--133, 2011.
+
+\bibitem{profe}
+Francisco Claude and Gonzalo Navarro.
+\newblock Improved grammar-based compressed indexes.
+\newblock 12:180--192, 2012.
 
 \end{thebibliography}

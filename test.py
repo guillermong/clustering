@@ -59,11 +59,11 @@ print n"""
 import glob
 import os,sys
 import random
-
+import distance
 """ argv[1]= carpeta de documentos
 	argv[2]= n clusters
 	argv[3]= carpeta sampling
-"""
+
 
 
 #lista= glob.glob(str(sys.argv[1])+"*")
@@ -72,7 +72,7 @@ lista=os.listdir(str(sys.argv[1]))
 random.seed()
 print lista
 print len(lista)
+"""
 
-
-
+print distance.hamming("night", "nacht")
 
