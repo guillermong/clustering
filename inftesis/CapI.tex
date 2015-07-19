@@ -1,37 +1,40 @@
 
 
-\chapter[Solución]{Solución}\label{ch:capitulo3}
+\chapter[Conceptos Básicos]{Conceptos Básicos}\label{ch:capitulo3}
 \fpar
-
-
 
 
 \section{Algoritmo de agrupamiento }\label{chsub:Algoritmo de agrupamiento}
 
-El algoritmo de agrupamiento es un proceso en la cual se tiene un conjunto de ``puntos'' y se crean grupos de ``puntos'' en función de una medida de similitud, en la mayoría de los algoritmos de agrupamiento se asume un espacio euclidiano y los ``puntos'' son vectores de $\mathds{R}^{n}$. 
+El algoritmo de agrupamiento es un proceso en la cual se tiene un conjunto de puntos y se crean grupos de puntos a partir de una medida de similitud, en la mayoría de los algoritmos de agrupamiento se asume un espacio euclidiano . 
+
+El espacio euclidiano es un espacio geométrico que se cumplen los axiomas de Euclides, se deben cumplir tres reglas entre las distancias de dos puntos en el espacio euclidiano:
+
+\begin{itemize}
+  \item La distancia entre los puntos nunca es negativo y solamente es 0 consigo mismo.
+  \item La distancia es simetrica, es decir, no importa si se calcula la distancia del punto $x$ a $y$ o de $y$ a $x$.
+  \item La distancia obedece a la desigualdad del triangulos; la distancia  de x a y a z  no puede menor a la distancia de z a x. 
+\end{itemize}
 
 Los algoritmos de agrupamiento se pueden dividir en dos grupos, jerárquicos  y no jerárquicos. En los algoritmos de agrupamiento jerárquicos pueden ser aglomerativos o divisivos.
 
-Cuando es aglomerativo cada punto en el espacio euclidiano representa un cluster y en cada iteración se unen los cluster hasta llegar a los números de clusters deseados, en cambio, los divisivos todos los puntos se encuentran en un sólo cluster y en cada iteración se dividen los clusters.
+Cuando es aglomerativo, cada punto en el espacio euclidiano representa un grupo y en cada iteración se unen los grupos hasta llegar a los números de grupos deseados, en cambio, los divisivos todos los puntos se encuentran en un sólo grupo y en cada iteración se dividen los grupos.
 
 Para entender mejor el concepto del algoritmo de agrupamiento a continuación se explica \textit{k-means}~\cite{superlibro}, que es unos de los algoritmo más utilizado y simple que se utiliza  hoy en día.
 
-K-means como la mayoría de los algoritmos de agrupamiento asume un espacio euclidiano  y también asume el número de agrupos, conocidos. El número de $k$ grupos se pueden determinar de distintas maneras, como por ejemplo, por prueba y error o con conocimiento previo de las características de las observaciones.
+K-means como la mayoría de los algoritmos de agrupamiento asume un espacio euclidiano  y también asume el número de agrupos conocidos. El número de grupos se puede determinar de distintas maneras, como por ejemplo, por prueba y error o con conocimiento previo de las características de las observaciones.
 
-Dado $k$ grupos se genera $k$ centros de grupos o centroides iniciales, los centroides se pueden asignar de distintas maneras , una opción es asignar observaciones aleatoriamente de un conjunto de observaciones. Los centroides son vectores de las medias de las características de todas las observaciones dentro de cada grupo. Luego se itera los siguientes pasos:
-
-
-
+Dado $k$ grupos se genera $k$ centros de grupos o centroides iniciales,los centroides son vectores de las medias de las características de todas las observaciones dentro de cada grupo. Los centroides se pueden asignar de distintas maneras, una opción es asignar observaciones aleatoriamente de un conjunto de observaciones. Luego se itera los siguientes pasos:
 
 
 \begin{algorithm}
 \begin{algorithmic}
-\STATE C conjunto de k centroides
+\STATE C conjunto de $k$ centroides; 
 \WHILE{true}
-\STATE Para cada observaciones se calcular la distancia a todos los $C_{i}$ 
-\STATE Las observaciones se asignan al $C_{i}$ con la media más cercana
-\STATE $C_{i}$ se recalculan las medias con las nuevas observaciones agregadas
-\IF{$C_{i}$ no cambia}
+\STATE Para cada observacion calcular la distancia a todos los $C_{i}$;\COMMENT{$0<i<k$}
+\STATE Las observaciones se asignan al $C_{i}$ con la media más cercana;
+\STATE $C_{i}$ se recalculan las medias con las nuevas observaciones agregadas;
+\IF{Todos los $C_{i}$ no cambian}
 \STATE	Termina 
 \ENDIF
 \ENDWHILE
@@ -41,229 +44,49 @@ Dado $k$ grupos se genera $k$ centros de grupos o centroides iniciales, los cent
 
 Se itera hasta que converga, es decir, ya no se asignan nuevas observaciones a los grupos o los centroides ya no se mueven.
 
-Como estos algoritmos están orientados principalmente a un espacio euclidiano para medir la similitud entre los vectores, el problema de estos algoritmos son que asumen un espacio euclidiano y no funcionan con cadenas de texto. 
+La mayoría de los algoritmos  de agrupamiento asume un espacio euclidiano para medir la similitud entre los vectores, pero en el caso de las cadenas de texto no son puntos que se puedan representar en el espacio euclidiano. 
 
-Para poder solucionar este problema se debe buscar un mecanismo para medir la similitud entre las cadenas de texto y determinar sus distancias entre los vectores, 
-
-Existen varias medidas de distancia para determinar la similitud entre cadenas de texto, en la siguiente sección se nombran algunas de los más utilizados junto con la medida que se utilizó.
+Para poder solucionar este problema se debe buscar un mecanismo para medir la similitud entre las cadenas de texto. Existen varias medidas de similitud para determinar la similitud entre cadenas de texto, en la siguiente sección se nombran algunas de las más utilizadas junto con la medida que se utilizó en la memoria la  implementación del algoritmo de agrupamiento.
 
 
-\subsection{Medida de distancia para Cadenas de texto }\label{Medida de distancia}
+\subsection{Medida de similiud para Cadenas de texto }\label{Medida de similitud}
 
-Unos de los puntos más importante al momento de implementar un algoritmo de agrupamiento es la medida de similitud o de distancia entre los ``puntos'', en este caso los ``puntos'' representan las cadenas de texto y se debe buscar una medida de distancia.
+Unos de los puntos más importante al momento de implementar un algoritmo de agrupamiento es la medida de similitud entre los puntos, en este caso los puntos representan las cadenas de texto y se debe buscar una medida de distancia.
 
 
-Existen varios métodos para calcular la similitud entre string como por ejemplo: 
+Existen varios métodos para calcular la similitud entre un string y otro como por ejemplo: 
 
 
 \begin{itemize}
-  \item Distancia de Edición: Se tiene dos cadenas de caracteres \(A\) y \(B\) Es la cantidad mínima de insertar, sustitución o eliminar necesarios para transformar de  \(A\)  en \(B\). Con edición de distancia se logran una buena calidad en la similitud, pero presenta una desventaja, el algoritmo de edición de distancia es de $O(n \times m)$ , donde $n$ y $m$  son el largo de ambas secuencias de strings. Por ejemplo para las cadenas ``abracadabra'' y ``alabaralabarda'' se necesita 7 operaciones.
+  \item Distancia de Edición: Se tiene dos cadenas de texto \(A\) y \(B\).La distancia de edición es la cantidad mínima de insertar, sustituir o eliminar necesarios para transformar \(A\)  en \(B\). Con distancia de edición se logra una buena calidad en la similitud, pero presenta una desventaja: el algoritmo de edición de distancia requiere de tiempo  de $O(n \times m)$, donde $n$ y $m$  son el largo de ambas secuencias de strings. Por ejemplo para las cadenas ``abracadabra'' y ``alabaralabarda'', se necesitan 7 operaciones.
   
-  \item Jaccard: Es una medida de similitud que está definido por el tamaño de la intersección de dos secuencias divido por el tamaño de la unión de ambas secuencias, un ejemplo en la medida de similitud entre las secuencias  ``night'' y ``nacht'' es de 0.3.
+  \item Jaccard: Es una medida de similitud que está definido por el tamaño de la intersección de dos secuencias divido por el tamaño de la unión de ambas secuencias, un ejemplo en la medida de similitud entre las secuencias  ``night'' y ``nacht'' es de 0.3. Se tiene el conjunto S y T la formula para determinar el similitud jaccard es ~\ref{eq01}
+  
+  \begin{equation}\label{eq01}
+	Jaccard = \frac{(S\cap T)}{(S\cap T)},
+\end{equation}
   
   \item Distancia Hamming: Se tiene dos cadenas de caracteres de igual tamaño y se calcula cantidad de sustituciones necesarios para transformar una cadena de caracteres en otra.
-  Por ejemplo ``night'' y ``nacht'' se necesita 2 sustituciones.
-  
-  
-  %\item Similitud Coseno :%
-  
+  Por ejemplo ``night'' y ``nacht'' se necesita 2 sustituciones. 
   
 \end{itemize}
 
 
 
-En esta memoria queremos una medida de distancia basada en compresión,la medida de similitud implementada para el algoritmo de agrupación es una distancia de compresión utilizando algún método de compresión como lzma, gzip o bzip~\cite{profe2}. Se aplica la siguiente fórmula para obtener la $distancia$ \ref{eq1}
+En esta memoria se quiere una medida de distancia basada en compresión, la medida de similitud implementada para el algoritmo de agrupación es una distancia de compresión utilizando algún método de compresión como lzma, gzip o bzip~\cite{profe2}. Se aplica la siguiente fórmula para obtener la $Similitud$ \ref{eq1}
 
 \begin{equation}\label{eq1}
-distancia = \frac{(d_{1+2} - d_{2})}{d_{1} }
+Similitud = \frac{(d_{1+2} - d_{2})}{d_{1}},
 \end{equation}
 
-donde 
-\begin{description}
-\item[$d_{1}$] es el tamaño comprimido del documento más grande,
-\item[$d_{2}$] es el tamaño comprimido del documento más pequeño, y
-\item[$d_{1+2}$] es el tamaño de la unión de $d_{1}$ y $d_{2}$ comprimidos
-\end{description}
+donde $d_{1}$ es el tamaño comprimido del documento más grande,$d_{2}$ es el tamaño comprimido del documento más pequeño, y $d_{1+2}$ es el tamaño comprimido de la unión de $d_{1}$ y $d_{2}$ sin comprimir.
 
-La variable $d_{1+2}$ depende de la similitud de los strings comprimidos, si los strings tienen un grado de similitud la compresión será mucho más efectiva ya que se necesita un diccionario mucho menor para comprimir, al contrario ocurre cuando los strings son muy distintos entre sí.
+El valor de la variable $d_{1+2}$ va a depende de la similitud de los strings comprimidos, si los strings tienen un grado de similitud la compresión será mucho más efectiva ya que se necesita un diccionario mucho menor para comprimir, al contrario ocurre cuando los strings son muy distintos entre sí.
 
-Entre más pequeño el valor significa que ambos documentos son muy similares, y entre más grande los valores significa que los documentos son diferentes. En comparación con la edición de distancia también obtiene una buena calidad de similitud pero el tiempo de ejecución es lineal, mejor que $O(n\times m)$ por la distancia de edición, lo que hace una buena opción al momento de seleccionar una medida de similitud para grandes colecciones de datos. 
+Entre más pequeño el valor de la variable $Similitud$, significa que ambos documentos son muy similares, y entre más grande los valores significa que los documentos son diferentes. En comparación con la distancia edición está obtiene una buena calidad de similitud, pero el tiempo de ejecución es lineal. Mejorando el tiempo $O(n\times m)$ de la distancia de edición. Esto hace una buena opción al momento de seleccionar una medida de similitud para grandes colecciones de datos. Esta medida de similitud como entrega solamente un valor es de una sola dimensión.
 
+Por ejemplo, si se utiliza el compresor LZ78~\cite{profe} en la secuencia $S_{1}$ = \textit{`abracadabra'}, $S_{2}$ = \textit{`abracadadah'} y la suma $S_{1+2}$=\textit{`abracadabraabracadadah'}, al aplicar la formula \ref{eq1} se obtiene el valor 0,71.
 
-Por ejemplo, si se utiliza el compresor LZ78~\cite{profe} en la secuencia $S1$ = \textit{`abracadabra'} , $S2$ = \textit{`abracadadah'} y la suma $S1S2$=\textit{`abracadabraabracadadah'}, al aplicar la formula \ref{eq1} se obtiene el valor 0,71 .
-
-Ahora que pasa si cambiamos la segunda secuencia a $S3$= 'casasyperro', que no tiene similitud con la primera secuencia se obtiene el valor 0.77, se observa que con menor similitud entre los strings mayor es el valor, entonces al tener strings que son similares el valor se aproxima al 0 . A continuación se muestra una tabla con los resultados de los ejemplos \ref{Ejemplo LZ78.}.
-
-%$S1$ = <0,a>,<0,b>,<0,r>,<1,c>,<1,d>,<1,b>,<3,a> de tamaño 7
-% $S2$ = <0,c>,<0,a><0,s>,<2,s>,<0,y>,<0,p>,<0,e>,<0,r>,<8,o> de tamaño 9
-%$S1S2_m$ = <0,a>,<0,b>,<0,r>,<1,c>,<1,d>,<1,b>,<3,a>,<0,c>,<1,s>,<9,y>,<9,p>,<3,e>,<3,r>,<0,o>
+Ahora si cambiamos la segunda secuencia a $S_{3}$= 'casasyperro', la cual no tiene similitud con la primera secuencia, se obtiene el valor 0.77. De esta forma se observa que con menor similitud entre los strings, mayor es el valor, entonces al tener strings que son similares el valor se acerca al 0 .
 
 
-
-\begin{table}[H]
-\begin{center}
-\resizebox{15cm}{!} {
-
-\begin{tabular}{|p{0.5cm}|p{1.5cm}||p{1.5cm}||p{1.5cm}||p{1.5cm}||p{1.5cm}|}
-
-\hline
-Nº & $S1$ & $S2$  & $S1S2$ & $S3$  & $S1S3$   \\
-\hline
-1 & <0,a> & <0,c> & <0,a> & <0,a> &<0,a>\\
-\hline
-2 & <0,b> & <0,a> & <0,b> &<0,b>& <0,b>\\
-\hline
-3 & <0,r> & <0,s> & <0,r> & <0,r> & <0,r>\\
-\hline
-4 & <1,c> & <2,s> & <1,c> & <1,c>& <1,c>\\
-\hline
-5 & <1,d> & <0,y> & <1,d> &<1,d> & <1,d>\\
-\hline
-6 & <1,b>  & <0,p> & <1,b> &<1,b> & <1,b>\\
-\hline
-7 & <3,a> & <0,e>  & <3,a> &<3,a>& <3,a>\\
-\hline
-8 &  & <0,r> & <0,c>& & <0,c>\\
-\hline
-9 &   & <8,o> & <1,s> & &<1,s>\\
-\hline
-10 &   &   & <9,y> & &<9,y>\\
-\hline
-11 &    &  & <9,p> & &<9,p>\\
-\hline
-12 &    &  & <3,e> & &<3,e>\\
-\hline
-13 &    &  & <3,r> & &<3,r>\\
-\hline
-14 &    &  & <0,o> &  &<0,o>\\
-\hline
-
-
-\end{tabular}
-}
-\end{center}
-\caption{Ejemplo LZ78.}
-
-\label{Ejemplo LZ78.}
-
-\end{table}	
-
-
-
-\subsection{Algoritmo de agrupamiento propuesto}\label{Algoritmo de agrupamiento propuesto}
-
-El algoritmo de agrupación implementado para la distribución de las cadenas de texto es una variante del algoritmo cure~\cite{superlibro} que utiliza un algoritmo jerárquicos para formar los cluster iniciales.
-
-A continuación se muestra las etapas que sigue el algoritmo implementado:
-
-\begin{enumerate}
-  \item Primero se selecciona una muestra de la coleccion de datos y se aplica un algoritmo jerarquico.
-  \item Luego de formar los cluster iniciales se asigna cada string de la colección al cluster más cercano.
-  \item Finalmente se comprime cada agrupación.
-\end{enumerate}
-
-En el primer paso se debe seleccionar un algoritmo jerárquico , la implementación es un algoritmo aglomerativo. Se ingresa cada cadena de texto de la muestra a un grupo, y se calcula la similitud de las cadenas de texto según la medida de distancia nombrada anteriormente \ref{Medida de distancia} , después se selecciona ambas cadenas de texto que tengan la menor distancia y se unen los grupos de cada cadena de texto, antes de unirlos se pueden agregar varias reglas, por ejemplo, que las agrupaciones tengan un límite en el número de cadenas de texto, esta medida puede servir para balancear los grupos.
-
-En la segunda parte del algoritmo, a diferencia de cure que selecciona del grupo $n$ puntos más alejados para representar al grupo, llamados  \textit{puntos representativos},el algoritmo base toma todos los puntos como representativos. Unos de los objetivos que se  busca es  obtener un balance del espacio ocupado en cada agrupación, para esto la cadena de texto antes de ser ingresada al grupo más cercano y se tiene $k$ agrupaciones, se comprueba que el tamaño en espacio de memoria no supera la $k-decima$ parte del espacio en memoria del total de la colección de cadenas de texto, para mayor claridad se presenta la siguiente formula \ref{eq3}
-
-
-\begin{equation}
-  Grupo_{i} < \frac{C}{k}
-\end{equation}\label{eq3}
-
-donde
-\begin{description}
-\item[$Grupo_{i}$] Espacio en memoria del grupo más cercano a la cadena de texto seleccionada,
-\item[$C$] Espacio en memoria de la Colección de cadenas de texto,
-\item[$k$] Número de grupos o clusters.
-\end{description}
-
-
-
-Con esta comprobación al momento de asignar una cadena de texto a una grupo se busca generar un balance en cada grupo, si el $Grupo_{i}$ de una agrupación es mayor entonces se comprueba el siguiente grupo más cercano a la cadena de texto seleccionada hasta encontrar un grupo que sea menor. Si bien se genera un balance en el espacio de memoria la comprobación se realiza antes de la compresión y puede ocurrir que al momento de la compresión no asegura un balance notorio en todas las agrupaciones.
-
-El algoritmo \ref{alg1} muestra el  pseudo-codigo del algoritmo de agrupamiento propuesto en la memoria.
-
-En el algoritmo \ref{alg1} la linea \ref{lin:linea1} es la muestra tomada de la colección de cadena de textos y en la linea \ref{lin:linea2} es la colección de cadenas de textos en su totalidad. 
-
-El Algoritmo \ref{similitud} muestra la función similitud que representa el resultado de la medida de distancia entre dos cadenas de texto.
-
-
-\begin{algorithm}
-\begin{algorithmic}[1]
-\STATE $Sampling=\{d_{1}, \dots, d_{n} \}$ \label{lin:linea1}
-\STATE $S \leftarrow \langle\ \rangle$
-\FOR{\textbf{each} s1 in $Sampling$}
-\STATE \FOR{\textbf{each} s2 in $Sampling$} 
-			\STATE ADD($S$, [ SIMILITUD(s1,s2) , s1 ,s2] )
-		\ENDFOR
-\ENDFOR
-
-\STATE Sort($S$)
-\STATE $i = 0$
-\WHILE {Stop when $j$ clusters in $C$}
-	\STATE $Cluster1 \leftarrow	Sampling[S[i][1]]$
-	\STATE $Cluster2 \leftarrow	Sampling[S[i][2]]$	
-	\STATE MERGE(Cluster1,Cluster2)
-	\STATE $i = i +1$
-\ENDWHILE
-
-\STATE $Collection=\{d_{1}, \dots, d_{k} \}$ \label{lin:linea2}
-\STATE $Cluster \leftarrow size j$
-\FOR{\textbf{each} s in $Collection$}
-	\STATE $i \leftarrow Cluster$ con mayor Similitud s en Sampling
-	\STATE ADD(Cluster[$i$],s)
-\ENDFOR
-
-\end{algorithmic}
-\caption{Algoritmo de agrupamiento propuesto}\label{alg1} 
-\end{algorithm}
-
-%------------------------------------%
-
-
-
-
-%------------------------------------%
-
-\begin{algorithm}
-\begin{algorithmic}[1]
-\REQUIRE String1
-\REQUIRE String2
-\STATE $s1 \leftarrow COMPRESS(String1)$
-\STATE $s2 \leftarrow COMPRESS(String2)$
-\STATE $s1_2 \leftarrow COMPRESS(String1+ String2)$
-\RETURN $size(s1_2)-size(s2)/size(s1)$
-
-\end{algorithmic}
-\caption{Funcion SIMILITUD}\label{similitud}
-\end{algorithm}
-
-\newpage
-
-
-
-\subsection{Pruebas Iniciales}\label{Pruebas Iniciales}
-
-Las pruebas se realizarán comparando dos tipos de algoritmos de agrupamiento:
-
-\begin{itemize}
-  \item Algoritmo de agrupamiento propuesto
-  \item Algoritmo de agrupamiento random
-\end{itemize}
-
-El Algoritmo de agrupamiento random crea $n$ clusters y asigna de manera uniforme y distribuido aleatoriamente cada cadena de texto a un grupo, a diferencia del algoritmo propuesto anteriormente que es determinista, es decir, que los resultados siempre serán iguales. También  mantiene el balance de espacio en memoria en cada cluster. 
-
-Con ambos algoritmos se pretende demostrar que agrupando los grupos de manera inteligente se pueda obtener mejores resultados que agrupándolos aleatoriamente y mantener cierto balance en cada agrupación.
-
-En el algoritmo de agrupamiento propuesto existen distintas variables que pueden determinar un buen agrupamiento de la colección tales como:
-
-
-\begin{itemize}
-  \item Cantidad de clusters: Es difícil determinar la cantidad exacta de clusters que se necesita, en nuestro caso es el número de máquinas.
-  \item Tamaño de la muestra: si la muestra es muy pequeña, es muy probable que no represente todos los tipos de grupos que se encuentra en la colección.
-  \item Medida de similitud: Si la medida de similitud no obtiene una buena calidad es posible que agregue ``puntos'' de otro grupo, en la compresión se permite determinar el nivel de compresión, mientras que sea mayor el nivel la compresión es mayor pero es mucho más lento.
-
-\end{itemize}
-
-Las pruebas se realizaron de un dataset que se descargó la primera parte de la versión en inglés de  Wikipedia, las muestras se tomaron de manera uniforme al azar. Para cada documento seleccionado se obtiene todas sus versiones. En total el dataset contiene 16384 documentos de 1 MB c/u, en su totalidad es de 16.384 GB. Esto fue hecho usando la Biblioteca8 go-wikiparse .

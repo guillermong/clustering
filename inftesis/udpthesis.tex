@@ -79,7 +79,16 @@ showstringspaces=false            %
 
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\usepackage{array}
+\usepackage{eqparbox}
+\renewcommand\algorithmiccomment[1]{%
+  \hfill\#\ \eqparbox{COMMENT}{#1}%
+}
 \usepackage[nottoc]{tocbibind}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\renewcommand{\listalgorithmname}{List of \ALG@name s}
+\makeatother
 %\usepackage{fancyvrb}
 %\DefineVerbatimEnvironment{code}{Verbatim}{fontsize=\small}
 %\DefineVerbatimEnvironment{example}{Verbatim}{fontsize=\small}
@@ -116,7 +125,7 @@ showstringspaces=false            %
 \begin{titlepage}
 \title{Compresión de datos distribuida basado en clustering}
 \author{Guillermo Andrés Navarro Giglio}
-\degreedoc{Tesis}{título}{Ingeniero Civil en Informática y Telecomunicaciones}
+\degreedoc{Memoria}{título}{Ingeniero Civil en Informática y Telecomunicaciones}
 \chairperson{Francisco Claude-Faust}      %
 \committee{Roberto Konow}     % separados por \\
 \date{Julio, 2015}	% (Ej: Enero, 2006)
@@ -138,7 +147,7 @@ showstringspaces=false            %
 % separadas por \\ si es mas de una linea
 %
 \begin{dedicatory}                      %
-Dedico esta tesis a todas las personas.                %
+Dedico esta memoria a todas las personas.                %
 \end{dedicatory}                        %
 %
 % ----------------------------------------------------------------
@@ -174,6 +183,9 @@ Dedico esta tesis a todas las personas.                %
 %
 \begin{resumen}                         %
 
+
+Hoy en día la información crece rápidamente con nuevos contenidos provenientes de páginas Web, redes sociales, aplicaciones móviles entre otros. Cada vez es más difícil poder manejar esta gran cantidad de datos, demandando mayores recursos para las empresas y transformándose en un importante desafío en el futuro. Para esto se debe buscar nuevos mecanismos que permitan de manera eficiente almacenar esta gran cantidad de datos.
+
 Está memoria intenta buscar un mecanismo eficiente de distribuir una colección de datos para luego obtener el máximo de compresibilidad manteniendo un balance en lo que respecta al uso de recursos en multiples servidores. Primero se explica la importancia de los documentos versionados en la actualidad y por que se hace necesario distribuir los datos, luego se implementa un mecanismo de distribución de la colección de datos y finalmente se forma una conclusión de los resultados obtenidos. Esto último nos permite plantear nuestro programa de avance para la segunda etapa de esta memoria.
 
 
@@ -194,8 +206,9 @@ Está memoria intenta buscar un mecanismo eficiente de distribuir una colección d
 % (Ej.: cha-intro.tex es el archivo con un capitulo)
 %
 \input{intro}
-\input{obj}
+%\input{obj}
 \input{CapI}
+\input{algpro}
 \input{result}
 \input{conclu}
 

@@ -5,15 +5,96 @@
  ¿La información tiene límites? ¿Somos capaces de guardar toda esta información? Hoy en día la información crece a pasos agigantados; cada día aparecen nuevos contenidos provenientes de páginas Web, redes sociales, aplicaciones móviles y de nuevas tecnologías como Internet de las cosas, que son capaces de generar una gran cantidad de información. 
 
 \vspace{0.5cm} 
-\parindent=30pt Además, esta información puede ir cambiando con el pasar del tiempo y en algunos casos, es necesario ser capaz de guardar el historial de cambios de esta. Ejemplos de aplicaciones que tienen estos requerimientos son por ejemplo: Wikipedia, una enciclopedia online colaborativa~\cite{wiki}, y Git, un manejador de versiones utilizado principalmente para almacenar código de fuente~\cite{git}. Herramientas tradicionales de almacenamiento y versionamiento no son capaces de manejar una gran cantidad de datos de manera eficiente o incluso práctica. 
+\parindent=30pt Además, esta información puede ir cambiando con el pasar del tiempo y en algunos casos, es necesario ser capaz de guardar el historial de cambios de esta. Ejemplos de aplicaciones que tienen estos requerimientos son por ejemplo: Wikipedia, una enciclopedia online colaborativa~\cite{wiki}, y Git, un manejador de versiones utilizado principalmente para almacenar código de fuente~\cite{git}. Herramientas tradicionales de almacenamiento y versionamiento no son capaces de manejar una gran cantidad de datos de manera eficiente o incluso práctica  que generan mayores costos, transformádonse en un verdadero desafío para las empresas. 
 
 \vspace{0.5cm} 
-\parindent=30pt Frente a este escenario, almacenar los datos de una aplicación masiva es cada vez menos viable usando un solo computador. Por ejemplo, la empresa Backblaze, desarrolla una aplicación que genera una copia de seguridad en la nube a muy bajo costo, usa una granja de servidores para almacenar los datos, repartiendo la información entre un conjunto de computadores que forman un sistema distribuido~\cite{blackblaze}.
+\parindent=30pt Frente a este escenario, almacenar los datos de una aplicación masiva es cada vez menos viable usando un solo computador. Empiezan a aparecer nuevas soluciones a este problema, por ejemplo, la empresa Backblaze, desarrolla una aplicación que genera una copia de seguridad en la nube a muy bajo costo, usa una granja de servidores para almacenar los datos, repartiendo la información entre un conjunto de computadores que forman un sistema distribuido~\cite{blackblaze}. Se deben buscar nuevos mecanismos que logren de manera eficiente almacenar los datos aprovechando los recursos, que se traduce en una disminución en los costos de las empresas.
 
 \vspace{0.5cm} 
-Esta tesis consiste en estudiar una alternativa basada en clustering para repartir la información de manera inteligente entre varios computadores, haciendo uso de una métrica de similitud basada en el contenido de la información para luego comprimirla, y así de esta forma, se espera mejorar la compresión, idealmente manteniendo un balance en la carga de almacenamiento~\cite{handhookcompresion}. Clustering es una técnica que genera agrupaciones de objetos según un criterio, se pretende con esto separar los datos de tal manera que en cada agrupación se tenga un espacio parecido con respecto a los demás y que al utilizar cierto compresor sea mucho más eficiente en término de espacio que solamente separar los datos de manera aleatoria.
+Esta memoria consiste en estudiar una alternativa basada en clustering para repartir la información de manera inteligente entre varios computadores, haciendo uso de una métrica de similitud basada en el contenido de la información para luego comprimirla, y así de esta forma, se espera mejorar la compresión, idealmente manteniendo un balance en la carga de almacenamiento~\cite{handhookcompresion}. Clustering es una técnica que genera agrupaciones de objetos según un criterio, se pretende con esto separar los datos de tal manera que en cada agrupación se tenga un espacio parecido con respecto a los demás y que al utilizar cierto compresor sea mucho más eficiente en término de espacio que solamente separar los datos de manera aleatoria, logrando un ahorro en espacio en disco mucho mayor. 
+
+\vspace{0.5cm} 
+Definiciones:\\
+\vspace{0.5cm} 
+\noindent
+String o cadena de texto: es cualquier cadena de símbolos ya sea binario o texto en cualquier formato de codificación de caracteres.\\
+\noindent
+Coleccion de documentos: conjunto de String.\\
+\noindent
+Compresión: es la reducción del volumen en datos, comprimir tiene un límite definido por la entropía ( informacion nueva que se define como la cantidad total de datos menos su redundancia).\\
+\noindent
+Puntos: se define como un vector de $n$ dimensiones, $P= < v_{1}, v_{2},...., v_{n} >$.\\
+\noindent
+Medida de similitud: es la distancia entre dos puntos a partir de la similitud de estos.\\
+\noindent
+Agrupamiento: es el acto de formar grupos de puntos que sean en lo mayor posible similares entre si y poco similares con respecto a  puntos de otros grupos.\\
+\noindent
+Wiki-ES: Wikipedia en español.\\
+\noindent
+Wiki-EN: Wikipedia en inglés.
+
+
+\section{Objetivos }\label{chsub:Objetivos}
+
+El objetivo general de esta memoria es maximizar la compresibilidad de la colección  agrupándolos en función de su similitud de contenido, para esto se quiere  implementar y evaluar un mecanismo que represente colecciones versionadas de datos de forma distribuida.
+
+\subsection{Objetivo específicos}\label{chsub:Objetivos específicos}
+
+
+\begin{itemize}
+  \item Realizar un estudio de mecanismos de clustering  para agrupar conjuntos de Strings.
+  \item Generar un repositorio de datos distribuido basado en clustering.
+  \item Medición de la efectividad de usar clustering previo a la compresión para el almacenamiento distribuido de datos, en términos de la compresibilidad de la colección.
+\end{itemize}
+
+\section{Plan de trabajo }\label{chsub:Plan de trabajo}
 
 
 
-%=================================================ANTECEDENTES Y MOTIVACION========================================%
+En la tabla ~\ref{Plan de trabajo} se presenta el plan de trabajo. Este plan tiene algunas alteraciones mínimas en las fechas y tareas con respecto al plan original.
+
+\begin{table}[H]
+\begin{center}
+\resizebox{15cm}{!} {
+
+\begin{tabular}{|p{5cm}|p{3cm}||p{3cm}||p{4cm}||}
+
+\hline
+Tarea & Fecha inicio & Fecha final & Entregables \\
+\hline
+Anteproyecto & 20-03-2015   & 08-04-2014  & Anteproyecto \\
+\hline
+Estudiar y probar agrupamientos & 08-04-2015   & 30-04-2015  & Resultados experimentales en un set de datos preliminar \\
+\hline
+Implementar un separador de datos basado en agrupamientos & 30-04-2015   & 10-05-2015  & Sistema de agrupamiento funcionando \\
+\hline
+Documentación & 10-05-2015 & 25-07-2015 & Tesis I \\
+\hline
+Mejorar algoritmo de agrupamiento & 25-07-2015 & 17-09-2015  & Algoritmo de agrupamiento \\
+\hline
+Realizar pruebas y comparaciones & 17-09-2015   & 15-10-2015  & Análisis de Resultados \\
+\hline
+Documentación final & 15-10-2015   & 01-12-2015  & Tesis II \\
+\hline
+\end{tabular}
+}
+\end{center}
+\caption{Plan de trabajo.}
+
+\label{Plan de trabajo}
+
+\end{table}	
+
+
+\section{Metodología }\label{chsub:Metodologia}
+
+La metodología de desarrollo de la memoria será con reuniones semanales con el profesor guía revisando los avances y pasos a seguir, se contará con un repositorio Git que contendrá el código fuente desarrollada y las fuentes de la memoria misma.
+
+En una primera etapa se estudiara sobre los distintos mecanismos de agrupamiento, luego se analizara y diseñara un algoritmo de agrupamiento para string. Después se implementara el algoritmo de agrupamiento diseñado en una computadora personal para realizar pruebas pequeñas y comprobar su correcto funcionamiento, si las pruebas iniciales son satisfactorias se realizan las pruebas con una colección de datos mayor, en el servidor. Luego se evalúan los resultados obtenidos, en base a los resultados se evalúa como mejorar el algoritmo implementado y se vuelve a repetir el proceso de implementación del algoritmo para ir mejorando los resultados.
+
+
+
+
+
+
 

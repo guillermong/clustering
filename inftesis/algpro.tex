@@ -1,0 +1,107 @@
+\chapter{Algoritmo de agrupamiento propuesto}\label{Algoritmo de agrupamiento propuesto}
+
+El algoritmo de agrupación implementado para la distribución de las cadenas de texto es una variante del algoritmo cure~\cite{superlibro} que utiliza un algoritmo jerárquicos para formar los grupos iniciales.
+
+A continuación se muestra las etapas que sigue el algoritmo implementado:
+
+\begin{enumerate}
+  \item Primero se selecciona una muestra de la coleccion de datos y se aplica un algoritmo jerarquico.
+  \item Luego de formar los grupos iniciales se asigna cada string de la colección al grupo más cercano.
+  \item Finalmente se comprime cada agrupación.
+\end{enumerate}
+
+En el primer paso se debe seleccionar un algoritmo jerárquico, la implementación es un algoritmo aglomerativo. Se ingresa cada cadena de texto de la muestra a un grupo, y se calcula la similitud de las cadenas de texto según la medida de distancia nombrada anteriormente \ref{Medida de distancia}, después se selecciona ambas cadenas de texto que tengan la menor distancia y se unen los grupos de cada cadena de texto, antes de unirlos se pueden agregar varias reglas, por ejemplo, que las agrupaciones tengan un límite en el número de cadenas de texto, esta medida puede servir para balancear los grupos.En la segunda parte del algoritmo, a diferencia de cure que selecciona del grupo $n$ puntos más alejados para representar al grupo, llamados  \textit{puntos representativos},el algoritmo base toma todos los puntos como representativos. Unos de los objetivos que se  busca es  obtener un balance del espacio ocupado en cada agrupación, para esto la cadena de texto antes de ser ingresada al grupo más cercano y se tiene $k$ agrupaciones, se comprueba que el tamaño en espacio de memoria no supera la $k-decima$ parte del espacio en memoria del total de la colección de cadenas de texto, para mayor claridad se presenta la siguiente formula \ref{eq3}
+
+
+\begin{equation}
+  Grupo_{i} < \frac{C}{k},
+\end{equation}\label{eq3}
+
+donde $Grupo_{i}$ es el tamaño en disco del grupo más cercano a la cadena de texto seleccionada, $C$ es el tamaño en disco de la Colección de cadenas de texto, $k$ es el número de grupos.
+
+Con esta comprobación al momento de asignar una cadena de texto a un grupo se busca generar un balance en cada grupo, si el $Grupo_{i}$ de una agrupación es mayor entonces se comprueba el siguiente grupo más cercano a la cadena de texto seleccionada hasta encontrar un grupo que sea menor. Si bien se genera un balance en el espacio de memoria la comprobación se realiza antes de la compresión y puede ocurrir que al momento de la compresión no asegura un balance notorio en todas las agrupaciones.
+
+El Algoritmo \ref{similitud} muestra la función similitud que representa el resultado de la medida de distancia entre dos cadenas de texto.
+
+El algoritmo \ref{alg1} muestra el  pseudocodigo del algoritmo de agrupamiento propuesto en la memoria.
+
+\begin{algorithm}
+\begin{algorithmic}[1]
+\REQUIRE $String1$
+\REQUIRE $String2$
+\STATE $s1 \leftarrow COMPRESS(String1)$
+\STATE $s2 \leftarrow COMPRESS(String2)$
+\STATE $s12 \leftarrow COMPRESS(String1+ String2)$
+\RETURN $size(s12)-size(s2)/size(s1)$
+
+\end{algorithmic}
+\caption{Funcion SIMILITUD}\label{similitud}
+\end{algorithm}
+
+
+%------------------------------------%
+
+\begin{algorithm}
+\begin{algorithmic}[1]
+\REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra obtenida de la colección, donde $n$ es la cantidad de cadenas de texto.}
+\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colección de datos, donde $k$ es numero de cadenas de texto.}
+\REQUIRE $C$ \COMMENT{Número de grupos deseados.}
+\STATE $S \leftarrow \langle\ \rangle$
+\FOR{\textbf{each} s1 in $Sampling$}
+\FOR{\textbf{each} s2 in $Sampling$} 
+			\STATE $S \cup  (SIMILITUD(Sampling[s1],Sampling[s2]) , s1 ,s2)$
+		\ENDFOR
+\ENDFOR
+
+\STATE Sort($S$)
+\STATE $i = 0$
+\WHILE {$Sampling$ > $C$}
+	\STATE $ Sampling[S[i][1]] \cup Sampling[S[i][2]]$
+	\STATE $i = i +1$
+\ENDWHILE
+
+\STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tamaño $C$}
+\FOR{\textbf{each} $d$ in $Collection$}
+\STATE $i = 0$
+\FOR{$s=0$ to $n$}
+	\IF{$SIMILITUD(Sampling[s],d) > i$}
+		\STATE $i = SIMILITUD(Sampling[s],d)$
+	\ENDIF
+\ENDFOR
+\STATE $Grupo[i] \cup d$
+\ENDFOR
+
+\end{algorithmic}
+\caption{Algoritmo de agrupamiento propuesto}\label{alg1} 
+\end{algorithm}
+
+
+\newpage
+
+
+
+\subsection{Pruebas Iniciales}\label{Pruebas Iniciales}
+
+Las pruebas se realizarán comparando dos tipos de algoritmos de agrupamiento:
+
+\begin{itemize}
+  \item Algoritmo de agrupamiento propuesto
+  \item Algoritmo de agrupamiento random
+\end{itemize}
+
+El algoritmo de agrupamiento random crea $n$ grupos y asigna de manera uniforme y distribuido aleatoriamente cada cadena de texto a un grupo, a diferencia del algoritmo propuesto anteriormente que es determinista. También  mantiene el balance de espacio en memoria en cada Grupo. 
+
+Con ambos algoritmos se pretende demostrar que realizando los agrupamientos de manera inteligente se pueda obtener mejores resultados en terminos de compresión que agrupándolos aleatoriamente y mantener cierto balance en cada agrupación.
+
+En el algoritmo de agrupamiento propuesto existen distintas variables que pueden determinar un buen agrupamiento de la colección tales como:
+
+
+\begin{itemize}
+  \item Cantidad de Grupos: es difícil determinar la cantidad exacta de grupos que se necesita, en nuestro caso es el número de máquinas.
+  \item Tamaño de la muestra: si la muestra es muy pequeña, es muy probable que no represente todos los tipos de grupos que se encuentra en la colección.
+  \item Medida de similitud: En la función implementada para medir la similitud permite determinar el nivel de compresión entre cadenas de texto, si el nivel de compresión es alto, mejor se definen las distancias entre los puntos, pero crece en tiempo ejecución. Uno de los mayores problemas en el algoritmo es el tiempo de ejecución.
+  
+
+\end{itemize}
+
+Las pruebas se realizaron en un dataset que contiene la primera parte de la versión en inglés de  Wikipedia, las muestras se tomaron de manera uniformemente al azar. Para cada documento seleccionado se obtiene todas sus versiones. En total el dataset contiene 16384 documentos de 1 MB c/u, en su totalidad es de 16.384 GB. Esto fue hecho usando la libreria go-wikiparse.
