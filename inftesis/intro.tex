@@ -20,7 +20,7 @@ En esta sección se explican conceptos básicos que se utilizaran más adelante y q
 
 \subsection{String o cadena de caracteres }\label{String o cadena de texto}
 
-Una cadena de caracteres $S =s_{1},s_{2} \ldots s_{l}$ es una secuencia de símbolos de algún alfabeto $\sum$ en particular de un tamaño $l$. 
+Una cadena de caracteres $S = \{s_{1},s_{2} \ldots, s_{l}\}$ es una secuencia de símbolos de algún alfabeto $\sum$ en particular de un tamaño $l$. 
 
 \subsection{Coleccion de documentos}\label{Coleccion de documentos}
 
@@ -38,17 +38,18 @@ La entropía empírica de orden cero $H_{0}$ es el número promedio de bits necesar
   \end{aligned}\label{entropia0}
 \end{equation}
 
-donde el alfabeto $\sum =\{c_{0}, \ldots,c_{\sigma}$ de tamaño $\sigma$ y $n_{i}$ es el número de ocurrencias de caracteres $c_{i}$ en $T$. 
+donde el alfabeto $\sum =\{c_{0}, \ldots, c_{\sigma}\}$ de tamaño $\sigma$ y $n_{i}$ es el número de ocurrencias de caracteres $c_{i}$ en $T$. 
 
 \subsection{Punto}\label{Punto}
-Punto: se define como un vector de $n$ dimensiones, $P= \{ v_{1}, v_{2},...., v_{n} \}$. Un punto $P \in R^{n}$ se dice que es un punto de cluster para un subconjunto $A$ si para cada $\delta > 0 $ tenemos $B(P;\delta)\cap A \not= \not0$, donde $B(P;\delta ) = \{x \in R^{n} | \parallel x-a\parallel < \delta \} $
+\sloppy{Punto: se define como un vector de $n$ dimensiones, $P= \{ v_{1}, v_{2},...., v_{n} \}$. Un punto $P \in R^{n}$ se dice que es un punto de cluster para un subconjunto $A$ si para cada $\delta > 0 $ tenemos $B(P;\delta)\cap A \not= \emptyset $, 
+donde ${B(P;\delta ) = \{x \in R^{n} | \parallel x-a\parallel < \delta \} }$.}
 
 \subsection{Medida de similitud}\label{Medida de similitud}
-Medida de similitud: es la distancia entre dos puntos a partir de la similitud de estos, es lo opuesto a la medida de distancia. Se define la medida de similitud para un punto $x_{i}$ e $y_{j}$ como $s(i, j) = -||i - j||^2$ donde $||x - y||^2$ es la distancia euclidiana al cuadrado~\cite{similitud}.Ver capítulo \ref{ch:capitulo3} para una explicación más detallada.\\
+La medida de similitud es la distancia entre dos puntos a partir de la similitud de estos, es lo opuesto a la medida de distancia. Se define la medida de similitud para un punto $x_{i}$ e $y_{j}$ como $s(i, j) = -||i - j||^2$ donde $||x - y||^2$ es la distancia euclidiana al cuadrado~\cite{similitud}.Ver capítulo \ref{ch:capitulo3} para una explicación más detallada.\\
 
 \subsection{Agrupamiento}\label{Agrupamiento}
 
-Agrupamiento: es el acto de formar grupos de puntos $M=\{ P_{1},\ldots,P{\vartheta}\}$ de $\vartheta$ puntos, siguiendo alguna métrica como puede ser la medida de similitud o de distancia, ver capítulo~\ref{ch:capitulo3} para una explicación más detallada.
+Agrupamiento es el acto de formar grupos de puntos $M=\{ P_{1},\ldots, P_{\vartheta}\}$ de $\vartheta$ puntos, siguiendo alguna métrica como puede ser la medida de similitud o de distancia, ver capítulo~\ref{ch:capitulo3} para una explicación más detallada.
 
 
 
