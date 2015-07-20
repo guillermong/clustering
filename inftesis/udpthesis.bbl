@@ -18,20 +18,30 @@ David~Salomon abd Giovanni~Motta.
 \newblock {\em Handbook of Data Compression}.
 \newblock Springer London, 2012.
 
+\bibitem{profe}
+Francisco Claude and Gonzalo Navarro.
+\newblock Improved grammar-based compressed indexes.
+\newblock 12:180--192, 2012.
+
+\bibitem{similitud}
+Brendan~J. Frey and Delbert Dueck.
+\newblock Clustering by passing messages between data points.
+\newblock pages 972--976, 2007.
+
 \bibitem{superlibro}
 Anand Rajaraman and Jeffrey~David Ullman.
 \newblock Mining of massive datasets.
 \newblock pages 221--260, 2011.
+
+\bibitem{distedicion}
+Daniel Jurafsky and James~H. Martin.
+\newblock Speech and language processing pearson. education international.
+\newblock pages 107--111, 1999.
 
 \bibitem{profe2}
 S.~Kreft and G.~Navarro.
 \newblock On compressing and indexing repetitive sequences,theoretical computer
   science.
 \newblock 483:115--133, 2011.
-
-\bibitem{profe}
-Francisco Claude and Gonzalo Navarro.
-\newblock Improved grammar-based compressed indexes.
-\newblock 12:180--192, 2012.
 
 \end{thebibliography}

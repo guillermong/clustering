@@ -75,4 +75,7 @@ print len(lista)
 """
 
 print distance.hamming("night", "nacht")
+todo="111111111111"
+todo+="2222222222"
+print todo
 

@@ -1,16 +1,16 @@
 \chapter[Resultados preliminares ]{Resultados }\label{ch:capitulo2}
 
 
-En las pruebas se tomó una muestra no superior a 30 documentos ya que al aumentar la muestra el tiempo de ejecución crece $\frac{n^3}{2}$, donde $n$ es la cantidad de documentos. La muestra se obtuvo aleatoriamente de la colección de documentos, como la muestra es insignificante en comparación al tamaño de la muestra es muy probable que ningún documentos perteneciera a un documento de la misma versión. Este problema origina que la mayoría de los documentos pertenezca a un solo grupo y el resto solamente es representado por 1 documento. También cabe mencionar que la elección de la cantidad de agrupaciones es arbitraria, pero la cantidad de agrupaciones es una variable importante al momento de obtener buenos resultados en las agrupaciones, en este caso las pruebas se realizaron con un número fijo de agrupaciones para observar el comportamientos de otras variables que afectan a las agrupaciones.
+En las pruebas se tomó una muestra no superior a 30 documentos ya que al aumentar la muestra el tiempo de ejecución crece $\frac{n^3}{2}$, donde $n$ es la cantidad de documentos. La muestra se obtuvo aleatoriamente de la colección de documentos, como la muestra es insignificante en comparación al tamaño de la muestra es muy probable que ningún documentos perteneciera a un documento de la misma versión. Este problema origina que la mayoría de los documentos pertenezca a un solo grupo y el resto solamente es representado por un documento. También cabe mencionar que la elección de la cantidad de agrupaciones es arbitraria, pero la cantidad de agrupaciones es una variable importante al momento de obtener buenos resultados en las agrupaciones, en este caso las pruebas se realizaron con un número fijo de agrupaciones para observar el comportamientos de otras variables que afectan a las agrupaciones.
 
-En la tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 Grupos.}  muestra los resultados  de cada método con una cantidad de 10 agrupaciones, en cada agrupación se muestra el resultado de la compresión. El \textit{Método 1}  utiliza el algoritmo de agrupación aleatoria, se tiene que en cada grupo se mantiene una carga en memoria balanceada que es uno de los objetivos deseados en la memoria. En los métodos siguientes se utiliza el algoritmo de agrupación propuesto pero modificando algunas variables para observar su comportamiento.
+En la tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 Grupos.}  muestra los resultados  de cada método con una cantidad de 10 agrupaciones. El \textit{Método 1}  utiliza el algoritmo de agrupación aleatoria, se tiene que en cada grupo se mantiene una carga de almacenamiento balanceada que es uno de los objetivos deseados en la memoria. En los métodos siguientes se utiliza el algoritmo de agrupación propuesto pero modificando algunas variables para observar su comportamiento.
 
-Para el caso del \textit{Método 2}  se observa una mejora de la compresión equivalente al  45\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio, aquí la muestra es de 30 documentos. En términos de balance en la carga de memoria, este método es ineficiente ya que la mayor parte de la carga se concentra solamente en un grupo. Esto se debe a que en el momento de crear los grupos con las muestras, la mayor parte de las muestra quedan solamente en un grupo dejando a las demás con pocas muestras de representación.
+Para el caso del \textit{Método 2}  se observa una mejora de la compresión equivalente al  45\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio, aquí la muestra es de 30 documentos. En términos de balance en la carga de almacenamiento que se representa en el $Error$ de la tabla~\ref{distribucion}, este método es ineficiente ya que la mayor parte de la carga se concentra solamente en un grupo. Esto se debe a que en el momento de crear los grupos con las muestras, la mayor parte de las muestra quedan solamente en un grupo dejando a las demás con pocas muestras de representación.
 
 En el \textit{Método 3} puede apreciar que existe un balance en la cantidad de muestras en cada agrupación. Para esto, cada grupo no tendrá una muestra de documentos superior a 3 en un universo de 30 documentos. Con esto se busca balancear la cantidad de documentos en cada agrupación.
-El resultado de la compresión utilizando el \textit{Método 3} es equivalente al 55\% del tamaño total del resultado con el metodo del algoritmo de agrupamiento aleatorio, que sigue siendo una mejor alternativa, pero comparando con los resultado del \textit{Método 2} se paga un costo al balancear las muestras en los grupos, de un 24\% más del tamaño total del resultado en el \textit{Método 2}.
+El resultado de la compresión utilizando el \textit{Método 3} es equivalente al 55\% del tamaño total del resultado con el método del algoritmo de agrupamiento aleatorio, que sigue siendo una mejor alternativa, pero comparando con los resultado del \textit{Método 2} se paga un costo al balancear las muestras en los grupos, de un 24\% más del tamaño total del resultado en el \textit{Método 2}.
 
-En el \textit{Método 4}, se hace la misma prueba que en el método anterior  pero se agrega una condición de que el tamaño en espacio de memoria no supere un límite. El límite en este caso es el tamaño en memoria de la colección de datos divido por la cantidad de agrupaciones, con esta medida se asegura que en todos los grupos tienen aproximadamente la misma cantidad de cadenas de texto.  El resultado del \textit{Método 4} es el equivalente al 70\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio que sigue siendo una mejora, pero nuevamente pagando un costo, con respecto al \textit{Método 2} aumenta 55\% más de tamaño, incluso mayor que en el \textit{Método 3}, pero con mejores resultados en el balance de la carga en memoria. 
+En el \textit{Método 4}, se hace la misma prueba que en el método anterior  pero se agrega la condición de que el tamaño de los grupos no supere un límite. El límite en este caso es el tamaño de la colección de datos divido por la cantidad de agrupaciones, con esta medida se asegura que en todos los grupos tengan aproximadamente la misma cantidad de cadenas de caracteres.  El resultado del \textit{Método 4} es el equivalente al 70\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio que sigue siendo una mejora, pero nuevamente pagando un costo, con respecto al \textit{Método 2} aumenta 55\% más de tamaño, incluso mayor que en el \textit{Método 3}, pero con mejores resultados en el balance de la carga de almacenamiento. 
 
 
 %------------------------------------------------------%
@@ -36,39 +36,26 @@ Total  & 65.510 & 29.371 (45\%) & 36.036 (55\%) & 45.639 (70\%) \\
 
 \end{table}	
 
-En la tabla ~\ref{distribucion} se observa el resultado de la distribucion de los datos de cada grupo utilizando los metodos mencionados.
+En la tabla ~\ref{distribucion} se observa el resultado de la distribucion de los datos de cada grupo utilizando los metodos mencionados. $Error$ representa el promedio del error absoluto en cada grupo, $Tamaño$ representa el promedio de la carga de almacenamiento que ocupan los grupos y $Similitud$ es la similitud entre los documentos de las muestras de un mismo grupo.
 
 
 \begin{table}[H]
 \begin{center}
 \resizebox{15cm}{!} {
 
-\begin{tabular}{|p{3cm}|p{3cm}||p{3cm}||p{3cm}||p{3cm}|}
+\begin{tabular}{|p{3cm}|p{3cm}||p{3cm}||p{3cm}|}
 
 \hline
-Grupos & Nº Documentos  & Tamaño(KiB)  & Distancias \\
+Grupos & Error  & Tamaño(KiB)  & Similitud \\
 \hline
-Grupo 1 & 6.530 & 1.089 & 5.595 & 5.168 \\
+Método 1 &  0.2  & 6553.6 &  - \\
 \hline
-Grupo 2 & 6.648 & 1.442 & 7.102 & 8.271 \\
+Método 2 & 1910.4  & 2937.2 & 0.196718 \\
 \hline
-Grupo 3 & 6.491 & 1.020 & 3.406 & 3.831 \\
+Método 3 & 509 & 3603.7 & 0.994174 \\
 \hline
-Grupo 4 & 6.756 & 2.851 & 3.465 & 3.353 \\
+Método 4 & 1.4 & 4563.9 & 0.994174  \\
 \hline
-Grupo 5 & 6.540 & 857 & 4.523 & 3.570 \\
-\hline
-Grupo 6 & 6.456 & 1.455 & 2.729 & 4.343 \\
-\hline
-Grupo 7 & 6.562 & 756  & 2.678 & 4.349 \\
-\hline
-Grupo 8 & 6.486 & 1.106 & 2.748 & 3.239 \\
-\hline
-Grupo 9 & 6.471 & 16.551 & 2.473 & 4.306 \\
-\hline
-Grupo 10 & 6.596  & 2.245 & 1.318 & 5.209 \\
-\hline
-
 \end{tabular}
 }
 \end{center}

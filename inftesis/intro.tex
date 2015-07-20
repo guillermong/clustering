@@ -5,44 +5,63 @@
  ¿La información tiene límites? ¿Somos capaces de guardar toda esta información? Hoy en día la información crece a pasos agigantados; cada día aparecen nuevos contenidos provenientes de páginas Web, redes sociales, aplicaciones móviles y de nuevas tecnologías como Internet de las cosas, que son capaces de generar una gran cantidad de información. 
 
 \vspace{0.5cm} 
-\parindent=30pt Además, esta información puede ir cambiando con el pasar del tiempo y en algunos casos, es necesario ser capaz de guardar el historial de cambios de esta. Ejemplos de aplicaciones que tienen estos requerimientos son por ejemplo: Wikipedia, una enciclopedia online colaborativa~\cite{wiki}, y Git, un manejador de versiones utilizado principalmente para almacenar código de fuente~\cite{git}. Herramientas tradicionales de almacenamiento y versionamiento no son capaces de manejar una gran cantidad de datos de manera eficiente o incluso práctica  que generan mayores costos, transformádonse en un verdadero desafío para las empresas. 
+\parindent=30pt Además, esta información puede ir cambiando con el pasar del tiempo y en algunos casos, es necesario ser capaz de guardar el historial de cambios de esta. Ejemplos de aplicaciones que tienen estos requerimientos son por ejemplo: Wikipedia, una enciclopedia online colaborativa~\cite{wiki}, y Git, un manejador de versiones utilizado principalmente para almacenar código de fuente~\cite{git}. Herramientas tradicionales de almacenamiento y versionamiento no son capaces de manejar una gran cantidad de datos de manera eficiente o incluso práctica  que generan mayores costos, transformándose en un verdadero desafío para las empresas. 
 
 \vspace{0.5cm} 
 \parindent=30pt Frente a este escenario, almacenar los datos de una aplicación masiva es cada vez menos viable usando un solo computador. Empiezan a aparecer nuevas soluciones a este problema, por ejemplo, la empresa Backblaze, desarrolla una aplicación que genera una copia de seguridad en la nube a muy bajo costo, usa una granja de servidores para almacenar los datos, repartiendo la información entre un conjunto de computadores que forman un sistema distribuido~\cite{blackblaze}. Se deben buscar nuevos mecanismos que logren de manera eficiente almacenar los datos aprovechando los recursos, que se traduce en una disminución en los costos de las empresas.
 
 \vspace{0.5cm} 
-Esta memoria consiste en estudiar una alternativa basada en clustering para repartir la información de manera inteligente entre varios computadores, haciendo uso de una métrica de similitud basada en el contenido de la información para luego comprimirla, y así de esta forma, se espera mejorar la compresión, idealmente manteniendo un balance en la carga de almacenamiento~\cite{handhookcompresion}. Clustering es una técnica que genera agrupaciones de objetos según un criterio, se pretende con esto separar los datos de tal manera que en cada agrupación se tenga un espacio parecido con respecto a los demás y que al utilizar cierto compresor sea mucho más eficiente en término de espacio que solamente separar los datos de manera aleatoria, logrando un ahorro en espacio en disco mucho mayor. 
+Esta memoria consiste en estudiar una alternativa basada en clustering para repartir la información de manera inteligente entre varios computadores, haciendo uso de una métrica de similitud basada en el contenido de la información para luego comprimirla, y así de esta forma, se espera mejorar la compresión, idealmente manteniendo un balance en la carga de almacenamiento~\cite{handhookcompresion}. Clustering es una técnica que genera agrupaciones de objetos según un criterio, se pretende con esto separar los datos de tal manera que en cada agrupación se tenga un espacio parecido con respecto a los demás y que al utilizar cierto compresor sea mucho más eficiente en término de espacio que solamente separar los datos de manera aleatoria. 
 
-\vspace{0.5cm} 
-Definiciones:\\
-\vspace{0.5cm} 
-\noindent
-String o cadena de texto: es cualquier cadena de símbolos ya sea binario o texto en cualquier formato de codificación de caracteres.\\
-\noindent
-Coleccion de documentos: conjunto de String.\\
-\noindent
-Compresión: es la reducción del volumen en datos, comprimir tiene un límite definido por la entropía ( informacion nueva que se define como la cantidad total de datos menos su redundancia).\\
-\noindent
-Puntos: se define como un vector de $n$ dimensiones, $P= < v_{1}, v_{2},...., v_{n} >$.\\
-\noindent
-Medida de similitud: es la distancia entre dos puntos a partir de la similitud de estos.\\
-\noindent
-Agrupamiento: es el acto de formar grupos de puntos que sean en lo mayor posible similares entre si y poco similares con respecto a  puntos de otros grupos.\\
-\noindent
-Wiki-ES: Wikipedia en español.\\
-\noindent
-Wiki-EN: Wikipedia en inglés.
+
+\section{Conceptos Básicos }\label{chsub:Objetivos}
+
+En esta sección se explican conceptos básicos que se utilizaran más adelante y que ayudara a la comprensión del trabajo realizado.
+
+\subsection{String o cadena de caracteres }\label{String o cadena de texto}
+
+Una cadena de caracteres $S =s_{1},s_{2} \ldots s_{l}$ es una secuencia de símbolos de algún alfabeto $\sum$ en particular de un tamaño $l$. 
+
+\subsection{Coleccion de documentos}\label{Coleccion de documentos}
+
+Una colección de documentos es un conjunto de $\varrho$ documentos, representado como $C= \{d_{1},\ldots,d_{\varrho} \}$, donde los documentos son cadenas de caracteres $S$.
+
+\subsection{Entropía de un texto}\label{Entropía de un texto}
+
+La compresión de datos es la reducción del volumen de datos, sin embargo comprimir datos tiene un límite definido por la entropía, la entropía es la información nueva que se define como la cantidad total de datos menos su redundancia.
+
+La entropía empírica de orden cero $H_{0}$ es el número promedio de bits necesarios para representar cada símbolo del texto $T$ de tamaño $n$, está definida como\cite{profe}:
+
+  \begin{equation}
+  \begin{aligned}
+		H_{0}(S) &=\sum_{i=0}^{\sigma-1} \frac{n_{i}}{n}\log \frac{n}{n_{i}} 
+  \end{aligned}\label{entropia0}
+\end{equation}
+
+donde el alfabeto $\sum =\{c_{0}, \ldots,c_{\sigma}$ de tamaño $\sigma$ y $n_{i}$ es el número de ocurrencias de caracteres $c_{i}$ en $T$. 
+
+\subsection{Punto}\label{Punto}
+Punto: se define como un vector de $n$ dimensiones, $P= \{ v_{1}, v_{2},...., v_{n} \}$. Un punto $P \in R^{n}$ se dice que es un punto de cluster para un subconjunto $A$ si para cada $\delta > 0 $ tenemos $B(P;\delta)\cap A \not= \not0$, donde $B(P;\delta ) = \{x \in R^{n} | \parallel x-a\parallel < \delta \} $
+
+\subsection{Medida de similitud}\label{Medida de similitud}
+Medida de similitud: es la distancia entre dos puntos a partir de la similitud de estos, es lo opuesto a la medida de distancia. Se define la medida de similitud para un punto $x_{i}$ e $y_{j}$ como $s(i, j) = -||i - j||^2$ donde $||x - y||^2$ es la distancia euclidiana al cuadrado~\cite{similitud}.Ver capítulo \ref{ch:capitulo3} para una explicación más detallada.\\
+
+\subsection{Agrupamiento}\label{Agrupamiento}
+
+Agrupamiento: es el acto de formar grupos de puntos $M=\{ P_{1},\ldots,P{\vartheta}\}$ de $\vartheta$ puntos, siguiendo alguna métrica como puede ser la medida de similitud o de distancia, ver capítulo~\ref{ch:capitulo3} para una explicación más detallada.
+
 
 
 \section{Objetivos }\label{chsub:Objetivos}
 
 El objetivo general de esta memoria es maximizar la compresibilidad de la colección  agrupándolos en función de su similitud de contenido, para esto se quiere  implementar y evaluar un mecanismo que represente colecciones versionadas de datos de forma distribuida.
 
+
 \subsection{Objetivo específicos}\label{chsub:Objetivos específicos}
 
 
 \begin{itemize}
-  \item Realizar un estudio de mecanismos de clustering  para agrupar conjuntos de Strings.
+  \item Realizar un estudio de mecanismos de clustering  para agrupar conjuntos de cadenas de caracteres.
   \item Generar un repositorio de datos distribuido basado en clustering.
   \item Medición de la efectividad de usar clustering previo a la compresión para el almacenamiento distribuido de datos, en términos de la compresibilidad de la colección.
 \end{itemize}
@@ -88,12 +107,18 @@ Documentación final & 15-10-2015   & 01-12-2015  & Tesis II \\
 
 \section{Metodología }\label{chsub:Metodologia}
 
-La metodología de desarrollo de la memoria será con reuniones semanales con el profesor guía revisando los avances y pasos a seguir, se contará con un repositorio Git que contendrá el código fuente desarrollada y las fuentes de la memoria misma.
+La metodología de desarrollo de la memoria se describe en los siguientes pasos:
 
-En una primera etapa se estudiara sobre los distintos mecanismos de agrupamiento, luego se analizara y diseñara un algoritmo de agrupamiento para string. Después se implementara el algoritmo de agrupamiento diseñado en una computadora personal para realizar pruebas pequeñas y comprobar su correcto funcionamiento, si las pruebas iniciales son satisfactorias se realizan las pruebas con una colección de datos mayor, en el servidor. Luego se evalúan los resultados obtenidos, en base a los resultados se evalúa como mejorar el algoritmo implementado y se vuelve a repetir el proceso de implementación del algoritmo para ir mejorando los resultados.
+\begin{enumerate}
+  \item Se estudiará el estado del arte de los distintos mecanismos de agrupamiento.
+  \item Se analizará y diseñará un algoritmo de agrupamiento para cadenas de caracteres.
+  \item Se implementará un algoritmo de agrupamiento. 
+  \item Se realizarán pruebas pequeñas para comprobar su correcto funcionamiento. Si las pruebas iniciales son satisfactorias se realizan las pruebas con una colección de datos mayor en el servidor.
+  \item Se evalúan los resultados obtenidos, en base a los resultados se evalúa como mejorar el algoritmo implementado y se vuelve a repetir el proceso desde el segundo paso, para ir mejorando los resultados.
+  \item
+\end{enumerate}
 
-
-
+Se contará con un repositorio Git que contendrá el código fuente desarrollada y las fuentes de la memoria misma.
 
 
 

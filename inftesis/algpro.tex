@@ -1,29 +1,45 @@
 \chapter{Algoritmo de agrupamiento propuesto}\label{Algoritmo de agrupamiento propuesto}
 
-El algoritmo de agrupación implementado para la distribución de las cadenas de texto es una variante del algoritmo cure~\cite{superlibro} que utiliza un algoritmo jerárquicos para formar los grupos iniciales.
+\section{Proceso de agrupamiento}\label{Proceso de agrupamiento}
+
+El Proceso que se utilizo para agrupar una colección de datos se describe en los siguientes pasos:
+
+\begin{enumerate}
+  \item Primero se obtiene la colección de datos que puede ser cualquier cadena de caracteres, por ejemplo, secuencias de ADN o información de Wikipedia.
+  
+  \item Se elige un algoritmo de agrupamiento y se ejecuta sobre la colección. Cuando termina de ejecutar, la colección se encontrará repartida en diferentes directorios que representan los grupos formados por el algoritmo de agrupamiento.
+
+  \item Por ultimo, se comprime cada directorio utilizando algún método de compresión.
+  
+\end{enumerate}
+
+
+\section{Algoritmo de agrupamiento implementado}\label{Algoritmo de agrupamiento implementado}
+
+
+El algoritmo de agrupación implementado para la distribución de las cadenas de caracteres es una variante del algoritmo cure~\ref{Algoritmo de agrupamiento1} que utiliza un algoritmo jerárquicos para formar los grupos iniciales.
 
 A continuación se muestra las etapas que sigue el algoritmo implementado:
 
 \begin{enumerate}
-  \item Primero se selecciona una muestra de la coleccion de datos y se aplica un algoritmo jerarquico.
-  \item Luego de formar los grupos iniciales se asigna cada string de la colección al grupo más cercano.
-  \item Finalmente se comprime cada agrupación.
-\end{enumerate}
+  \item El algoritmo empieza con la selección de un algoritmo de agrupamiento jerárquico aglomerativo o diviso, ambas opciones son validas, en nuestro caso se elige el aglomerativo. Luego se obtiene una muestra pequeña de la colección de datos, en lo posible la muestra debe ser lo suficientemente representativo de la colección de datos. Después se calcula la medida de similitud con cada una de las cadenas de caracteres de la muestra utilizando una medida de distancia para cadenas de caracteres, ver ~\ref{Medida de similitud}.
+  
+ \item  Con la medida de similitud de toda la muestra se  ejecuta el algoritmo de agrupamiento aglomérativo hasta obtener los grupos deseaos. Por último se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en nuestro caso los puntos representativos son todos los puntos del grupo.
 
-En el primer paso se debe seleccionar un algoritmo jerárquico, la implementación es un algoritmo aglomerativo. Se ingresa cada cadena de texto de la muestra a un grupo, y se calcula la similitud de las cadenas de texto según la medida de distancia nombrada anteriormente \ref{Medida de distancia}, después se selecciona ambas cadenas de texto que tengan la menor distancia y se unen los grupos de cada cadena de texto, antes de unirlos se pueden agregar varias reglas, por ejemplo, que las agrupaciones tengan un límite en el número de cadenas de texto, esta medida puede servir para balancear los grupos.En la segunda parte del algoritmo, a diferencia de cure que selecciona del grupo $n$ puntos más alejados para representar al grupo, llamados  \textit{puntos representativos},el algoritmo base toma todos los puntos como representativos. Unos de los objetivos que se  busca es  obtener un balance del espacio ocupado en cada agrupación, para esto la cadena de texto antes de ser ingresada al grupo más cercano y se tiene $k$ agrupaciones, se comprueba que el tamaño en espacio de memoria no supera la $k-decima$ parte del espacio en memoria del total de la colección de cadenas de texto, para mayor claridad se presenta la siguiente formula \ref{eq3}
-
+  \item Ya con los grupos construidos, se asigna cada cadena de caracteres de la colección de datos al grupo que tenga el punto representativo  con la mejor medida de similitud. Uno de los objetivos de la memoria es el balance en términos de la carga de almacenamiento de los grupos, para esto la cadena de caracteres antes de ser asignado al grupo, se comprueba que ~\ref{eq3}
 
 \begin{equation}
   Grupo_{i} < \frac{C}{k},
 \end{equation}\label{eq3}
 
-donde $Grupo_{i}$ es el tamaño en disco del grupo más cercano a la cadena de texto seleccionada, $C$ es el tamaño en disco de la Colección de cadenas de texto, $k$ es el número de grupos.
+donde $Grupo_{i}$ es el tamaño en disco del grupo más cercano a la cadena de caracteres seleccionada, $C$ es el tamaño en disco de la Colección de cadenas de caracteres, $k$ es el número de grupos.
 
-Con esta comprobación al momento de asignar una cadena de texto a un grupo se busca generar un balance en cada grupo, si el $Grupo_{i}$ de una agrupación es mayor entonces se comprueba el siguiente grupo más cercano a la cadena de texto seleccionada hasta encontrar un grupo que sea menor. Si bien se genera un balance en el espacio de memoria la comprobación se realiza antes de la compresión y puede ocurrir que al momento de la compresión no asegura un balance notorio en todas las agrupaciones.
+Con esto al momento de asignar una cadena de caracteres a un grupo, se busca generar un balance en cada grupo, si el $Grupo_{i}$ es mayor, entonces se comprueba el siguiente grupo más cercano a la cadena de caracteres seleccionada, hasta encontrar un grupo que sea menor. Si bien se genera un balance en el espacio de memoria la comprobación se realiza antes de la compresión y puede ocurrir que al momento de la compresión no asegura un balance significativo en todas las agrupaciones.
 
-El Algoritmo \ref{similitud} muestra la función similitud que representa el resultado de la medida de distancia entre dos cadenas de texto.
+\end{enumerate}
 
-El algoritmo \ref{alg1} muestra el  pseudocodigo del algoritmo de agrupamiento propuesto en la memoria.
+
+A continuación se observa los pseucodigo del algoritmo implementado, el pseucodigo \ref{similitud} muestra la función similitud que representa el resultado de la medida de similitud entre dos cadenas de caracteres y el pseucodigo \ref{alg1} muestra el algoritmo de agrupamiento propuesto en la memoria.
 
 \begin{algorithm}
 \begin{algorithmic}[1]
@@ -43,8 +59,8 @@ El algoritmo \ref{alg1} muestra el  pseudocodigo del algoritmo de agrupamiento p
 
 \begin{algorithm}
 \begin{algorithmic}[1]
-\REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra obtenida de la colección, donde $n$ es la cantidad de cadenas de texto.}
-\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colección de datos, donde $k$ es numero de cadenas de texto.}
+\REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra obtenida de la colección, donde $n$ es la cantidad de cadenas de caracteres.}
+\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colección de datos, donde $k$ es numero de cadenas de caracteres.}
 \REQUIRE $C$ \COMMENT{Número de grupos deseados.}
 \STATE $S \leftarrow \langle\ \rangle$
 \FOR{\textbf{each} s1 in $Sampling$}
@@ -80,18 +96,18 @@ El algoritmo \ref{alg1} muestra el  pseudocodigo del algoritmo de agrupamiento p
 
 
 
-\subsection{Pruebas Iniciales}\label{Pruebas Iniciales}
+\section{Pruebas Iniciales}\label{Pruebas Iniciales}
 
-Las pruebas se realizarán comparando dos tipos de algoritmos de agrupamiento:
+Las pruebas se realizaron comparando dos tipos de algoritmos de agrupamiento:
 
 \begin{itemize}
   \item Algoritmo de agrupamiento propuesto
   \item Algoritmo de agrupamiento random
 \end{itemize}
 
-El algoritmo de agrupamiento random crea $n$ grupos y asigna de manera uniforme y distribuido aleatoriamente cada cadena de texto a un grupo, a diferencia del algoritmo propuesto anteriormente que es determinista. También  mantiene el balance de espacio en memoria en cada Grupo. 
+El algoritmo de agrupamiento random crea $n$ grupos y asigna de manera uniforme y distribuido aleatoriamente cada cadena de caracteres a un grupo, a diferencia del algoritmo propuesto anteriormente que es determinista. También  mantiene el balance de espacio en memoria en cada Grupo. 
 
-Con ambos algoritmos se pretende demostrar que realizando los agrupamientos de manera inteligente se pueda obtener mejores resultados en terminos de compresión que agrupándolos aleatoriamente y mantener cierto balance en cada agrupación.
+Con ambos algoritmos se pretende demostrar que realizando los agrupamientos de manera inteligente se pueda obtener mejores resultados en términos de compresión que agrupándolos aleatoriamente y mantener cierto balance en cada agrupación.
 
 En el algoritmo de agrupamiento propuesto existen distintas variables que pueden determinar un buen agrupamiento de la colección tales como:
 
@@ -99,9 +115,31 @@ En el algoritmo de agrupamiento propuesto existen distintas variables que pueden
 \begin{itemize}
   \item Cantidad de Grupos: es difícil determinar la cantidad exacta de grupos que se necesita, en nuestro caso es el número de máquinas.
   \item Tamaño de la muestra: si la muestra es muy pequeña, es muy probable que no represente todos los tipos de grupos que se encuentra en la colección.
-  \item Medida de similitud: En la función implementada para medir la similitud permite determinar el nivel de compresión entre cadenas de texto, si el nivel de compresión es alto, mejor se definen las distancias entre los puntos, pero crece en tiempo ejecución. Uno de los mayores problemas en el algoritmo es el tiempo de ejecución.
+  \item Medida de similitud: En la función implementada para medir la similitud permite cambiar el método de comprimir, en este caso se utiliza ZIP. También la librería de ZIP utilizada permite determinar el nivel de compresión  de una cadena de caracteres, cambiando los valores en la medida de similitud.
   
 
 \end{itemize}
 
-Las pruebas se realizaron en un dataset que contiene la primera parte de la versión en inglés de  Wikipedia, las muestras se tomaron de manera uniformemente al azar. Para cada documento seleccionado se obtiene todas sus versiones. En total el dataset contiene 16384 documentos de 1 MB c/u, en su totalidad es de 16.384 GB. Esto fue hecho usando la libreria go-wikiparse.
+Las pruebas se realizaron en una colección versión en español de  Wikipedia, las muestras se tomaron de manera uniformemente al azar, en UTF-8. Para cada documento seleccionado se obtiene todas sus versiones.  Esto fue hecho usando la libreria go-wikiparse y limpiado con Tika para obtener sólo el texto de los artículos. Se concatena todos los documentos en uno sólo y se divide por bloques. 
+
+\begin{table}[H]
+\begin{center}
+\resizebox{15cm}{!} {
+
+\begin{tabular}{|p{3cm}|p{3cm}||p{3cm}||p{3cm}||p{3cm}|}
+
+\hline
+Colecciones & Tamaño Total (GiB)  & Entropia(bits)  & Nº Documentos  & Tamaño documento (MiB) \\
+\hline
+Wiki-ES  & 16.384  & 5.0831497879 & 16384 & 1 \\
+\hline
+Wiki-EN  & -  & - & - & - \\
+\hline
+\end{tabular}
+}
+\end{center}
+\caption{Colecciones.}
+
+\label{Colecciones}
+
+\end{table}	
