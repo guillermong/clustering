@@ -41,7 +41,7 @@ La entropía empírica de orden cero $H_{0}$ es el número promedio de bits necesar
 donde el alfabeto $\sum =\{c_{0}, \ldots, c_{\sigma}\}$ de tamaño $\sigma$ y $n_{i}$ es el número de ocurrencias de caracteres $c_{i}$ en $T$. 
 
 \subsection{Punto}\label{Punto}
-\sloppy{Punto: se define como un vector de $n$ dimensiones, $P= \{ v_{1}, v_{2},...., v_{n} \}$. Un punto $P \in R^{n}$ se dice que es un punto de cluster para un subconjunto $A$ si para cada $\delta > 0 $ tenemos $B(P;\delta)\cap A \not= \emptyset $, 
+\sloppy{Punto: se define como un vector de $n$ dimensiones, $P= \{ v_{1}, v_{2},...., v_{n} \}$. Un punto $P \in R^{n}$ se dice que es un punto de cluster para un subconjunto $A$ si para cada $\delta > 0 $, $\delta$ vecindad de $P$, tenemos $B(P;\delta)\cap A \not= \emptyset $, 
 donde ${B(P;\delta ) = \{x \in R^{n} | \parallel x-a\parallel < \delta \} }$.}
 
 \subsection{Medida de similitud}\label{Medida de similitud}
@@ -50,7 +50,7 @@ La medida de similitud es una función real que cuantifica la similitud entre dos
 
 \subsection{Agrupamiento}\label{Agrupamiento}
 
-Agrupamiento es el acto de formar grupos de puntos $M=\{ P_{1},\ldots, P_{\vartheta}\}$ de $\vartheta$ puntos, siguiendo alguna métrica como puede ser la medida de similitud o de distancia, ver capítulo~\ref{ch:capitulo3} para una explicación más detallada.
+Agrupamiento es el acto de formar $k$ grupos de puntos $M=\{ P_{1},\ldots, P_{\vartheta}\}$ de $\vartheta$ puntos, siguiendo alguna métrica como puede ser la medida de similitud o de distancia, ver capítulo~\ref{ch:capitulo3} para una explicación más detallada.
 
 
 
@@ -65,7 +65,7 @@ El objetivo general de esta memoria es maximizar la compresibilidad de la colecc
 \begin{itemize}
   \item Realizar un estudio de mecanismos de clustering  para agrupar conjuntos de cadenas de caracteres.
   \item Generar un repositorio de datos distribuido basado en clustering.
-  \item Medición de la efectividad de usar clustering previo a la compresión para el almacenamiento distribuido de datos, en términos de la compresibilidad de la colección.
+  \item Medir la efectividad de usar clustering previo a la compresión para el almacenamiento distribuido de datos, en términos de la compresibilidad de la colección.
 \end{itemize}
 
 \section{Plan de trabajo }\label{chsub:Plan de trabajo}
@@ -117,7 +117,6 @@ La metodología de desarrollo de la memoria se describe en los siguientes pasos:
   \item Se implementará un algoritmo de agrupamiento. 
   \item Se realizarán pruebas pequeñas para comprobar su correcto funcionamiento. Si las pruebas iniciales son satisfactorias se realizan las pruebas con una colección de datos mayor en el servidor.
   \item Se evalúan los resultados obtenidos, en base a los resultados se evalúa como mejorar el algoritmo implementado y se vuelve a repetir el proceso desde el segundo paso, para ir mejorando los resultados.
-  \item
 \end{enumerate}
 
 Se contará con un repositorio Git que contendrá el código fuente desarrollada y las fuentes de la memoria misma.

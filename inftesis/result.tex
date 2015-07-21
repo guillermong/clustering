@@ -36,8 +36,25 @@ Total  & 65.510 & 29.371 (45\%) & 36.036 (55\%) & 45.639 (70\%) \\
 
 \end{table}	
 
-En la tabla ~\ref{distribucion} se observa el resultado de la distribucion de los datos de cada grupo utilizando los metodos mencionados. $Error$ representa el promedio del error absoluto en cada grupo, $Tamaño$ representa el promedio de la carga de almacenamiento que ocupan los grupos y $Similitud$ es la similitud entre los documentos de las muestras de un mismo grupo.
+En la tabla ~\ref{distribucion} se observa el resultado de la distribución de los datos de cada grupo utilizando los métodos mencionados.
 
+Para determinar si la carga de almacenamiento en todos los grupos se encuentra balanceada en términos del número de documentos, se calcula el promedio del error absoluto $\bar{E_{a}}$ que se define como~\ref{errorabs}:
+
+  \begin{equation}
+  \begin{aligned}
+		\bar{E_{a}} &=\frac{1}{k}\sum_{i=1}^{k} \mid V_{verdadero} - V_{i}\mid
+  \end{aligned}\label{errorabs}
+	\end{equation}
+	
+donde $V_{verdadero}=\frac{\varrho}{k}$ con $\varrho$ el número de documentos en la Colección, $k$ es el número de grupos formados por el algoritmo de agrupamiento y $V_{i}$ la cantidad de documentos en un grupo. $\bar{T}$ representa el promedio de la carga de almacenamiento que ocupan los grupos. Por último, $\bar{S}$ es el promedio de la similitud entre los documentos de las muestras de un mismo grupo , y se define como~\ref{simi}: 
+
+\begin{equation}
+  \begin{aligned}
+		\bar{S} &=\frac{1}{k}\sum_{i=1}^{k} Similitud(G_{i})\\
+  \end{aligned}\label{simi}
+\end{equation}
+
+donde  $Similitud(G_{i})$ es el promedio de la similitud entre los documentos del mismo grupos.
 
 \begin{table}[H]
 \begin{center}
@@ -46,7 +63,7 @@ En la tabla ~\ref{distribucion} se observa el resultado de la distribucion de lo
 \begin{tabular}{|p{3cm}|p{3cm}||p{3cm}||p{3cm}|}
 
 \hline
-Grupos & Error  & Tamaño(KiB)  & Similitud \\
+Grupos & $\bar{E_{a}}$  & $\bar{T} (KiB)$  & $\bar{S}$ \\
 \hline
 Método 1 &  0.2  & 6553.6 &  - \\
 \hline

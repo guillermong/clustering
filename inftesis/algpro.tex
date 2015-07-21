@@ -22,15 +22,17 @@ El algoritmo de agrupación implementado para la distribución de las cadenas de c
 A continuación se muestra las etapas que sigue el algoritmo implementado:
 
 \begin{enumerate}
-  \item El algoritmo empieza con la selección de un algoritmo de agrupamiento jerárquico aglomerativo o diviso, ambas opciones son validas, en nuestro caso se elige el aglomerativo. Luego se obtiene una muestra pequeña de la colección de datos, en lo posible la muestra debe ser lo suficientemente representativo de la colección de datos. Después se calcula la medida de similitud con cada una de las cadenas de caracteres de la muestra utilizando una medida de distancia para cadenas de caracteres, ver ~\ref{Medida de similitud}.
+  \item El algoritmo empieza con la selección de un algoritmo de agrupamiento jerárquico aglomerativo o diviso, ambas opciones son válidas, en nuestro caso se elige el aglomerativo. Luego, se obtiene una muestra pequeña de la colección de datos, en lo posible la muestra debe ser lo suficientemente representativo de la colección de datos. Después se calcula la medida de similitud con cada una de las cadenas de caracteres de la muestra utilizando una medida de distancia para cadenas de caracteres, ver ~\ref{Medida de similitud}.
   
  \item  Con la medida de similitud de toda la muestra se  ejecuta el algoritmo de agrupamiento aglomérativo hasta obtener los grupos deseaos. Por último se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en nuestro caso los puntos representativos son todos los puntos del grupo.
 
-  \item Ya con los grupos construidos, se asigna cada cadena de caracteres de la colección de datos al grupo que tenga el punto representativo  con la mejor medida de similitud. Uno de los objetivos de la memoria es el balance en términos de la carga de almacenamiento de los grupos, para esto la cadena de caracteres antes de ser asignado al grupo, se comprueba que ~\ref{eq3}
+  \item Ya con los grupos construidos, se asigna cada cadena de caracteres de la colección de datos al grupo que tenga el punto representativo  con la mejor medida de similitud. Uno de los objetivos de la memoria es el balance en términos de la carga de almacenamiento de los grupos, para esto la cadena de caracteres antes de ser asignado al grupo, se comprueba que~\ref{eq3123}
 
 \begin{equation}
+\begin{aligned}
   Grupo_{i} < \frac{C}{k},
-\end{equation}\label{eq3}
+   \end{aligned}\label{eq3123}
+\end{equation}
 
 donde $Grupo_{i}$ es el tamaño en disco del grupo más cercano a la cadena de caracteres seleccionada, $C$ es el tamaño en disco de la Colección de cadenas de caracteres, $k$ es el número de grupos.
 
@@ -39,7 +41,7 @@ Con esto al momento de asignar una cadena de caracteres a un grupo, se busca gen
 \end{enumerate}
 
 
-A continuación se observa los pseucodigo del algoritmo implementado, el pseucodigo \ref{similitud} muestra la función similitud que representa el resultado de la medida de similitud entre dos cadenas de caracteres y el pseucodigo \ref{alg1} muestra el algoritmo de agrupamiento propuesto en la memoria.
+A continuación se observa los pseucodigo del algoritmo implementado, el algoritmo~\ref{similitud} muestra la función similitud que representa el resultado de la medida de similitud entre dos cadenas de caracteres y el algoritmo~\ref{alg1} muestra el algoritmo de agrupamiento propuesto en la memoria.
 
 \begin{algorithm}
 \begin{algorithmic}[1]

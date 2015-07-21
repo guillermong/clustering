@@ -13,12 +13,12 @@ El espacio euclidiano es un espacio geométrico que se cumplen los axiomas de Euc
 \begin{itemize}
   \item La distancia entre los puntos nunca es negativo y solamente es 0 consigo mismo.
   \item La distancia es simetrica, es decir, no importa si se calcula la distancia del punto $x$ a $y$ o de $y$ a $x$.
-  \item La distancia obedece a la desigualdad del triangulos; la distancia  de x a y a z  no puede menor a la distancia de z a x. 
+  \item La distancia obedece a la desigualdad del triangulos; la distancia  de $x$ a $y$ a $z$  no puede ser menor a la distancia de $x$ a $z$. 
 \end{itemize}
 
 Los algoritmos de agrupamiento se pueden dividir en dos grupos, jerárquicos  y no jerárquicos. En los algoritmos de agrupamiento jerárquicos pueden ser aglomerativos o divisivos.
 
-Cuando es aglomerativo, cada punto en el espacio euclidiano representa un grupo y en cada iteración se unen los grupos hasta llegar a los números de grupos deseados, en cambio, los divisivos todos los puntos se encuentran en un sólo grupo y en cada iteración se dividen los grupos. El siguiente pseudocodigo~\ref{jerarquico} muestra el algoritmo de agrupamiento aglomerativo. Primero se debe determinar cuándo detener el algoritmo, una opción puede ser hasta tener el numero deseados de grupos.
+Cuando es aglomerativo, cada punto en el espacio euclidiano representa un grupo y en cada iteración se unen los grupos hasta llegar a los números de grupos deseados, en cambio, los divisivos todos los puntos se encuentran en un sólo grupo y en cada iteración se dividen los grupos. El siguiente algoritmo~\ref{jerarquico} muestra el algoritmo de agrupamiento aglomerativo. Primero se debe determinar cuándo detener el algoritmo, una opción puede ser hasta tener el numero deseados de grupos.
 
 \begin{algorithm}
 \begin{algorithmic}
@@ -90,7 +90,7 @@ donde $a = a_1\ldots a_n$ y $b = b_1\ldots b_m$ .
   \item Jaccard: Es una medida de similitud que está definido por el tamaño de la intersección de dos secuencias divido por el tamaño de la unión de ambas secuencias, un ejemplo en la medida de similitud entre las secuencias  ``night'' y ``nacht'' es de 0.3. Se tiene el conjunto S y T la formula para determinar el similitud jaccard es ~\ref{eq01}
   
   \begin{equation}\label{eq01}
-	Jaccard = \frac{(S\cap T)}{(S\cap T)},
+	Jaccard = \frac{(S\cap T)}{(S\cup T)},
 \end{equation}
   
   \item Distancia Hamming: Se tiene dos cadenas de caracteres de igual tamaño y se calcula cantidad de sustituciones necesarios para transformar una cadena de caracteres en otra.
