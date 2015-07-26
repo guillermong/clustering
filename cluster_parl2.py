@@ -10,7 +10,12 @@ import editdist
 import shutil
 import distance
 import zlib
+from multiprocessing import Pool
 from datetime import datetime
+
+data=[] 
+combinaciones=[]
+
 	
 def distancia_zip(s1, s2, nivel=6):
 	compressed1 = zlib.compress(s1,nivel)
@@ -23,7 +28,14 @@ def distancia_zip(s1, s2, nivel=6):
 		n = (len(compressed12) - len (compressed1)) / float(len(compressed2))	
 	return n
 
-		
+def listadistancia(comb):
+	k=combinaciones[comb][0]
+	j=combinaciones[comb][1]
+	comp=distancia_zip(data[k][0],data[j][0],int(sys.argv[3]))
+	print "t1:"+str(k)+" contra t2:"+str(j)+"="+str(comp)
+	return [comp,data[k][0],data[j][0]]
+
+				
     
 if __name__ == "__main__":
 	
@@ -32,23 +44,27 @@ if __name__ == "__main__":
 	#numero de clusters
 	clusters = int(sys.argv[2])
 	#doculmentos para generar los clusters
-	data=[]  
+	 
 	#guardar bloque de datos 
 	for document in os.listdir(str(sys.argv[1])):
 		f = open(str(sys.argv[1])+str(document))
 		data.append([f.read()])
 		f.close()
 
-
-	test=[]
 	print "sampling cargado, buscando las distancias minimas..."
+	
+	numprocesos=len(data)
+	
+	
 	for k in range(len(data)):
 			for j in range(k+1,len(data)):
-				comp=distancia_zip(data[k][0],data[j][0],int(sys.argv[3]))
-				print "t1:"+str(k)+" contra t2:"+str(j)+"="+str(comp)
-				test.append([comp,data[k][0],data[j][0]])          
+				combinaciones.append((k,j))
+	pool = Pool(processes=numprocesos)
+	test = pool.map(listadistancia, range(len(combinaciones)), len(combinaciones)/numprocesos)
+	pool.close()
+	pool.join()
+
 	test.sort()
-	
 	print len(test)	
 
 	print "creando clusters"
@@ -104,6 +120,6 @@ if __name__ == "__main__":
 		if division == 0:
 			division =1  
 		print str(k)+"="+str(suma/division)   
+
 	end_time = datetime.now()
 	print('Duration: {}'.format(end_time - start_time))
-	

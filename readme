@@ -1,6 +1,14 @@
 clustering.py
 
-python clustering.py doclust/ 4 clusters/ documents/
+""" argv[1]= carpeta de documetnos para generar clusters
+	argv[2]= Numero de clusters deseado
+	argv[3]= carpeta guardar clusters
+	argv[4]= carpeta de documentos
+	argv[5]= max cluster size
+	argv[6]= calidad distancia documento 0-9
+"""
+
+clustering_v3_paralelo.py
 
 """ argv[1]= carpeta de documetnos para generar clusters
 	argv[2]= Numero de clusters deseado
@@ -8,6 +16,7 @@ python clustering.py doclust/ 4 clusters/ documents/
 	argv[4]= carpeta de documentos
 	argv[5]= max cluster size
 	argv[6]= calidad distancia documento 0-9
+	argv[7]= Numero de core
 """
 
 getsampling.py
@@ -23,3 +32,8 @@ clusteing random
 	argv[2]= n clusters
 	argv[3]= carpeta resultados
 """
+
+Ejemplo:
+
+python clustering_v3_paralelo.py documents/ 3 testcluster/ doclust/ 5 9 4
+
