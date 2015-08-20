@@ -1,12 +1,13 @@
 #!/usr/bin/python
 
-""" argv[1]= carpeta de documetnos para generar clusters
+""" argv[1]= carpeta de documetnos para generar clusters(sampling)
 	argv[2]= Numero de clusters deseado
 	argv[3]= carpeta guardar clusters
 	argv[4]= carpeta de documentos
 	argv[5]= max cluster size
 	argv[6]= calidad distancia documento 0-9
 	argv[7]= Numero de core
+	argv[8]= carpeta de resultados comprimidos
 """
 import os, sys ,getopt
 import editdist
@@ -29,7 +30,7 @@ def get_size(start_path = '.'):
 
 def comprimir( ):
 	for i in os.listdir(str(sys.argv[3])):
-		os.system('7z a '+i+'.7z '+str(sys.argv[3])+i+'/')
+		os.system('7z a ' +str(sys.argv[8])+i+'.7z '+str(sys.argv[3])+i+'/')
 		
 	
 def distancia_zip(s1, s2, nivel=6):
@@ -61,7 +62,8 @@ def asignar_documento(document):
 			comp=distancia_zip(j[k],texto,int(sys.argv[6]))	
 			test2.append([comp,data.index(j)])	          
 	test2.sort()
-		
+	div=get_size(str(sys.argv[4]))/len(data)
+	print div	
 	for s in test2:
 		if clust_size[s[1]] < div:
 			shutil.copyfile(str(sys.argv[4])+str(document), sys.argv[3]+str(s[1])+'/'+str(document))
@@ -142,7 +144,6 @@ if __name__ == "__main__":
 		os.mkdir( sys.argv[3]+str(t));
 		clust_size.append(0)
 
-	div=get_size(str(sys.argv[4]))/len(data)
 		
 	i=0
 	

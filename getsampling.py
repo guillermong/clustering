@@ -16,7 +16,7 @@ random.seed()
 
 for i in range(int(sys.argv[2])) :
 	
-		rand = random.randint(0,len(lista))	
+		rand = random.randint(0,len(lista)-1)	
 		texto= lista.pop(rand)	
 		os.rename(sys.argv[1]+texto,sys.argv[3]+texto)
 		

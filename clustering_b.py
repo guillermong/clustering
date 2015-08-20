@@ -6,6 +6,7 @@
 	argv[4]= carpeta de documentos
 	argv[5]= max cluster size
 	argv[6]= calidad distancia documento 0-9
+	argv[7]= carpeta de resultados comprimidos
 """
 import os, sys ,getopt
 import editdist
@@ -25,6 +26,7 @@ def get_size(start_path = '.'):
 def comprimir( ):
 	for i in os.listdir(str(sys.argv[3])):
 		os.system('7z a '+i+'.7z '+str(sys.argv[3])+i+'/')
+		os.system('7z a ' +str(sys.argv[7])+i+'.7z '+str(sys.argv[3])+i+'/')
 	
 def distancia_zip(s1, s2, nivel=6):
 	compressed1 = zlib.compress(s1,nivel)
