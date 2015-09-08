@@ -7,8 +7,11 @@ import shutil
 """ argv[1]= carpeta de documentos
 	argv[2]= n clusters
 	argv[3]= carpeta resultados
+	argv[4]= carpeta de resultados comprimidos
 """
-
+def comprimir( ):
+	for i in os.listdir(str(sys.argv[3])):
+		os.system('7z a ' +str(sys.argv[4])+i+'.7z '+str(sys.argv[3])+i+'/')
 
 #lista= glob.glob(str(sys.argv[1])+"*")
 print sys.argv[1]
@@ -35,3 +38,5 @@ for i in range(int(sys.argv[2])) :
 		#os.rename(sys.argv[1]+texto,sys.argv[3]+str(i)+"/"+texto)
 		
 print "listo."
+
+comprimir()
