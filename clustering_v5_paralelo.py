@@ -16,6 +16,7 @@ import distance
 import zlib
 from multiprocessing import Pool
 from datetime import datetime
+from heapq import heapify, heappush, heappop
 
 data=[] 
 combinaciones=[]
@@ -149,16 +150,32 @@ if __name__ == "__main__":
 	pool2.close()
 	pool2.join()
 	
-	#print todo
-		
+	# [ str(document),test2,doc_z ] -> nombre_documenot, lista_distancias, tamano_documento
+	# lista_distancia -> [distancia , numero_clustguillermo99er]
+	
+	
 	div=get_size(str(sys.argv[4]))/len(data)
+	cola_prioridad=[]
+	diccionario={}
+	
 	for t in todo:
 		for s in t[1]:
-			if clust_size[s[1]] < div:
-				shutil.copyfile(str(sys.argv[4])+t[0], sys.argv[3]+str(s[1])+'/'+t[0])
-				clust_size[s[1]]+=t[2]
-				break	
-
+			heappush(cola_prioridad, [s[0],t[0],s[1],t[2]])	
+			#s[0] -> distancia	t[0]-> nombre_documento s[1]->numero_cluster t[2] ->tamano_documento
+	
+	while len(cola_prioridad):
+		archivo=heappop(cola_prioridad)
+		print archivo
+		if archivo[1] in diccionario:
+			continue
+		else:
+			if clust_size[archivo[2]] < div:
+				shutil.copyfile(str(sys.argv[4])+archivo[1], sys.argv[3]+str(archivo[2])+'/'+archivo[1])
+				clust_size[archivo[2]]+=archivo[3]
+				diccionario[archivo[1]]=archivo[2]
+			else:
+				continue
+			
 	comprimir()	
 	
 	

@@ -8,7 +8,7 @@ clustering.py
 	argv[6]= calidad distancia documento 0-9
 """
 
-clustering_v3_paralelo.py
+clustering_v4_paralelo.py
 
 """ argv[1]= carpeta de documetnos para generar clusters
 	argv[2]= Numero de clusters deseado
@@ -17,6 +17,7 @@ clustering_v3_paralelo.py
 	argv[5]= max cluster size
 	argv[6]= calidad distancia documento 0-9
 	argv[7]= Numero de core
+	argv[8]= carpeta de resultados comprimidos
 """
 
 getsampling.py

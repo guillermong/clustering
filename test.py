@@ -55,11 +55,12 @@ else:
         n = (len(compressed12) - len (compressed1)) / float(len(compressed2))
 print "otra formula:" 
 print n"""
-#!/usr/bin/python
 import glob
 import os,sys
 import random
 import distance
+
+
 """ argv[1]= carpeta de documentos
 	argv[2]= n clusters
 	argv[3]= carpeta sampling
@@ -72,10 +73,47 @@ lista=os.listdir(str(sys.argv[1]))
 random.seed()
 print lista
 print len(lista)
-"""
+
 
 print distance.hamming("night", "nacht")
 todo="111111111111"
 todo+="2222222222"
 print todo
+"""
+
+from heapq import heapify, heappush, heappop
+
+h = []
+heappush(h, ["5eth", 'write code'])
+heappush(h, [7, 'release product'])
+heappush(h, [7.1, 'release product'])
+heappush(h, ["1", 'write spec'])
+heappush(h, [1, 'write spec'])
+heappush(h, [3, 'create tests'])
+dic={}
+#print h
+test=heappop(h)
+dic[test[0]]=test[1]
+
+print dic[1]
+print dic
+
+while len(h):
+	print heappop(h)
+
+
+#print heappop(h)
+#print heappop(h)
+#print heappop(h)
+#print heappop(h)
+#print heappop(h)
+
+print "diccionario no eta el 543"
+if "542" in dic:
+	print "yes"
+else:
+	print "no"
+
+
+
 
