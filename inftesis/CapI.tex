@@ -6,19 +6,19 @@
 
 \section{Algoritmo de agrupamiento }\label{Algoritmo de agrupamiento1}
 
-El algoritmo de agrupamiento es un proceso en la cual se tiene un conjunto de puntos y se crean grupos de puntos a partir de una medida de similitud, en la mayoría de los algoritmos de agrupamiento se asume un espacio euclidiano. 
+El algoritmo de agrupamiento es un proceso a través del cual se tiene un conjunto de puntos y se crean grupos de puntos a partir de una medida de similitud, en la mayoría de los algoritmos de agrupamiento se asume un espacio euclidiano. 
 
-El espacio euclidiano es un espacio geométrico que se cumplen los axiomas de Euclides, se deben cumplir tres reglas entre las distancias de dos puntos en el espacio euclidiano:
+El espacio euclidiano es un espacio geométrico que se cumplen los axiomas de Euclides, la cual define tres reglas entre las distancias de dos puntos en el espacio euclidiano:
 
 \begin{itemize}
-  \item La distancia entre los puntos nunca es negativo y solamente es 0 consigo mismo.
-  \item La distancia es simetrica, es decir, no importa si se calcula la distancia del punto $x$ a $y$ o de $y$ a $x$.
-  \item La distancia obedece a la desigualdad del triangulos; la distancia  de $x$ a $y$ a $z$  no puede ser menor a la distancia de $x$ a $z$. 
+  \item La distancia entre los puntos nunca es negativa y solamente es 0 consigo mismo.
+  \item La distancia es simétrica, es decir, no importa si se calcula la distancia del punto $x$ a $y$ o de $y$ a $x$.
+  \item La distancia obedece a la desigualdad del triángulos; la distancia  de $x$ a $y$ a $z$  no puede ser menor a la distancia de $x$ a $z$. 
 \end{itemize}
 
-Los algoritmos de agrupamiento se pueden dividir en dos grupos, jerárquicos  y no jerárquicos. En los algoritmos de agrupamiento jerárquicos pueden ser aglomerativos o divisivos.
+Los algoritmos de agrupamiento se pueden dividir en dos grupos: jerárquicos  y no jerárquicos. Los primeros pueden ser aglomerativos o divisivos.
 
-Cuando es aglomerativo, cada punto en el espacio euclidiano representa un grupo y en cada iteración se unen los grupos hasta llegar a los números de grupos deseados, en cambio, los divisivos todos los puntos se encuentran en un sólo grupo y en cada iteración se dividen los grupos. El siguiente algoritmo~\ref{jerarquico} muestra el algoritmo de agrupamiento aglomerativo. Primero se debe determinar cuándo detener el algoritmo, una opción puede ser hasta tener el numero deseados de grupos.
+Cuando es aglomerativo, cada punto en el espacio euclidiano representa un grupo y en cada iteración se unen los grupos hasta llegar a los números de grupos deseados; en cambio cuando es divisivo todos los puntos se encuentran en un solo grupo y en cada iteración se dividen los grupos. El siguiente algoritmo~\ref{jerarquico} muestra el algoritmo de agrupamiento aglomerativo. Primero se debe determinar cuándo detener el algoritmo, una opción puede ser hasta tener el número deseados de grupos.
 
 \begin{algorithm}
 \begin{algorithmic}
@@ -32,22 +32,22 @@ Cuando es aglomerativo, cada punto en el espacio euclidiano representa un grupo 
 
 Este algoritmo de agrupamiento es muy lento en caso de que la colección de datos sea muy grande, existen algoritmo de agrupamiento para colecciones grandes, como CURE~\cite{superlibro}. 
 
-CURE asume un espacio euclidiano, el algoritmo de CURE empieza tomando una pequeña muestra de la colección principal y usa cualquier algoritmo de agrupamiento que asuma el espacio euclidiano sobre la muestra, por ejemplo, los algoritmo jerárquicos serian una buena opción. Luego selecciona en cada grupo formado en la muestra, una pequeña cantidad de puntos que se llamaran ``puntos representativos'', estos puntos serán los que estén más alejados del grupo y entre ellos mismos, la cantidad de puntos representativos es libre de elegirse. Después los puntos representativos se mueven al centro del grupo un porcentaje, por ejemplo, 10\%.
+CURE asume un espacio euclidiano, el algoritmo de CURE empieza tomando una pequeña muestra de la colección principal y usa cualquier algoritmo de agrupamiento que asuma el espacio euclidiano sobre la muestra, por ejemplo, los algoritmo jerárquicos serían una buena opción. Luego, selecciona en cada grupo formado en la muestra, una pequeña cantidad de puntos que se llamarán ``puntos representativos'', estos serán los que estén más alejados del grupo y entre ellos mismos, la cantidad de puntos representativos es libre de elegirse. Después los puntos representativos se mueven al centro del grupo un porcentaje, por ejemplo, 10\%.
 
 La siguiente etapa consiste en unir los grupos que tengan un punto representativo cerca de un punto representativo de otro grupo, la distancia entre ambos puntos representativos para unir ambos grupos es libre de elegirse. Por último los puntos de la colección se comparan con los puntos representativos y se asigna  al grupo que tenga la menor distancia.
 
-En los algoritmo de agrupamiento no jerarquicos, \textit{k-means}~\cite{superlibro},  es unos de los algoritmo más utilizado y simple de entender.
+En los algoritmo de agrupamiento no jerárquicos, \textit{k-means}~\cite{superlibro},  es unos de los más utilizado y simple de entender.
 
-K-means como la mayoría de los algoritmos de agrupamiento asume un espacio euclidiano  y también asume el número de agrupos conocidos. El número de grupos se puede determinar de distintas maneras, como por ejemplo, por prueba y error o con conocimiento previo de las características de las observaciones.
+K-means, como la mayoría de los algoritmos de agrupamiento, asume un espacio euclidiano  y también asume el número de grupos conocidos. El número de grupos se puede determinar de distintas maneras, como por ejemplo, por prueba y error o con conocimiento previo de las características de las observaciones.
 
-Dado $k$ grupos se genera $k$ centros de grupos o centroides iniciales,los centroides son vectores de las medias de las características de todas las observaciones dentro de cada grupo. Los centroides se pueden asignar de distintas maneras, una opción es asignar observaciones aleatoriamente de un conjunto de observaciones. Luego se itera los siguientes pasos:
+Dado $k$ grupos se generan $k$ centros de grupos o centroides iniciales, los centroides son vectores de las medias de las características de todas las observaciones dentro de cada grupo. Los centroides se pueden asignar de distintas maneras, una opción es asignar observaciones aleatoriamente de un conjunto de observaciones. Luego se itera los siguientes pasos:
 
 
 \begin{algorithm}
 \begin{algorithmic}
 \STATE C conjunto de $k$ centroides; 
 \WHILE{true}
-\STATE Para cada observacion calcular la distancia a todos los $C_{i}$;\COMMENT{$0<i<k$}
+\STATE Para cada observación calcular la distancia a todos los $C_{i}$;\COMMENT{$0<i<k$}
 \STATE Las observaciones se asignan al $C_{i}$ con la media más cercana;
 \STATE $C_{i}$ se recalculan las medias con las nuevas observaciones agregadas;
 \IF{Todos los $C_{i}$ no cambian}
@@ -58,23 +58,23 @@ Dado $k$ grupos se genera $k$ centros de grupos o centroides iniciales,los centr
 \caption{Algoritmo K-means}\label{kmeans2}
 \end{algorithm}
 
-Se itera hasta que converga, es decir, ya no se asignan nuevas observaciones a los grupos o los centroides ya no se mueven.
+Se itera hasta que converja, es decir, ya no se asignan nuevas observaciones a los grupos o los centroides ya no se mueven.
 
-La mayoría de los algoritmos  de agrupamiento asume un espacio euclidiano para medir la similitud entre los vectores, pero en el caso de las cadenas de caracteres no son puntos que se puedan representar en el espacio euclidiano. 
+La mayoría de los algoritmos  de agrupamiento asumen un espacio euclidiano para medir la similitud entre los vectores, pero en el caso de las cadenas de caracteres no son puntos que se puedan representar en el espacio euclidiano. 
 
 Para poder solucionar este problema se debe buscar un mecanismo para medir la similitud entre las cadenas de caracteres. Existen varias medidas de similitud para determinar la similitud entre cadenas de caracteres, en la siguiente sección se nombran algunas de las más utilizadas junto con la medida de similitud que se utilizó en la implementación del algoritmo de agrupamiento.
 
 
 \section{Medida de similiud para Cadenas de caracteres }\label{Medida de similitud}
 
-Unos de los puntos más importante al momento de implementar un algoritmo de agrupamiento es la medida de similitud entre los puntos, en este caso los puntos representan las cadenas de caracteres y se debe buscar una medida de similitud que logre una buena calidad. Una buena calidad en la medida de similitud  es lograr representar las cadenas de caracteres similares con una distancia pequeña y las cadenas de caracteres que no son similares en distancias mayores.
+Unos de los puntos más importante al momento de implementar un algoritmo de agrupamiento es la medida de similitud entre los puntos, en este caso los puntos representan las cadenas de caracteres y se debe buscar una medida de similitud que logre una buena calidad, esto significa que se puedan representar las cadenas de caracteres similares con una distancia pequeña y las cadenas de caracteres que no son similares en distancias mayores.
 
 
 Existen varios métodos para calcular la similitud entre una cadena de caracteres y otra como por ejemplo: 
 
 
 \begin{itemize}
-  \item Distancia de Edición: Se tiene dos cadenas de caracteres \(A\) y \(B\).La distancia de edición es la cantidad mínima de insertar, sustituir o eliminar necesarios para transformar \(A\)  en \(B\). Con distancia de edición se logra una buena calidad en la similitud, pero presenta una desventaja: el algoritmo de edición de distancia requiere de tiempo  de $O(n \times m)$, donde $n$ y $m$  son el largo de ambas secuencias de strings. Por ejemplo para las cadenas ``abracadabra'' y ``alabaralabarda'', se necesitan 7 operaciones. La formula~\ref{eqeditdist} calcula la distancia de edición $d_{mn}$~\cite{distedicion}:
+  \item Distancia de Edición: Se tiene dos cadenas de caracteres \(A\) y \(B\).La distancia de edición es la cantidad mínima de insertar, sustituir o eliminar necesarios para transformar \(A\)  en \(B\). Con distancia de edición se logra una buena calidad en la similitud, pero presenta una desventaja: el algoritmo de edición de distancia requiere de tiempo  de $O(n \times m)$, donde $n$ y $m$  son el largo de ambas secuencias de strings. Por ejemplo para las cadenas ``abracadabra'' y ``alabaralabarda'', se necesitan 7 operaciones. La fórmula~\ref{eqeditdist} calcula la distancia de edición $d_{mn}$~\cite{distedicion}:
   
    \begin{equation}
   \begin{aligned}d_{i0} &= \sum_{k=1}^{i} w_\mathrm{del}(b_{k}), & & \quad  \text{for}\; 1 \leq i \leq m \\
@@ -87,15 +87,15 @@ donde $a = a_1\ldots a_n$ y $b = b_1\ldots b_m$ .
   
   
   
-  \item Jaccard: Es una medida de similitud que está definido por el tamaño de la intersección de dos secuencias divido por el tamaño de la unión de ambas secuencias, un ejemplo en la medida de similitud entre las secuencias  ``night'' y ``nacht'' es de 0.3. Se tiene el conjunto S y T la formula para determinar el similitud jaccard es ~\ref{eq01}
+  \item Jaccard: Es una medida de similitud que está definida por el tamaño de la intersección de dos secuencias divido por el tamaño de la unión de ambas secuencias, un ejemplo en la medida de similitud entre las secuencias  ``night'' y ``nacht'' es de 0.3. Se tiene el conjunto S y T la fórmula para determinar el similitud jaccard es ~\ref{eq01}
   
   \begin{equation}\label{eq01}
 	Jaccard = \frac{(S\cap T)}{(S\cup T)},
 \end{equation}
   
-  \item Distancia Hamming: Se tiene dos cadenas de caracteres de igual tamaño y se calcula cantidad de sustituciones necesarios para transformar una cadena de caracteres en otra.
+  \item Distancia Hamming: Se tiene dos cadenas de caracteres de igual tamaño y se calcula cantidad de sustituciones necesarias para transformar una cadena de caracteres en otra.
   Por ejemplo ``night'' y ``nacht'' se necesita 2 sustituciones. 
-  La formula de Distancia Hamming es \ref{eq234}
+  La fórmula de Distancia Hamming es \ref{eq234}
   \begin{equation}
   \begin{aligned}
 		D_{h}(s_{i},s_{j}) &=\sum_{k=1}^{m} \delta(s_{ik},s_{jk}) \\
@@ -117,20 +117,20 @@ Similitud = \frac{(d_{1+2} - d_{2})}{d_{1}},
 
 donde $d_{1}$ es el tamaño comprimido del documento más grande,$d_{2}$ es el tamaño comprimido del documento más pequeño, y $d_{1+2}$ es el tamaño comprimido de la unión de $d_{1}$ y $d_{2}$ sin comprimir.
 
-El valor de la variable $d_{1+2}$ va a depende de la similitud de las cadenas de caracteres comprimidas, si las cadens de caracteres tienen un grado de similitud la compresión será mucho más efectiva ya que se necesita un diccionario mucho menor para comprimir, al contrario ocurre cuando las cadenas de caracteres son muy distintas entre sí.
+El valor de la variable $d_{1+2}$ va a depender de la similitud de las cadenas de caracteres comprimidas. Si las cadenas de caracteres tienen un grado de similitud la compresión será mucho más efectiva, ya que se necesita un diccionario mucho menor para comprimir, al contrario ocurre cuando las cadenas de caracteres son muy distintas entre sí.
 
 Entre más pequeño el valor de la variable $Similitud$, significa que ambas cadenas de caracteres son muy similares, y entre más grande los valores significa que las cadenas de caracteres son diferentes. En comparación con la distancia edición está obtiene una buena calidad de similitud, pero el tiempo de ejecución es lineal. Mejorando el tiempo $O(n\times m)$ de la distancia de edición. Esto hace una buena opción al momento de seleccionar una medida de similitud para grandes colecciones de datos. Esta medida de similitud como entrega solamente un valor $R^{n}$ es de una sola dimensión.
 
-Por ejemplo, si se utiliza el compresor LZ78~\cite{profe} en la secuencia $S_{1}$ = \textit{`abracadabra'}, $S_{2}$ = \textit{`abracadadah'} y la suma $S_{1+2}$=\textit{`abracadabraabracadadah'}, al aplicar la formula \ref{eq1} se obtiene el valor 0,71.
+Por ejemplo, si se utiliza el compresor LZ78~\cite{profe} en la secuencia $S_{1}$ = \textit{`abracadabra'}, $S_{2}$ = \textit{`abracadadah'} y la suma $S_{1+2}$=\textit{`abracadabraabracadadah'}, al aplicar la fórmula \ref{eq1} se obtiene el valor 0,71.
 
-Ahora si cambiamos la segunda secuencia a $S_{3}$= 'casasyperro', la cual no tiene similitud con la primera secuencia, se obtiene el valor 0.77. De esta forma se observa que con menor similitud entre los strings, mayor es el valor, entonces al tener strings que son similares el valor se acerca al 0 .
+Ahora si cambiamos la segunda secuencia a $S_{3}$= 'casasyperro', la cual no tiene similitud con la primera secuencia, se obtiene el valor 0.77. De esta forma se observa que con menor similitud entre los strings, mayor es el valor, entonces al tener strings que son similares el valor se acerca al 0.
 
 
 \section{Metodos de compresión de datos }\label{Metodos de compresión de datos}
 
 La compresión de datos es la reducción del volumen de datos. Existe dos tipos de compresores: la compresión sin pérdida y la compresión con pérdida.
 
-En nuestro caso estudiaremos el caso particular LZ78~\cite{profe2}, LZ78 es un compresor sin pérdida basado en diccionario, es un algoritmo greedy adaptativo. En el diccionario guarda un índice y un carácter, el índice entrega la posición de su  prefijo de una secuencia y el carácter es el último carácter de la subcadena. El algoritmo empieza recorriendo la cadena de texto desde el principio, carácter por carácter, revisa si el carácter nuevo ya se encuentra en el diccionario o si pertenece a una subcadena del diccionario, si ya se encuentra sigue con el siguiente carácter, en caso de que no se encuentra, ingresa al diccionario ese nuevo carácter seguido con el índice de su prefijo.
+En nuestro caso estudiaremos el caso particular LZ78~\cite{profe2}, el cual es un compresor sin pérdida basado en diccionario. Es un algoritmo greedy adaptativo. En el diccionario guarda un índice y un carácter, el índice entrega la posición de su  prefijo de una secuencia y el carácter es el último de la subcadena. El algoritmo empieza recorriendo la cadena de texto desde el principio, carácter por carácter, revisa si el carácter nuevo ya se encuentra en el diccionario o si pertenece a una subcadena del diccionario, si ya se encuentra sigue con el siguiente carácter, en caso de que no se encuentre, ingresa al diccionario ese nuevo carácter seguido con el índice de su prefijo.
 
 Por ejemplo, se tiene la cadena de texto S= ``abracadabra'', el resultado de la compresión con LZ78 se muestra en la tabla\ref{clz78}.
 

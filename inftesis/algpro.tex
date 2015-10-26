@@ -22,11 +22,11 @@ El algoritmo de agrupación implementado para la distribución de las cadenas de c
 A continuación se muestra las etapas que sigue el algoritmo implementado:
 
 \begin{enumerate}
-  \item El algoritmo empieza con la selección de un algoritmo de agrupamiento jerárquico aglomerativo o diviso, ambas opciones son válidas, en nuestro caso se elige el aglomerativo. Luego, se obtiene una muestra pequeña de la colección de datos, en lo posible la muestra debe ser lo suficientemente representativo de la colección de datos. Después se calcula la medida de similitud con cada una de las cadenas de caracteres de la muestra utilizando una medida de distancia para cadenas de caracteres, ver ~\ref{Medida de similitud}.
+  \item El algoritmo empieza con la selección de un algoritmo de agrupamiento jerárquico aglomerativo o diviso, ambas opciones son válidas, en nuestro caso se elige el aglomerativo. Luego, se obtiene una muestra pequeña de la colección de datos, en lo posible la muestra debe ser lo suficientemente representativo de la colección de datos. Después se calcula la distancia utilizando alguna medida de distancia para cadenas de caracteres entre todas las muestra, ver ~\ref{Medida de similitud}. Si las muestras se mantienen el algoritmo es determinista, es decir, siempre entregara los mismos resultados lo que implica una ventaja ya que puede replicarse en varias maquinas manteniendo.
   
- \item  Con la medida de similitud de toda la muestra se  ejecuta el algoritmo de agrupamiento aglomérativo hasta obtener los grupos deseaos. Por último se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en nuestro caso los puntos representativos son todos los puntos del grupo.
+ \item  Con las distancias de todas las muestras se  ejecuta el algoritmo de agrupamiento aglomérativo hasta obtener los grupos deseaos. Por último se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en nuestro caso los puntos representativos son todos los puntos del grupo.
 
-  \item Ya con los grupos construidos, se asigna cada cadena de caracteres de la colección de datos al grupo que tenga el punto representativo  con la mejor medida de similitud. Uno de los objetivos de la memoria es el balance en términos de la carga de almacenamiento de los grupos, para esto la cadena de caracteres antes de ser asignado al grupo, se comprueba que~\ref{eq3123}
+  \item Ya con los grupos construidos, se asigna cada cadena de caracteres de la colección de datos al grupo que tenga el punto representativo  con la mejor medida de distancia. Uno de los objetivos de la memoria es el balance en términos de la carga de almacenamiento de los grupos, para esto la cadena de caracteres antes de ser asignado al grupo, se comprueba que~\ref{eq3123}
 
 \begin{equation}
 \begin{aligned}
@@ -36,12 +36,12 @@ A continuación se muestra las etapas que sigue el algoritmo implementado:
 
 donde $Grupo_{i}$ es el tamaño en disco del grupo más cercano a la cadena de caracteres seleccionada, $C$ es el tamaño en disco de la Colección de cadenas de caracteres, $k$ es el número de grupos.
 
-Con esto al momento de asignar una cadena de caracteres a un grupo, se busca generar un balance en cada grupo, si el $Grupo_{i}$ es mayor, entonces se comprueba el siguiente grupo más cercano a la cadena de caracteres seleccionada, hasta encontrar un grupo que sea menor. Si bien se genera un balance en el espacio de memoria la comprobación se realiza antes de la compresión y puede ocurrir que al momento de la compresión no asegura un balance significativo en todas las agrupaciones.
+Con esto al momento de asignar una cadena de caracteres a un grupo, se busca generar un balance en cada grupo, si el $Grupo_{i}$ es mayor, entonces se comprueba el siguiente grupo más cercano a la cadena de caracteres seleccionada, hasta encontrar un grupo que sea menor. Si bien se genera un balance en el espacio de memoria la comprobación se realiza antes de la compresión y puede ocurrir que al momento de la compresión no asegura un balance en todas las agrupaciones.
 
 \end{enumerate}
 
 
-A continuación se observa los pseucodigo del algoritmo implementado, el algoritmo~\ref{similitud} muestra la función similitud que representa el resultado de la medida de similitud entre dos cadenas de caracteres y el algoritmo~\ref{alg1} muestra el algoritmo de agrupamiento propuesto en la memoria.
+A continuación se observa los pseucodigo del algoritmo implementado, el algoritmo~\ref{similitud} muestra la función distancia que representa el resultado de la medida de distancia entre dos cadenas de caracteres y el algoritmo~\ref{alg1} muestra el algoritmo de agrupamiento propuesto en la memoria.
 
 \begin{algorithm}
 \begin{algorithmic}[1]
@@ -53,7 +53,7 @@ A continuación se observa los pseucodigo del algoritmo implementado, el algoritm
 \RETURN $size(s12)-size(s2)/size(s1)$
 
 \end{algorithmic}
-\caption{Funcion SIMILITUD}\label{similitud}
+\caption{Funcion DISTANCIA}\label{similitud}
 \end{algorithm}
 
 
@@ -67,7 +67,7 @@ A continuación se observa los pseucodigo del algoritmo implementado, el algoritm
 \STATE $S \leftarrow \langle\ \rangle$
 \FOR{\textbf{each} s1 in $Sampling$}
 \FOR{\textbf{each} s2 in $Sampling$} 
-			\STATE $S \cup  (SIMILITUD(Sampling[s1],Sampling[s2]) , s1 ,s2)$
+			\STATE $S \cup  (DISTANCIA(Sampling[s1],Sampling[s2]) , s1 ,s2)$
 		\ENDFOR
 \ENDFOR
 
@@ -80,10 +80,10 @@ A continuación se observa los pseucodigo del algoritmo implementado, el algoritm
 
 \STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tamaño $C$}
 \FOR{\textbf{each} $d$ in $Collection$}
-\STATE $i = 0$
+\STATE $i = 1$
 \FOR{$s=0$ to $n$}
-	\IF{$SIMILITUD(Sampling[s],d) > i$}
-		\STATE $i = SIMILITUD(Sampling[s],d)$
+	\IF{$DISTANCIA(Sampling[s],d) < i$}
+		\STATE $i = DISTANCIA(Sampling[s],d)$
 	\ENDIF
 \ENDFOR
 \STATE $Grupo[i] \cup d$
@@ -94,54 +94,94 @@ A continuación se observa los pseucodigo del algoritmo implementado, el algoritm
 \end{algorithm}
 
 
-\newpage
+\section{Mejoras del Algoritmo de agrupamiento implementado}\label{ Mejoras del Algoritmo de agrupamiento implementado}
+
+\subsection{Paralelización}
+
+Al aumentar la muestra el tiempo de ejecución crece $\frac{n^3}{2}$, donde $n$ es la cantidad de documentos. Cómo el objetivo de la memoria esta orientado para el manejo de datos de gran volumen es importante que el algoritmo propuesto pueda ejecutarse en tiempos razonables. La mayor parte del tiempo de ejecución del algoritmo propuesto se utiliza para calcular las distancias entre las cadenas de caracteres.
+
+Una de las ventaja del algoritmo de agrupamiento implementado permite la paralelización, es decir, ejecutar varios procesos paralelos donde se consumen el mayor tiempo de ejecución. Esto ocurre cuando se calculan las distancias entre las muestras para generar los grupos iniciales y al calcular las distancias entre los documentos que seran asignados con las muestras. En el algoritmo \ref{alg4} muestra las modificaciones necesarias para poder implementar el algoritmo con paralelizacion.
+
+\begin{algorithm}
+\begin{algorithmic}[1]
+\REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra obtenida de la colección, donde $n$ es la cantidad de cadenas de caracteres.}
+\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colección de datos, donde $k$ es numero de cadenas de caracteres.}
+\REQUIRE $C$ \COMMENT{Número de grupos deseados.}
+\STATE $S \leftarrow \langle\ \rangle$
+
+	\STATE $S \cup PARALELIZAR( (DISTANCIA(Sampling[s1],Sampling[s2]) , s1 ,s2), num_procesos )$
+
+\STATE Sort($S$)
+\STATE $i = 0$
+\WHILE {$Sampling$ > $C$}
+	\STATE $ Sampling[S[i][1]] \cup Sampling[S[i][2]]$
+	\STATE $i = i +1$
+\ENDWHILE
+
+\STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tamaño $C$}
+\STATE $PARALELIZAR \{$
+\STATE $i = 0$
+\FOR{$s=0$ to $n$}
+	\IF{$DISTANCIA(Sampling[s],d) > i$}
+		\STATE $i = DISTANCIA(Sampling[s],d)$
+	\ENDIF
+\ENDFOR
+\STATE $Grupo[i] \cup d$
+\STATE $\}$
+
+\end{algorithmic}
+\caption{Algoritmo de agrupamiento propuesto Paralelizacion}\label{alg4} 
+\end{algorithm}
+
+La mejora en los timpos de ejecución esta directamente relacionados con cuantos procesos se quiere ejecutar, los procesos que se deben ejecutar deben ser menor o igual a la cantidad de procesadores que cuenta la maquina donde se ejecutara el algoritmo. El tiempo de ejecución se divide por cada proceso adicional.
+
+Otra manera para mejorar el tiempo de ejecución es seleccionando algunas cadenas de caracteres como puntos representativos, pero se debe buscar el modo que los puntos representativos realmente representen todos las cadenas de caracteres del grupo, en el caso del espacio euclidiano es facil de lograr pero para cadenas de caracteres es muy dificil ya que no asegura que representen todas las cadenas. Podria pasar el caso de que todas las cadenas de caracteres esten muy alejadas entre ellas lo cual significa que todos deberian ser puntos representativos, por eso el algoritmo propuesto asegura todos las cadenas de caracteres del grupo como puntos representativos sacrificando tiempo de ejecución.
+
+\subsection{Estrategia Greedy}
+
+Una posible mejora que se puede emplear al algoritmo de agrupamiento propuesto es al problema que se genera cuando se asignan los documentos a un grupo con la restricción de un maximo de documentos asignados a cada grupo, utilizado para balancear la carga de estos. El algoritmo selecciona un documento y se asigna a un grupo sin tomar en cuenta los documentos que seran asignados posteriormente, en consecuencia el documento asignado a un grupo podria no ser la mejor opción frente a un posible candidato con una mejor distancia para ese mismo grupo.
+
+Para poder solucionar este problema se puede utilizar la estrategia greedy, lo que significa que siempre toma la mejor opción local para lograr la mejor solución, aunque no implica que siempre llega a la mejor solución. La mejora se implemento ocupando una cola de prioridad basado en la distancias de cada documento a todos los grupos, luego se asignan los documentos en orden que la cola de prioridad entrega.
+
+En el algoritmo \ref{alg5} muestras las modificaciones necesarias para poder implementar esta mejora.
+
+%------------------------------------%
+
+\begin{algorithm}
+\begin{algorithmic}[1]
+\REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra obtenida de la colección, donde $n$ es la cantidad de cadenas de caracteres.}
+\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colección de datos, donde $k$ es numero de cadenas de caracteres.}
+\REQUIRE $C$ \COMMENT{Número de grupos deseados.}
+\STATE $S \leftarrow \langle\ \rangle$
+\FOR{\textbf{each} s1 in $Sampling$}
+\FOR{\textbf{each} s2 in $Sampling$} 
+			\STATE $S \cup  (DISTANCIA(Sampling[s1],Sampling[s2]) , s1 ,s2)$
+		\ENDFOR
+\ENDFOR
+
+\STATE Sort($S$)
+\STATE $i = 0$
+\WHILE {$Sampling$ > $C$}
+	\STATE $ Sampling[S[i][1]] \cup Sampling[S[i][2]]$
+	\STATE $i = i +1$
+\ENDWHILE
 
 
 
-\section{Pruebas Iniciales}\label{Pruebas Iniciales}
+\STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tamaño $C$}
+\STATE $Cola_prioridad \leftarrow \langle\ \rangle$ 
 
-Las pruebas se realizaron comparando dos tipos de algoritmos de agrupamiento:
+\FOR{\textbf{each} $d$ in $Collection$}
+\FOR{$s=0$ to $n$}
+	\STATE $Cola_prioridad.add(DISTANCIA(Sampling[s],d),d,s)$	
+\ENDFOR
+\ENDFOR
 
-\begin{itemize}
-  \item Algoritmo de agrupamiento propuesto
-  \item Algoritmo de agrupamiento random
-\end{itemize}
+\WHILE {$Cola_prioridad$}
+	\STATE $i = Cola_prioridad.pop()$
+	\STATE $Grupo[i[2]] \cup i$
+\ENDWHILE
 
-El algoritmo de agrupamiento random crea $n$ grupos y asigna de manera uniforme y distribuido aleatoriamente cada cadena de caracteres a un grupo, a diferencia del algoritmo propuesto anteriormente que es determinista. También  mantiene el balance de espacio en memoria en cada Grupo. 
-
-Con ambos algoritmos se pretende demostrar que realizando los agrupamientos de manera inteligente se pueda obtener mejores resultados en términos de compresión que agrupándolos aleatoriamente y mantener cierto balance en cada agrupación.
-
-En el algoritmo de agrupamiento propuesto existen distintas variables que pueden determinar un buen agrupamiento de la colección tales como:
-
-
-\begin{itemize}
-  \item Cantidad de Grupos: es difícil determinar la cantidad exacta de grupos que se necesita, en nuestro caso es el número de máquinas.
-  \item Tamaño de la muestra: si la muestra es muy pequeña, es muy probable que no represente todos los tipos de grupos que se encuentra en la colección.
-  \item Medida de similitud: En la función implementada para medir la similitud permite cambiar el método de comprimir, en este caso se utiliza ZIP. También la librería de ZIP utilizada permite determinar el nivel de compresión  de una cadena de caracteres, cambiando los valores en la medida de similitud.
-  
-
-\end{itemize}
-
-Las pruebas se realizaron en una colección versión en español de  Wikipedia, las muestras se tomaron de manera uniformemente al azar, en UTF-8. Para cada documento seleccionado se obtiene todas sus versiones.  Esto fue hecho usando la libreria go-wikiparse y limpiado con Tika para obtener sólo el texto de los artículos. Se concatena todos los documentos en uno sólo y se divide por bloques. 
-
-\begin{table}[H]
-\begin{center}
-\resizebox{15cm}{!} {
-
-\begin{tabular}{|p{3cm}|p{3cm}||p{3cm}||p{3cm}||p{3cm}|}
-
-\hline
-Colecciones & Tamaño Total (GiB)  & Entropia(bits)  & Nº Documentos  & Tamaño documento (MiB) \\
-\hline
-Wiki-ES  & 16.384  & 5.0831497879 & 16384 & 1 \\
-\hline
-Wiki-EN  & -  & - & - & - \\
-\hline
-\end{tabular}
-}
-\end{center}
-\caption{Colecciones.}
-
-\label{Colecciones}
-
-\end{table}	
+\end{algorithmic}
+\caption{Algoritmo de agrupamiento propuesto Estrategia Greedy }\label{alg5} 
+\end{algorithm}

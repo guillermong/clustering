@@ -27,17 +27,17 @@ print data"""
 
 #os.rename(str(sys.argv[1])+str(2),sys.argv[2]+str(0)+"/"+str(2))
 #os.system('ls')
-"""f = open("1mdoc1")
+f = open("3")
 t1=f.read()
-f = open("1mdoc2")
+f = open("3")
 t2=f.read()
 #print editdist.distance(t1,t2)
 #print os.stat("doc1").st_size 
 #print os.stat("doc2").st_size 
 
-compressed1 = zlib.compress(t1,1)
-compressed2 = zlib.compress(t2,1)
-compressed12 = zlib.compress(t1+t2,1)
+compressed1 = zlib.compress(t1,9)
+compressed2 = zlib.compress(t2,9)
+compressed12 = zlib.compress(t1+t2,9)
 
 
 
@@ -54,12 +54,14 @@ if len(compressed1) > len(compressed2):
 else:
         n = (len(compressed12) - len (compressed1)) / float(len(compressed2))
 print "otra formula:" 
-print n"""
+print n
+
+"""
 import glob
 import os,sys
 import random
 import distance
-
+"""
 
 """ argv[1]= carpeta de documentos
 	argv[2]= n clusters
@@ -80,7 +82,7 @@ todo="111111111111"
 todo+="2222222222"
 print todo
 """
-
+"""
 from heapq import heapify, heappush, heappop
 
 h = []
@@ -113,6 +115,9 @@ if "542" in dic:
 	print "yes"
 else:
 	print "no"
+
+
+"""
 
 
 

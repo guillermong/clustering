@@ -14,22 +14,28 @@
 
 
 
-
-
 #!/usr/bin/python
 
-""" argv[1]= carpeta de documetnos para generar clusters
+""" argv[1]= carpeta de documetnos para generar clusters(sampling)
 	argv[2]= Numero de clusters deseado
 	argv[3]= carpeta guardar clusters
 	argv[4]= carpeta de documentos
 	argv[5]= max cluster size
 	argv[6]= calidad distancia documento 0-9
+	argv[7]= Numero de core
+	argv[8]= carpeta de resultados comprimidos
 """
 import os, sys ,getopt
 import editdist
 import shutil
 import distance
 import zlib
+from multiprocessing import Pool
+from datetime import datetime
+from heapq import heapify, heappush, heappop
+
+data=[] 
+combinaciones=[]
 
 
 def get_size(start_path = '.'):
@@ -42,49 +48,67 @@ def get_size(start_path = '.'):
 
 def comprimir( ):
 	for i in os.listdir(str(sys.argv[3])):
-		os.system('7z a '+i+'.7z '+str(sys.argv[3])+i+'/')
+		os.system('7z a ' +str(sys.argv[8])+i+'.7z '+str(sys.argv[3])+i+'/')
+		
 	
 def distancia_zip(s1, s2, nivel=6):
 	compressed1 = zlib.compress(s1,nivel)
 	compressed2 = zlib.compress(s2,nivel)
 	compressed12 = zlib.compress(s1+s2,nivel)
-	#c1=float(len(compressed1))
-	#c2=float(len(compressed2))
-	#c12=float(len(compressed12))
-	#return float(c12/(c2+c1))
 	if len(compressed1) > len(compressed2):
 		n = (len(compressed12) - len(compressed2)) / float(len(compressed1))
 	else:
 		n = (len(compressed12) - len (compressed1)) / float(len(compressed2))	
 	return n
 
-		
+def listadistancia(comb):
+	k=combinaciones[comb][0]
+	j=combinaciones[comb][1]
+	comp=distancia_zip(data[k][0],data[j][0],int(sys.argv[6]))
+	print "t1:"+str(k)+" contra t2:"+str(j)+"="+str(comp)
+	return [comp,data[k][0],data[j][0]]		
+	
+def asignar_documento(document):
+	test2=[]
+	f = open(str(sys.argv[4])+str(document))		
+	texto=f.read()
+	doc_z = len(texto)
+	for j in data:
+		for k in range(len(j)):
+			#comp=editdist.distance(j[k],texto)
+			#comp=distance.hamming(j[k],texto)	
+			comp=distancia_zip(j[k],texto,int(sys.argv[6]))	
+			test2.append([comp,data.index(j)])	          
+	test2.sort()
+	f.close()
+	return [str(document),test2,doc_z]	
+
     
 if __name__ == "__main__":
 	
 	#numero de clusters
 	clusters = int(sys.argv[2])
-	#doculmentos para generar los clusters
-	data=[]  
+	#num cores
+	numprocesos=int(sys.argv[7])
+	
 	#guardar bloque de datos 
 	for document in os.listdir(str(sys.argv[1])):
 		f = open(str(sys.argv[1])+str(document))
 		data.append([f.read()])
 		f.close()
 
-
-	#lista documentos ordenados por sus distancias 
-	test=[]
 	print "sampling cargado, buscando las distancias minimas..."
+	
 	for k in range(len(data)):
 			for j in range(k+1,len(data)):
-				comp=distancia_zip(data[k][0],data[j][0],int(sys.argv[6]))
-				print "t1:"+str(k)+" contra t2:"+str(j)+"="+str(comp)
-				test.append([comp,data[k][0],data[j][0]])          
+				combinaciones.append((k,j))
+	pool = Pool(processes=numprocesos)
+	test = pool.map(listadistancia, range(len(combinaciones)), len(combinaciones)/numprocesos)
+	pool.close()
+	pool.join()
+
 	test.sort()
-	
 	print len(test)	
-		
 		
 	print "creando clusters"
 	i=0
@@ -132,37 +156,48 @@ if __name__ == "__main__":
 		os.mkdir( sys.argv[3]+str(t));
 		clust_size.append(0)
 
-	div=get_size(str(sys.argv[4]))/len(data)
 		
 	i=0
 	
 	print "Asignando documentos a los clusters"
-	for document in os.listdir(str(sys.argv[4])):		
-		test2=[]
-		f = open(str(sys.argv[4])+str(document))		
-		texto=f.read()
-		doc_z = len(texto)
-		for j in data:
-			for k in range(len(j)):
-				#comp=editdist.distance(j[k],texto)
-				#comp=distance.hamming(j[k],texto)	
-				comp=distancia_zip(j[k],texto,int(sys.argv[6]))	
-				test2.append([comp,data.index(j)])	          
-		test2.sort()
-		
-		for s in test2:
-			if clust_size[s[1]] < div:
-				shutil.copyfile(str(sys.argv[4])+str(document), sys.argv[3]+str(s[1])+'/'+str(document))
-				clust_size[s[1]]+=doc_z
-				break
-		f.close()
 	
-	for s in clust_size:
-		print s
+	pool2 = Pool(processes=numprocesos)
+	todo=pool2.map(asignar_documento, os.listdir(str(sys.argv[4])), len(combinaciones)/numprocesos)
+	pool2.close()
+	pool2.join()
 	
+	# [ str(document),test2,doc_z ] -> nombre_documenot, lista_distancias, tamano_documento
+	# lista_distancia -> [distancia , numero_clustguillermo99er]
+	
+	
+	div=get_size(str(sys.argv[4]))/len(data)
+	cola_prioridad=[]
+	diccionario={}
+	
+	for t in todo:
+		for s in t[1]:
+			heappush(cola_prioridad, [s[0],t[0],s[1],t[2]])	
+			#s[0] -> distancia	t[0]-> nombre_documento s[1]->numero_cluster t[2] ->tamano_documento
+	
+	while len(cola_prioridad):
+		archivo=heappop(cola_prioridad)
+		print archivo
+		if archivo[1] in diccionario:
+			continue
+		else:
+			if clust_size[archivo[2]] < div:
+				shutil.copyfile(str(sys.argv[4])+archivo[1], sys.argv[3]+str(archivo[2])+'/'+archivo[1])
+				clust_size[archivo[2]]+=archivo[3]
+				diccionario[archivo[1]]=archivo[2]
+			else:
+				continue
+			
 	comprimir()	
 	
 	
+
+
+
 
 \end{python}
 %\end{minted}

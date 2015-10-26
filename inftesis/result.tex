@@ -1,17 +1,69 @@
-\chapter[Resultados preliminares ]{Resultados }\label{ch:capitulo2}
+\chapter[Experimentación]{Experimentación}\label{ch:capitulo2}
 
 
-En las pruebas se tomó una muestra no superior a 30 documentos ya que al aumentar la muestra el tiempo de ejecución crece $\frac{n^3}{2}$, donde $n$ es la cantidad de documentos. La muestra se obtuvo aleatoriamente de la colección de documentos, como la muestra es insignificante en comparación al tamaño de la muestra es muy probable que ningún documentos perteneciera a un documento de la misma versión. Este problema origina que la mayoría de los documentos pertenezca a un solo grupo y el resto solamente es representado por un documento. También cabe mencionar que la elección de la cantidad de agrupaciones es arbitraria, pero la cantidad de agrupaciones es una variable importante al momento de obtener buenos resultados en las agrupaciones, en este caso las pruebas se realizaron con un número fijo de agrupaciones para observar el comportamientos de otras variables que afectan a las agrupaciones.
+\section{Diseño}\label{Diseño}
 
-En la tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 Grupos.}  muestra los resultados  de cada método con una cantidad de 10 agrupaciones. El \textit{Método 1}  utiliza el algoritmo de agrupación aleatoria, se tiene que en cada grupo se mantiene una carga de almacenamiento balanceada que es uno de los objetivos deseados en la memoria. En los métodos siguientes se utiliza el algoritmo de agrupación propuesto pero modificando algunas variables para observar su comportamiento.
+Las pruebas se realizaron comparando dos tipos de algoritmos de agrupamiento:
 
-Para el caso del \textit{Método 2}  se observa una mejora de la compresión equivalente al  45\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio, aquí la muestra es de 30 documentos. En términos de balance en la carga de almacenamiento que se representa en el $Error$ de la tabla~\ref{distribucion}, este método es ineficiente ya que la mayor parte de la carga se concentra solamente en un grupo. Esto se debe a que en el momento de crear los grupos con las muestras, la mayor parte de las muestra quedan solamente en un grupo dejando a las demás con pocas muestras de representación.
+\begin{itemize}
+  \item Algoritmo de agrupamiento propuesto
+  \item Algoritmo de agrupamiento random
+\end{itemize}
 
-En el \textit{Método 3} puede apreciar que existe un balance en la cantidad de muestras en cada agrupación. Para esto, cada grupo no tendrá una muestra de documentos superior a 3 en un universo de 30 documentos. Con esto se busca balancear la cantidad de documentos en cada agrupación.
+El algoritmo de agrupamiento random crea $n$ grupos y asigna de manera uniforme y distribuido aleatoriamente cada cadena de caracteres a un grupo, a diferencia del algoritmo propuesto que luego de obtener las muestras es determinista. También  mantiene el balance de espacio en memoria en cada Grupo. 
+
+Con ambos algoritmos se pretende demostrar que realizando los agrupamientos de manera inteligente se pueda obtener mejores resultados en términos de compresión que agrupándolos aleatoriamente y mantener cierto balance en cada agrupación.
+
+En el algoritmo de agrupamiento propuesto existen distintas variables que pueden determinar un buen agrupamiento de la colección tales como:
+
+
+\begin{itemize}
+  \item Cantidad de Grupos: es difícil determinar la cantidad exacta de grupos que se necesita para lograr la mejor compresión, en nuestro caso el número representa la cantidad de máquinas disponibles.
+  \item Tamaño de la muestra: si la muestra es muy pequeña, es muy probable que no represente todos los tipos de grupos que se encuentra en la colección y si la muestra es muy grande el tiempo de ejecución crece.
+  \item Medida de distancia: En la función implementada para medir la distancia permite cambiar el método de comprimir, en este caso se utiliza ZIP. También la librería de ZIP utilizada permite determinar el nivel de compresión  de una cadena de caracteres, cambiando los valores en la medida de distancia, entre mayor sea el nivel de la compresion se obtiene una mejor calidad de la distancia pero más lento poder calcularla.
+  
+
+\end{itemize}
+
+Las pruebas se realizaron en una colección versión en español de  Wikipedia, las muestras se tomaron de manera uniformemente al azar, en UTF-8. Para cada documento seleccionado se obtiene todas sus versiones.  Esto fue hecho usando la libreria go-wikiparse y limpiado con Tika para obtener sólo el texto de los artículos. Se concatena todos los documentos en uno sólo y se divide por bloques. 
+
+\begin{table}[H]
+\begin{center}
+\resizebox{15cm}{!} {
+
+\begin{tabular}{|p{3cm}|p{3cm}||p{3cm}||p{3cm}||p{3cm}|}
+
+\hline
+Colecciones & Tamaño Total (GiB)  & Entropia(bits)  & Nº Documentos  & Tamaño documento (MiB) \\
+\hline
+Wiki-ES  & 16.384  & 5.0831497879 & 16384 & 1 \\
+\hline
+Wiki-EN  & -  & - & - & - \\
+\hline
+\end{tabular}
+}
+\end{center}
+\caption{Colecciones.}
+
+\label{Colecciones}
+
+\end{table}	
+
+
+\section{Resultados}\label{Resultados}
+
+\subsection{Resultados iniciales}
+
+En las pruebas se tomó una muestra de 30 documentos y en esta primera etapa las pruebas se ejecutaron solamente una vez en cada caso, a excepcion del algoritmo de agrupamiento random que se ejecutaron diez veces. La muestra se obtuvo aleatoriamente de la colección de documentos mateniendose estas para todos los casos, como la muestra es insignificante en comparación al tamaño de la colección es muy probable que ningún documentos pertenezca a un documento de la misma versión. Este problema origina que la mayoría de los documentos pertenezca a un solo grupo y el resto solamente es representado por un documento, porque si un grupo crece es muy probable que al intentar unir dos grupos, el grupo más grande se una a otro grupo. También cabe mencionar que la elección de la cantidad de agrupaciones es arbitraria, pero la cantidad de agrupaciones es una variable importante al momento de obtener buenos resultados en las agrupaciones, en este caso las pruebas se realizaron con un número fijo de agrupaciones para observar el comportamientos de otras variables que afectan a las agrupaciones.
+
+En la tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 Grupos.}  muestra los resultados  de cada método con una cantidad de 10 agrupaciones. El \textit{Método 1}  utiliza el algoritmo de agrupación aleatoria, se tiene que en cada grupo comprimido y no comprimido se mantiene una carga de almacenamiento balanceada que es uno de los objetivos deseados en la memoria. En los métodos siguientes se utiliza el algoritmo de agrupación propuesto pero modificando algunas variables para observar su comportamiento.
+
+Para el caso del \textit{Método 2}  se observa una mejora de la compresión equivalente al  45\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio, aquí la muestra es de 30 documentos. En términos de balance en la carga de almacenamiento que se representa en el $Error$ de la tabla~\ref{distribucion}, este método es ineficiente ya que la mayor parte de la carga se concentra solamente en un grupo. Esto se debe en el momento de crear los grupos con las muestras, la mayor parte de las muestra quedan solamente en un grupo dejando a las demás con pocas muestras de representación.
+
+En el \textit{Método 3} se observa que existe un balance en la cantidad de muestras en cada agrupación. Para esto, cada grupo no tendrá una muestra superior a 3 en un universo de 30 documentos. Con esto se busca balancear la cantidad de documentos en cada agrupación.
 El resultado de la compresión utilizando el \textit{Método 3} es equivalente al 55\% del tamaño total del resultado con el método del algoritmo de agrupamiento aleatorio, que sigue siendo una mejor alternativa, pero comparando con los resultado del \textit{Método 2} se paga un costo al balancear las muestras en los grupos, de un 24\% más del tamaño total del resultado en el \textit{Método 2}.
 
-En el \textit{Método 4}, se hace la misma prueba que en el método anterior  pero se agrega la condición de que el tamaño de los grupos no supere un límite. El límite en este caso es el tamaño de la colección de datos divido por la cantidad de agrupaciones, con esta medida se asegura que en todos los grupos tengan aproximadamente la misma cantidad de cadenas de caracteres.  El resultado del \textit{Método 4} es el equivalente al 70\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio que sigue siendo una mejora, pero nuevamente pagando un costo, con respecto al \textit{Método 2} aumenta 55\% más de tamaño, incluso mayor que en el \textit{Método 3}, pero con mejores resultados en el balance de la carga de almacenamiento. 
-
+En el \textit{Método 4}, se hace la misma prueba que en el método anterior  pero se agrega la condición de que el tamaño de los grupos no supere un límite. El límite en este caso es el tamaño de la colección de datos divido por la cantidad de agrupaciones, con esta medida se asegura que en todos los grupos tengan aproximadamente la misma cantidad de cadenas de caracteres.  El resultado del \textit{Método 4} es el equivalente al 70\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio que sigue siendo una mejora, pero nuevamente pagando un costo, con respecto al \textit{Método 2} aumenta 55\% más de tamaño, incluso mayor que en el \textit{Método 3}, pero con mejores resultados en el balance de la carga de almacenamiento.
 
 %------------------------------------------------------%
 
@@ -25,7 +77,7 @@ En el \textit{Método 4}, se hace la misma prueba que en el método anterior  pero
 \hline
 Grupos & Método 1(KiB)  & Método 2(KiB)  & Método 3(KiB)  & Método 4(KiB) \\
 \hline
-Total  & 65.510 & 29.371 (45\%) & 36.036 (55\%) & 45.639 (70\%) \\
+Total  & 65.560 & 29.371 (45\%) & 36.036 (55\%) & 45.639 (70\%) \\
 \hline
 \end{tabular}
 }
@@ -46,15 +98,15 @@ Para determinar si la carga de almacenamiento en todos los grupos se encuentra b
   \end{aligned}\label{errorabs}
 	\end{equation}
 	
-donde $V_{verdadero}=\frac{\varrho}{k}$ con $\varrho$ el número de documentos en la Colección, $k$ es el número de grupos formados por el algoritmo de agrupamiento y $V_{i}$ la cantidad de documentos en un grupo. $\bar{T}$ representa el promedio de la carga de almacenamiento que ocupan los grupos. Por último, $\bar{S}$ es el promedio de la similitud entre los documentos de las muestras de un mismo grupo , y se define como~\ref{simi}: 
+donde $V_{verdadero}=\frac{\varrho}{k}$ con $\varrho$ el número de documentos en la Colección, $k$ es el número de grupos formados por el algoritmo de agrupamiento y $V_{i}$ la cantidad de documentos en un grupo. $\bar{T}$ representa el promedio de la carga de almacenamiento que ocupan los grupos. Por último, $\bar{S}$ es el promedio de la distancia entre los documentos de las muestras de un mismo grupo , y se define como~\ref{simi}: 
 
 \begin{equation}
   \begin{aligned}
-		\bar{S} &=\frac{1}{k}\sum_{i=1}^{k} Similitud(G_{i})\\
+		\bar{S} &=\frac{1}{k}\sum_{i=1}^{k} Distancia(G_{i})\\
   \end{aligned}\label{simi}
 \end{equation}
 
-donde  $Similitud(G_{i})$ es el promedio de la similitud entre los documentos del mismo grupos.
+donde  $Distancia(G_{i})$ es el promedio de la distancia entre los documentos del mismo grupos.
 
 \begin{table}[H]
 \begin{center}
@@ -84,3 +136,27 @@ Método 4 & 1.4 & 4563.9 & 0.994174  \\
 
 
 
+\subsection{Resultados Finales}
+
+En esta segunda etapa de la experimientación se ejecutó el algoritmo de agrupamiento propuesto con el objetivo de observar el comportamiento en varios aspectos: observar que tan eficiente es el algoritmo con las mejoras implementadas, ver \ref{Mejoras del Algoritmo de agrupamiento implementado}, comparandolos con el algoritmo propuesto inicial; observar que tan determinante es la elección de las muestras de manera aleatoria en el resultado de la compresión; por ultimo observar que ocurre cuando se aumentan las muestras.
+
+La cantidad de muestras que se utilizaron fueron de 10,20,30,40,50. Para los casos del algoritmo con las mejoras implementadas se ejecutaron pruebas con muestras de 10,30,50 y 100. En cada caso se ejecutaron 10 veces a excepción del caso con 100 muestras que se ejecutaron 5 veces.
+
+En el grafico \ref{fig:grafico1} muestra el total del tamaño en cada prueba realizada, del grafico se puede observa que aumentando las muestra mejoran los resultados de la compresión. Otro punto que se puede observar del grafico es como varian los resultados con el cambio de muestras, con esto se puede deducir que las muestras pueden influir en algun grado en el resultado de la compresión ......
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Figuras/grafico1}
+\caption{Legos.} \label{fig:grafico1}
+\end{figure}
+
+
+En el grafico ... es el promedio, el minimo y el maximo, aumentando las muestras bajan hasta un punto y luego se mantienen estable para los casos del algoritmo sin la mejora y para el caso de la mejora baja hasta que se intercepta. cabe recalcar que aumentado ya pierde el sentido de ejecutar ya que la mejora es insignificante en comparación con el tiempo de ejecucion para obtener esos resultados, obviamente esto depende de los requerimientos del usuario.
+
+\begin{figure}[htbp]
+\centering
+\subfigure[Sin Cola \label{fig:grafico2:a}]{\includegraphics[width=70mm]{./Figuras/grafico2}}\hspace{10mm}
+\subfigure[Con cola \label{fig:grafico2:b}]{\includegraphics[width=70mm]{./Figuras/grafico3}}\vspace{10mm}
+\caption{Legos.} \label{fig:grafico2}
+\end{figure}

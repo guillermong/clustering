@@ -7,25 +7,30 @@
 \contentsline {section}{\numberline {1.1}Antecedentes generales }{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}Conceptos B\'asicos }{2}{section.1.2}
 \contentsline {subsection}{\numberline {1.2.1}String o cadena de caracteres }{2}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Coleccion de documentos}{2}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.2}Colecci\'on de documentos}{2}{subsection.1.2.2}
 \contentsline {subsection}{\numberline {1.2.3}Entrop\IeC {\'\i }a de un texto}{3}{subsection.1.2.3}
 \contentsline {subsection}{\numberline {1.2.4}Punto}{3}{subsection.1.2.4}
 \contentsline {subsection}{\numberline {1.2.5}Medida de similitud}{3}{subsection.1.2.5}
 \contentsline {subsection}{\numberline {1.2.6}Agrupamiento}{3}{subsection.1.2.6}
 \contentsline {section}{\numberline {1.3}Objetivos }{4}{section.1.3}
 \contentsline {subsection}{\numberline {1.3.1}Objetivo espec\IeC {\'\i }ficos}{4}{subsection.1.3.1}
-\contentsline {section}{\numberline {1.4}Plan de trabajo }{4}{section.1.4}
-\contentsline {section}{\numberline {1.5}Metodolog\IeC {\'\i }a }{5}{section.1.5}
-\contentsline {chapter}{{Cap\'{i}tulo 2\ \ Estado del arte}}{7}{chapter.2}
-\contentsline {section}{\numberline {2.1}Algoritmo de agrupamiento }{7}{section.2.1}
-\contentsline {section}{\numberline {2.2}Medida de similiud para Cadenas de caracteres }{9}{section.2.2}
-\contentsline {section}{\numberline {2.3}Metodos de compresi\'on de datos }{12}{section.2.3}
-\contentsline {chapter}{{Cap\'{i}tulo 3\ \ Algoritmo de agrupamiento propuesto}}{13}{chapter.3}
-\contentsline {section}{\numberline {3.1}Proceso de agrupamiento}{13}{section.3.1}
-\contentsline {section}{\numberline {3.2}Algoritmo de agrupamiento implementado}{13}{section.3.2}
-\contentsline {section}{\numberline {3.3}Pruebas Iniciales}{16}{section.3.3}
-\contentsline {chapter}{{Cap\'{i}tulo 4\ \ Resultados preliminares }}{19}{chapter.4}
-\contentsline {chapter}{{Cap\'{i}tulo 5\ \ Trabajo futuro }}{23}{chapter.5}
-\contentsline {chapter}{Referencias bibliogr\'{a}ficas}{25}{chapter*.5}
-\contentsline {chapter}{{Anexo A\ \ CODIGO ALGORITMO DE AGRUPAMIENTO BASE}}{29}{appendix.Alph1}
-\contentsline {chapter}{{Anexo B\ \ CODIGO ALGORITMO DE AGRUPAMIENTO ALEATORIO}}{33}{appendix.Alph2}
+\contentsline {section}{\numberline {1.4}Metodolog\IeC {\'\i }a }{4}{section.1.4}
+\contentsline {chapter}{{Cap\'{i}tulo 2\ \ Estado del arte}}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Algoritmo de agrupamiento }{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Medida de similiud para Cadenas de caracteres }{7}{section.2.2}
+\contentsline {section}{\numberline {2.3}Metodos de compresi\'on de datos }{10}{section.2.3}
+\contentsline {chapter}{{Cap\'{i}tulo 3\ \ Algoritmo de agrupamiento propuesto}}{11}{chapter.3}
+\contentsline {section}{\numberline {3.1}Proceso de agrupamiento}{11}{section.3.1}
+\contentsline {section}{\numberline {3.2}Algoritmo de agrupamiento implementado}{11}{section.3.2}
+\contentsline {section}{\numberline {3.3}Mejoras del Algoritmo de agrupamiento implementado}{14}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Paralelizaci\'on}{14}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Estrategia Greedy}{14}{subsection.3.3.2}
+\contentsline {chapter}{{Cap\'{i}tulo 4\ \ Experimentaci\'on}}{17}{chapter.4}
+\contentsline {section}{\numberline {4.1}Dise\~no}{17}{section.4.1}
+\contentsline {section}{\numberline {4.2}Resultados}{18}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Resultados iniciales}{18}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Resultados Finales}{23}{subsection.4.2.2}
+\contentsline {chapter}{{Cap\'{i}tulo 5\ \ Conclusiones}}{25}{chapter.5}
+\contentsline {chapter}{Referencias bibliogr\'{a}ficas}{27}{chapter*.5}
+\contentsline {chapter}{{Anexo A\ \ CODIGO ALGORITMO DE AGRUPAMIENTO BASE}}{31}{appendix.Alph1}
+\contentsline {chapter}{{Anexo B\ \ CODIGO ALGORITMO DE AGRUPAMIENTO ALEATORIO}}{35}{appendix.Alph2}
