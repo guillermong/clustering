@@ -2,14 +2,14 @@
 
 \section{Proceso de agrupamiento}\label{Proceso de agrupamiento}
 
-El Proceso que se utilizo para agrupar una colección de datos se describe en los siguientes pasos:
+El Proceso que se utilizó para agrupar una colección de datos se describe en los siguientes pasos:
 
 \begin{enumerate}
   \item Primero se obtiene la colección de datos que puede ser cualquier cadena de caracteres, por ejemplo, secuencias de ADN o información de Wikipedia.
   
   \item Se elige un algoritmo de agrupamiento y se ejecuta sobre la colección. Cuando termina de ejecutar, la colección se encontrará repartida en diferentes directorios que representan los grupos formados por el algoritmo de agrupamiento.
 
-  \item Por ultimo, se comprime cada directorio utilizando algún método de compresión.
+  \item Por último, se comprime cada directorio utilizando algún método de compresión.
   
 \end{enumerate}
 
@@ -17,16 +17,16 @@ El Proceso que se utilizo para agrupar una colección de datos se describe en los
 \section{Algoritmo de agrupamiento implementado}\label{Algoritmo de agrupamiento implementado}
 
 
-El algoritmo de agrupación implementado para la distribución de las cadenas de caracteres es una variante del algoritmo cure~\ref{Algoritmo de agrupamiento1} que utiliza un algoritmo jerárquicos para formar los grupos iniciales.
+El algoritmo de agrupación implementado para la distribución de las cadenas de caracteres es una variante del algoritmo CURE~\ref{Algoritmo de agrupamiento1}, que utiliza un algoritmo jerárquicos para formar los grupos iniciales.
 
-A continuación se muestra las etapas que sigue el algoritmo implementado:
+A continuación se muestran las etapas que sigue el algoritmo implementado:
 
 \begin{enumerate}
-  \item El algoritmo empieza con la selección de un algoritmo de agrupamiento jerárquico aglomerativo o diviso, ambas opciones son válidas, en nuestro caso se elige el aglomerativo. Luego, se obtiene una muestra pequeña de la colección de datos, en lo posible la muestra debe ser lo suficientemente representativo de la colección de datos. Después se calcula la distancia utilizando alguna medida de distancia para cadenas de caracteres entre todas las muestra, ver ~\ref{Medida de similitud}. Si las muestras se mantienen el algoritmo es determinista, es decir, siempre entregara los mismos resultados lo que implica una ventaja ya que puede replicarse en varias maquinas manteniendo.
+  \item El algoritmo empieza con la selección de un algoritmo de agrupamiento jerárquico aglomerativo o diviso, ambas opciones son válidas, en este caso se elige el aglomerativo. Luego, se obtiene una muestra pequeña de la colección de datos, en lo posible la muestra debe ser lo suficientemente representativa de la colección de datos. Posteriormente, se calcula la distancia, utilizando alguna medida de distancia para cadenas de caracteres entre todas las muestras (ver ~\ref{Medida de similitud}). Si las muestras se mantienen el algoritmo es determinista, es decir, siempre entregará los mismos resultados, lo que implica una ventaja ya que puede replicarse en varias máquinas.
   
- \item  Con las distancias de todas las muestras se  ejecuta el algoritmo de agrupamiento aglomérativo hasta obtener los grupos deseaos. Por último se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en nuestro caso los puntos representativos son todos los puntos del grupo.
+ \item  Con las distancias de todas las muestras se  ejecuta el algoritmo de agrupamiento aglomerativo hasta obtener los grupos deseaos. Por último se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en este caso los puntos representativos son todos los puntos del grupo.
 
-  \item Ya con los grupos construidos, se asigna cada cadena de caracteres de la colección de datos al grupo que tenga el punto representativo  con la mejor medida de distancia. Uno de los objetivos de la memoria es el balance en términos de la carga de almacenamiento de los grupos, para esto la cadena de caracteres antes de ser asignado al grupo, se comprueba que~\ref{eq3123}
+  \item Con los grupos construidos, se asigna cada cadena de caracteres de la colección de datos al grupo que tenga el punto representativo  con la mejor medida de distancia. Uno de los objetivos de la memoria es el balance en términos de la carga de almacenamiento de los grupos, para esto la cadena de caracteres, antes de ser asignado al grupo, se comprueba que~\ref{eq3123}
 
 \begin{equation}
 \begin{aligned}
@@ -34,9 +34,9 @@ A continuación se muestra las etapas que sigue el algoritmo implementado:
    \end{aligned}\label{eq3123}
 \end{equation}
 
-donde $Grupo_{i}$ es el tamaño en disco del grupo más cercano a la cadena de caracteres seleccionada, $C$ es el tamaño en disco de la Colección de cadenas de caracteres, $k$ es el número de grupos.
+donde $Grupo_{i}$ es el tamaño en disco del grupo más cercano a la cadena de caracteres seleccionada, $C$ es el tamaño en disco de la Colección de cadenas de caracteres y $k$ es el número de grupos.
 
-Con esto al momento de asignar una cadena de caracteres a un grupo, se busca generar un balance en cada grupo, si el $Grupo_{i}$ es mayor, entonces se comprueba el siguiente grupo más cercano a la cadena de caracteres seleccionada, hasta encontrar un grupo que sea menor. Si bien se genera un balance en el espacio de memoria la comprobación se realiza antes de la compresión y puede ocurrir que al momento de la compresión no asegura un balance en todas las agrupaciones.
+Con esto, al momento de asignar una cadena de caracteres a un grupo, se busca generar un balance en cada grupo, si el $Grupo_{i}$ es mayor, entonces se comprueba el siguiente grupo más cercano a la cadena de caracteres seleccionada, hasta encontrar un grupo que sea menor. Si bien se genera un balance en el espacio de memoria la comprobación se realiza antes de la compresión y puede ocurrir que al momento de la compresión no asegura un balance en todas las agrupaciones. También puede pasar que un grupo contenga documentos que fueron asignados no por la medida de distancia sino por la falta de espacio en los demás grupos, lo que podriá provocar que el resultado de la compresión sea mayor al resto de los grupos.
 
 \end{enumerate}
 
@@ -94,13 +94,13 @@ A continuación se observa los pseucodigo del algoritmo implementado, el algoritm
 \end{algorithm}
 
 
-\section{Mejoras del Algoritmo de agrupamiento implementado}\label{ Mejoras del Algoritmo de agrupamiento implementado}
+\section{Mejoras del Algoritmo de agrupamiento implementado}\label{mejoras123}
 
 \subsection{Paralelización}
 
-Al aumentar la muestra el tiempo de ejecución crece $\frac{n^3}{2}$, donde $n$ es la cantidad de documentos. Cómo el objetivo de la memoria esta orientado para el manejo de datos de gran volumen es importante que el algoritmo propuesto pueda ejecutarse en tiempos razonables. La mayor parte del tiempo de ejecución del algoritmo propuesto se utiliza para calcular las distancias entre las cadenas de caracteres.
+Al aumentar la muestra el tiempo de ejecución crece $\frac{n^3}{2}$, donde $n$ es la cantidad de documentos. Como el objetivo de la memoria está orientado al manejo de datos de gran volumen, es importante que el algoritmo propuesto pueda ejecutarse en tiempos razonables. La mayor parte del tiempo de ejecución del algoritmo propuesto se utiliza para calcular las distancias entre las cadenas de caracteres.
 
-Una de las ventaja del algoritmo de agrupamiento implementado permite la paralelización, es decir, ejecutar varios procesos paralelos donde se consumen el mayor tiempo de ejecución. Esto ocurre cuando se calculan las distancias entre las muestras para generar los grupos iniciales y al calcular las distancias entre los documentos que seran asignados con las muestras. En el algoritmo \ref{alg4} muestra las modificaciones necesarias para poder implementar el algoritmo con paralelizacion.
+Una de las ventajas del algoritmo de agrupamiento implementado permite la paralelización, es decir, ejecutar varios procesos paralelos en los que se consume el mayor tiempo de ejecución. Esto ocurre cuando se calculan las distancias entre las muestras para generar los grupos iniciales y al calcular las distancias entre los documentos que serán asignados con las muestras. En el algoritmo \ref{alg4} muestra las modificaciones necesarias para poder implementar el algoritmo con paralelización.
 
 \begin{algorithm}
 \begin{algorithmic}[1]
@@ -130,20 +130,20 @@ Una de las ventaja del algoritmo de agrupamiento implementado permite la paralel
 \STATE $\}$
 
 \end{algorithmic}
-\caption{Algoritmo de agrupamiento propuesto Paralelizacion}\label{alg4} 
+\caption{Algoritmo de agrupamiento propuesto Paralelización}\label{alg4} 
 \end{algorithm}
 
-La mejora en los timpos de ejecución esta directamente relacionados con cuantos procesos se quiere ejecutar, los procesos que se deben ejecutar deben ser menor o igual a la cantidad de procesadores que cuenta la maquina donde se ejecutara el algoritmo. El tiempo de ejecución se divide por cada proceso adicional.
+La mejora en los tiempos de ejecución está directamente relacionado con la cantidad de procesos que se quiera ejecutar, estos deben ser menor o igual a la cantidad de procesadores que cuenta la máquina en la que se ejecutará el algoritmo. El tiempo de ejecución se divide por cada proceso adicional.
 
-Otra manera para mejorar el tiempo de ejecución es seleccionando algunas cadenas de caracteres como puntos representativos, pero se debe buscar el modo que los puntos representativos realmente representen todos las cadenas de caracteres del grupo, en el caso del espacio euclidiano es facil de lograr pero para cadenas de caracteres es muy dificil ya que no asegura que representen todas las cadenas. Podria pasar el caso de que todas las cadenas de caracteres esten muy alejadas entre ellas lo cual significa que todos deberian ser puntos representativos, por eso el algoritmo propuesto asegura todos las cadenas de caracteres del grupo como puntos representativos sacrificando tiempo de ejecución.
+Otra manera para mejorar el tiempo de ejecución es seleccionando algunas cadenas de caracteres como puntos representativos, pero se debe buscar el modo que los puntos representativos realmente representen todos las cadenas de caracteres del grupo. En el caso del espacio euclidiano es fácil de lograr, pero para cadenas de caracteres es muy difícil, ya que no asegura que representen todas las cadenas. Podría pasar el caso de que todas las cadenas de caracteres estén muy alejadas entre ellas, lo cual significa que todos deberían ser puntos representativos, por eso el algoritmo propuesto asegura todas las cadenas de caracteres del grupo como puntos representativos sacrificando tiempo de ejecución.
 
 \subsection{Estrategia Greedy}
 
-Una posible mejora que se puede emplear al algoritmo de agrupamiento propuesto es al problema que se genera cuando se asignan los documentos a un grupo con la restricción de un maximo de documentos asignados a cada grupo, utilizado para balancear la carga de estos. El algoritmo selecciona un documento y se asigna a un grupo sin tomar en cuenta los documentos que seran asignados posteriormente, en consecuencia el documento asignado a un grupo podria no ser la mejor opción frente a un posible candidato con una mejor distancia para ese mismo grupo.
+Una posible mejora que se puede emplear al algoritmo de agrupamiento propuesto es al problema que se genera cuando se asignan los documentos a un grupo con la restricción de un máximo de documentos asignados a cada grupo, utilizado para balancear la carga de estos. El algoritmo selecciona un documento y se asigna a un grupo, sin tomar en cuenta los documentos que serán asignados posteriormente. En consecuencia, el documento asignado a un grupo podría no ser la mejor opción frente a un posible candidato con una mejor distancia para ese mismo grupo.
 
-Para poder solucionar este problema se puede utilizar la estrategia greedy, lo que significa que siempre toma la mejor opción local para lograr la mejor solución, aunque no implica que siempre llega a la mejor solución. La mejora se implemento ocupando una cola de prioridad basado en la distancias de cada documento a todos los grupos, luego se asignan los documentos en orden que la cola de prioridad entrega.
+Para solucionar este problema se puede utilizar la estrategia greedy, lo que significa que siempre toma la mejor opción local para lograr la mejor solución, aunque no implica que siempre llegue a la mejor solución. La mejora se implementó ocupando una cola de prioridad, basado en la distancias de cada documento a todos los grupos, para luego asignar los documentos en el orden que la cola de prioridad entrega.
 
-En el algoritmo \ref{alg5} muestras las modificaciones necesarias para poder implementar esta mejora.
+El algoritmo \ref{alg5} muestra las modificaciones necesarias para poder implementar esta mejora.
 
 %------------------------------------%
 
