@@ -22,15 +22,15 @@
 \contentsline {chapter}{{Cap\'{i}tulo 3\ \ Algoritmo de agrupamiento propuesto}}{11}{chapter.3}
 \contentsline {section}{\numberline {3.1}Proceso de agrupamiento}{11}{section.3.1}
 \contentsline {section}{\numberline {3.2}Algoritmo de agrupamiento implementado}{11}{section.3.2}
-\contentsline {section}{\numberline {3.3}Mejoras del Algoritmo de agrupamiento implementado}{14}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Paralelizaci\'on}{14}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Estrategia Greedy}{14}{subsection.3.3.2}
-\contentsline {chapter}{{Cap\'{i}tulo 4\ \ Experimentaci\'on}}{17}{chapter.4}
-\contentsline {section}{\numberline {4.1}Dise\~no}{17}{section.4.1}
-\contentsline {section}{\numberline {4.2}Resultados}{18}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Resultados iniciales}{18}{subsection.4.2.1}
+\contentsline {section}{\numberline {3.3}Mejoras del Algoritmo de agrupamiento implementado}{13}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Paralelizaci\'on}{13}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Estrategia Greedy}{16}{subsection.3.3.2}
+\contentsline {chapter}{{Cap\'{i}tulo 4\ \ Experimentaci\'on}}{19}{chapter.4}
+\contentsline {section}{\numberline {4.1}Dise\~no}{19}{section.4.1}
+\contentsline {section}{\numberline {4.2}Resultados}{21}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Resultados iniciales}{21}{subsection.4.2.1}
 \contentsline {subsection}{\numberline {4.2.2}Resultados Finales}{23}{subsection.4.2.2}
-\contentsline {chapter}{{Cap\'{i}tulo 5\ \ Conclusiones}}{25}{chapter.5}
-\contentsline {chapter}{Referencias bibliogr\'{a}ficas}{27}{chapter*.5}
-\contentsline {chapter}{{Anexo A\ \ CODIGO ALGORITMO DE AGRUPAMIENTO BASE}}{31}{appendix.Alph1}
-\contentsline {chapter}{{Anexo B\ \ CODIGO ALGORITMO DE AGRUPAMIENTO ALEATORIO}}{35}{appendix.Alph2}
+\contentsline {chapter}{{Cap\'{i}tulo 5\ \ Conclusiones}}{27}{chapter.5}
+\contentsline {chapter}{Referencias bibliogr\'{a}ficas}{29}{chapter*.5}
+\contentsline {chapter}{{Anexo A\ \ CODIGO ALGORITMO DE AGRUPAMIENTO BASE}}{33}{appendix.Alph1}
+\contentsline {chapter}{{Anexo B\ \ CODIGO ALGORITMO DE AGRUPAMIENTO ALEATORIO}}{37}{appendix.Alph2}
