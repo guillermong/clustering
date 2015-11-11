@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{wiki}
 Wikipedia.
@@ -37,6 +37,12 @@ Anand Rajaraman and Jeffrey~David Ullman.
 Daniel Jurafsky and James~H. Martin.
 \newblock Speech and language processing pearson. education international.
 \newblock pages 107--111, 1999.
+
+\bibitem{ling}
+Ming Li Jonathan H. Badge Xin Chen Sam Kwong~Paul Kearney and HaoYong Zhang.
+\newblock An information-based sequence distance and its aplication to whole
+  mitochondrial genome phylogeny.
+\newblock 2000.
 
 \bibitem{profe2}
 S.~Kreft and G.~Navarro.

@@ -1,4 +1,4 @@
-\chapter[Experimentación]{Experimentación}\label{ch:capitulo2}
+\chapter[Experimento]{Experimento}\label{ch:capitulo2}
 
 
 \section{Diseño}\label{Diseño}
@@ -37,8 +37,6 @@ Las pruebas se realizaron en una colección versión en español de  Wikipedia, las
 Colecciones & Tamaño Total (GiB)  & Entropia(bits)  & Nº Documentos  & Tamaño documento (MiB) \\
 \hline
 Wiki-ES  & 16.384  & 5.0831497879 & 16384 & 1 \\
-\hline
-Wiki-EN  & -  & - & - & - \\
 \hline
 \end{tabular}
 }
@@ -155,6 +153,38 @@ En el gráfico \ref{fig:grafico1} muestra el total del tamaño en cada prueba real
 En el gráfico \ref{fig:grafico2:a} muestra el promedio, el mínimo  y el máximo tamaño entre las 10 pruebas para cada caso realizado con el algoritmo sin las mejoras implementadas. Se observa que aumentando las muestras, hasta llegar a las 30, la compresión de los datos baja y luego se mantienen estable. En cambio en el gráfico \ref{fig:grafico2:b} la compresión sigue mejorando luego de las 30 muestras y el rango entre el máximo y el mínimo cada vez es menor, lo que significa que las muestras tomadas aleatoriamente influyen menos en la compresión.
 
 Comparando con los resultados iniciales \ref{result iniciales}, el algoritmo con las mejoras implementadas, si se ejecuta con 150 muestras  se puede conseguir casi el mismo resultado que se obtuvo del \textit{Método 2}(versión del algoritmo sin ninguna limitación y mejora) con tan solo 30 muestras.
+
+
+
+\begin{table}[H]
+\begin{center}
+\resizebox{15cm}{!} {
+
+\begin{tabular}{|p{2cm}|p{2cm}||p{2cm}||p{2cm}||p{2cm}||p{2cm}||p{2cm}||p{2cm}||p{2cm}||p{2cm}|}
+
+\hline
+Pruebas & $S_{10}$  & $S_{20}$  & $S_{30}$ & $S_{40}$ & $S_{50}$ & $S_{10cola}$ & $S_{30_cola}$ & $S_{50cola}$ & $\bar{S_{100cola}}$\\
+\hline
+Promedio & 50506,9	& 49171,6 &	46216,5 & 45879,7 & 45343,1 & 43800,7 & 39956,4 & 38220,2 & 34820,6  \\
+\hline
+Mínimo & 47852 & 46626 & 43017 & 42713 & 42783 & 41112 & 38003 & 37165 & 33943  \\
+\hline
+Máximo & 53468 & 50990 & 48537 & 48950 & 48274 & 46449 & 42242 & 39861 & 36237
+ \\
+\hline
+Random & 77,04\% & 75,00\% & 70,49\% & 69,98\% & 69,16\% & 66,81\% & 60,95\% & 58,30\% & 53,11\%
+  \\
+\hline
+\end{tabular}
+}
+\end{center}
+\caption{Distribución grupos.}
+
+\label{distribucion}
+
+\end{table}	
+
+
 
 \begin{figure}[htbp]
 \centering

@@ -87,7 +87,7 @@ donde $a = a_1\ldots a_n$ y $b = b_1\ldots b_m$ .
   
   
   
-  \item Jaccard: Es una medida de similitud que está definida por el tamaño de la intersección de dos secuencias divido por el tamaño de la unión de ambas secuencias, un ejemplo en la medida de similitud entre las secuencias  ``night'' y ``nacht'' es de 0.3. Se tiene el conjunto S y T la fórmula para determinar el similitud jaccard es ~\ref{eq01}
+  \item Jaccard: Es una medida de similitud que está definida por el tamaño de la intersección de dos secuencias divido por el tamaño de la unión de ambas secuencias, un ejemplo en la medida de similitud entre las secuencias  ``night'' y ``nacht'' es de 0.3. Se tiene el conjunto S y T la fórmula para determinar el similitud jaccard es ~\ref{eq01}~\cite{superlibro}
   
   \begin{equation}\label{eq01}
 	Jaccard = \frac{(S\cap T)}{(S\cup T)},
@@ -95,7 +95,7 @@ donde $a = a_1\ldots a_n$ y $b = b_1\ldots b_m$ .
   
   \item Distancia Hamming: Se tiene dos cadenas de caracteres de igual tamaño y se calcula cantidad de sustituciones necesarias para transformar una cadena de caracteres en otra.
   Por ejemplo ``night'' y ``nacht'' se necesita 2 sustituciones. 
-  La fórmula de Distancia Hamming es \ref{eq234}
+  La fórmula de Distancia Hamming es \ref{eq234}~\cite{superlibro}
   \begin{equation}
   \begin{aligned}
 		D_{h}(s_{i},s_{j}) &=\sum_{k=1}^{m} \delta(s_{ik},s_{jk}) \\
@@ -123,7 +123,7 @@ Entre más pequeño el valor de la variable $Similitud$, significa que ambas caden
 
 Por ejemplo, si se utiliza el compresor LZ78~\cite{profe} en la secuencia $S_{1}$ = \textit{`abracadabra'}, $S_{2}$ = \textit{`abracadadah'} y la suma $S_{1+2}$=\textit{`abracadabraabracadadah'}, al aplicar la fórmula \ref{eq1} se obtiene el valor 0,71.
 
-Ahora si cambiamos la segunda secuencia a $S_{3}$= 'casasyperro', la cual no tiene similitud con la primera secuencia, se obtiene el valor 0.77. De esta forma se observa que con menor similitud entre los strings, mayor es el valor, entonces al tener strings que son similares el valor se acerca al 0.
+Ahora si cambiamos la segunda secuencia a $S_{3}$= 'casasyperro', la cual no tiene similitud con la primera secuencia, se obtiene el valor 0.77. De esta forma se observa que con menor similitud entre los strings, mayor es el valor, entonces al tener strings que son similares el valor se acerca al 0. Otros estudios, como el de Ming et al ya utiliza un metodo de distancia basado en la compresion para secuencias de ADN~\cite{ling}.
 
 
 \section{Metodos de compresión de datos }\label{Metodos de compresión de datos}

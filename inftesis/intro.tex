@@ -2,7 +2,7 @@
 
 \section{Antecedentes generales }\label{chsub:Antecedentes}
 
- ¿La información tiene límites? ¿Somos capaces de guardar toda esta información? actualmente la información crece a pasos agigantados; cada día aparecen nuevos contenidos provenientes de páginas Web, redes sociales, aplicaciones móviles y de nuevas tecnologías como Internet de las cosas, que son capaces de generar una gran cantidad de información. 
+ ¿La información tiene límites? ¿Somos capaces de guardar toda esta información? Actualmente la información crece a pasos agigantados; cada día aparecen nuevos contenidos provenientes de páginas Web, redes sociales, aplicaciones móviles y de nuevas tecnologías como Internet de las cosas, que son capaces de generar una gran cantidad de información. 
 
 \vspace{0.5cm} 
 \parindent=30pt La información alojada en los sitios, aplicaciones, redes sociales u otros puede cambiar con el paso del tiempo y, en algunos casos, es necesario guardar el historial de cambios de esta. Ejemplos de aplicaciones que tienen estos requerimientos son: Wikipedia, una enciclopedia online colaborativa~\cite{wiki}, y Git, un manejador de versiones utilizado principalmente para almacenar código de fuente~\cite{git}. Herramientas tradicionales de almacenamiento y versionamiento no son capaces de manejar una gran cantidad de datos de manera eficiente o, incluso, práctica. Además que generan costos elevados, transformándose en un verdadero desafío para las empresas. 
@@ -69,19 +69,23 @@ El objetivo general de esta memoria es maximizar la compresibilidad de la colecc
 \end{itemize}
 
 
-\section{Metodología }\label{chsub:Metodologia}
+\section{Organización de la memoria}\label{chsub:Metodologia}
 
-La metodología de desarrollo de la memoria se describe en los siguientes pasos:
+La organización de la memoria se define en los siguientes capítulos:
 
 \begin{enumerate}
-  \item Se estudiará el estado del arte de los distintos mecanismos de agrupamiento.
-  \item Se analizará y diseñará un algoritmo de agrupamiento para cadenas de caracteres.
-  \item Se implementará un algoritmo de agrupamiento. 
-  \item Se realizarán pruebas pequeñas para comprobar su correcto funcionamiento. Si las pruebas iniciales son satisfactorias se realizan las pruebas con una colección de datos mayor en el servidor.
-  \item Se evalúan los resultados obtenidos, sobre la base de estos se evalúa cómo mejorar el algoritmo implementado y se vuelve a repetir el proceso desde el segundo paso, para ir mejorando los resultados.
-\end{enumerate}
 
-Se contará con un repositorio Git que contendrá el código fuente desarrollada y las fuentes de la memoria misma.
+  \item En el primer capitulo, Capitulo \ref{ch:capitulo3}, se realiza un estudio del estado del arte de los algoritmo de agrupamiento más utilizados y las medidas de distancias para poder calcular la similitud entre cadenas de caracteres.
+  
+  
+  \item En el siguiente Capitulo, Capitulo \ref{Algoritmo de agrupamiento propuesto}, se muestra el análisis y diseño de una propuesta de un algoritmo de agrupamiento frente al problema que se quiere abordar en la memoria.
+  
+  \item En el Capitulo \ref{ch:capitulo2} se presenta el diseño de los experimentos y los resultados de la ejecución del algoritmo propuesto. Además se realiza una comparación entre las distintas versiones del algoritmo propuesto y un algoritmo de agrupamiento aleatorio.
+  
+  \item Por ultimo, en el Capitulo \ref{ch:capitulo4} se realiza las conclusiones que se obtuvo a partir de los resultados del Capitulo \ref{ch:capitulo2}.
+
+ 
+\end{enumerate}
 
 
 
