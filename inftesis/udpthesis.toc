@@ -24,13 +24,14 @@
 \contentsline {section}{\numberline {3.2}Algoritmo de agrupamiento implementado}{11}{section.3.2}
 \contentsline {section}{\numberline {3.3}Mejoras del Algoritmo de agrupamiento implementado}{15}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Paralelizaci\'on}{15}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Estrategia Greedy}{17}{subsection.3.3.2}
-\contentsline {chapter}{{Cap\'{i}tulo 4\ \ Experimento}}{19}{chapter.4}
-\contentsline {section}{\numberline {4.1}Dise\~no}{19}{section.4.1}
-\contentsline {section}{\numberline {4.2}Resultados}{21}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Resultados iniciales}{21}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Resultados Finales}{23}{subsection.4.2.2}
-\contentsline {chapter}{{Cap\'{i}tulo 5\ \ Conclusiones}}{27}{chapter.5}
-\contentsline {chapter}{Referencias bibliogr\'{a}ficas}{29}{chapter*.5}
-\contentsline {chapter}{{Anexo A\ \ CODIGO ALGORITMO DE AGRUPAMIENTO BASE}}{33}{appendix.Alph1}
-\contentsline {chapter}{{Anexo B\ \ CODIGO ALGORITMO DE AGRUPAMIENTO ALEATORIO}}{37}{appendix.Alph2}
+\contentsline {subsection}{\numberline {3.3.2}Estrategia Greedy}{18}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}An\'alisis}{20}{subsection.3.3.3}
+\contentsline {chapter}{{Cap\'{i}tulo 4\ \ Experimento}}{21}{chapter.4}
+\contentsline {section}{\numberline {4.1}Dise\~no}{21}{section.4.1}
+\contentsline {section}{\numberline {4.2}Resultados}{23}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Resultados iniciales}{23}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Resultados Finales}{25}{subsection.4.2.2}
+\contentsline {chapter}{{Cap\'{i}tulo 5\ \ Conclusiones}}{29}{chapter.5}
+\contentsline {chapter}{Referencias bibliogr\'{a}ficas}{31}{chapter*.5}
+\contentsline {chapter}{{Anexo A\ \ CODIGO ALGORITMO DE AGRUPAMIENTO BASE}}{35}{appendix.Alph1}
+\contentsline {chapter}{{Anexo B\ \ CODIGO ALGORITMO DE AGRUPAMIENTO ALEATORIO}}{39}{appendix.Alph2}

@@ -56,12 +56,12 @@ En las pruebas se tomó una muestra de 30 documentos y en esta primera etapa las 
 
 En la tabla \ref{Resultado algoritmo de agrupamiento aleatorio con 10 Grupos.}  muestra los resultados  de cada método con una cantidad de 10 agrupaciones. El \textit{Método 1}  utiliza el algoritmo de agrupación aleatoria, que en cada grupo comprimido y no comprimido se mantiene una carga de almacenamiento balanceada que es uno de los objetivos deseados en la memoria. En los métodos siguientes se utiliza el algoritmo de agrupación propuesto pero modificando algunas variables para observar su comportamiento.
 
-Para el caso del \textit{Método 2}  se observa una mejora de la compresión equivalente al  45\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio, aquí la muestra es de 30 documentos. En términos de balance en la carga de almacenamiento que se representa en el $Error$ de la tabla~\ref{distribucion}, este método es ineficiente, ya que la mayor parte de la carga se concentra solamente en un grupo. Esto se debe a que en el momento de crear los grupos con las muestras, la mayor parte de las muestra quedan solamente en un grupo, dejando a las demás con pocas muestras de representación.
 
-En el \textit{Método 3} se observa que existe un balance en la cantidad de muestras en cada agrupación. Para esto, cada grupo no tendrá una muestra superior a tres en un universo de 30 documentos. Con esto se busca balancear la cantidad de documentos en cada agrupación.
-El resultado de la compresión, utilizando el \textit{Método 3}, es equivalente al 55\% del tamaño total del resultado con el método del algoritmo de agrupamiento aleatorio, que sigue siendo una mejor alternativa, pero comparando con los resultado del \textit{Método 2} se paga un costo al balancear las muestras en los grupos, de un 24\% más del tamaño total del resultado en el \textit{Método 2}.
+El \textit{Método 2} es el algoritmo de agrupamiento implementado sin la implementación de un balance en la cantidad de puntos representativos en cada grupo y sin el balance en la cantidad de documentos asignados a cada grupo. Para el caso del \textit{Método 2}  se observa una mejora de la compresión equivalente al  45\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio, aquí la muestra es de 30 documentos. En términos de balance en la carga de almacenamiento que se representa en el $Error$ de la tabla~\ref{distribucion}, este método es ineficiente, ya que la mayor parte de la carga se concentra solamente en un grupo. Esto se debe a que en el momento de crear los grupos con las muestras, la mayor parte de las muestra quedan solamente en un grupo, dejando a las demás con pocas muestras de representación.
 
-En el \textit{Método 4}, se hace la misma prueba que en el método anterior,  pero se agrega la condición de que el tamaño de los grupos no supere determinado límite, el que en este caso es el tamaño de la colección de datos divido por la cantidad de agrupaciones. Con esta medida se asegura que en todos los grupos tengan, aproximadamente, la misma cantidad de cadenas de caracteres.  El resultado del \textit{Método 4} es el equivalente al 70\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio, que sigue siendo una mejora, pero nuevamente pagando un costo, con respecto al \textit{Método 2} aumenta 55\% más de tamaño, incluso mayor que en el \textit{Método 3}, pero con mejores resultados en el balance de la carga de almacenamiento.
+En el \textit{Método 3} es la implementación del \textit{Método 2} agregando un balance en la cantidad de puntos representativos por grupos. Para esto, cada grupo no tendrá una muestra superior a tres en un universo de 30 documentos. Con esto se busca balancear la cantidad de documentos en cada agrupación para solucionar el problema que ocurrio en el \textit{Método 2} donde se concentraba la mayor parte de los puntos representativos en un solo grupo. El resultado de la compresión, utilizando el \textit{Método 3}, es equivalente al 55\% del tamaño total del resultado con el método del algoritmo de agrupamiento aleatorio, que sigue siendo una mejor alternativa, pero comparando con los resultado del \textit{Método 2} se paga un costo al balancear las muestras en los grupos, de un 24\% más del tamaño total del resultado en el \textit{Método 2}.
+
+En el \textit{Método 4}, se hace la misma prueba que en el método anterior,  pero se agrega la condición de que el tamaño de los grupos no supere determinado límite, el que en este caso es el tamaño de la colección de datos divido por la cantidad de agrupaciones. Con esta medida se asegura que en todos los grupos tengan, aproximadamente, la misma cantidad de cadenas de caracteres.  El resultado del \textit{Método 4} es el equivalente al 70\% del tamaño total del resultado en el algoritmo de agrupamiento aleatorio, que sigue siendo una mejora, pero nuevamente pagando un costo, con respecto al \textit{Método 2} aumenta 55\% más de tamaño, incluso mayor que en el \textit{Método 3}, pero con mejores resultados en el balance de la carga de almacenamiento. Se observan en los resultados que al agregar el balance en la distribución de documentos se paga un costo en la compresión con respecto al \textit{Método 2} que no cuenta con ninguna condición.
 
 %------------------------------------------------------%
 
@@ -86,7 +86,7 @@ Total  & 65.560 & 29.371 (45\%) & 36.036 (55\%) & 45.639 (70\%) \\
 
 \end{table}	
 
-En la tabla ~\ref{distribucion} se observa el resultado de la distribución de los datos de cada grupo utilizando los métodos mencionados.
+En la tabla ~\ref{distribucion0} se observa el resultado de la distribución de los datos de cada grupo utilizando los métodos mencionados.
 
 Para determinar si la carga de almacenamiento en todos los grupos se encuentra balanceada en términos del número de documentos, se calcula el promedio del error absoluto $\bar{E_{a}}$, que se define como~\ref{errorabs}:
 
@@ -104,7 +104,7 @@ donde $V_{verdadero}=\frac{\varrho}{k}$ con $\varrho$ el número de documentos en
   \end{aligned}\label{simi}
 \end{equation}
 
-donde  $Distancia(G_{i})$ es el promedio de la distancia entre los documentos del mismo grupos.
+donde  $Distancia(G_{i})$ es el promedio de la distancia entre los documentos del mismo grupos. Se puede observar en la tabla \label{distribucion0}  que en el método 3 y 4 se tienen los mismos valores en $\bar{S}$, estó se debe a que las muestras son las mismas y $\bar{S}$ se calcula sobre las muestras.
 
 \begin{table}[H]
 \begin{center}
@@ -128,7 +128,7 @@ Método 4 & 1.4 & 4563.9 & 0.994174  \\
 \end{center}
 \caption{Distribución grupos.}
 
-\label{distribucion}
+\label{distribucion0}
 
 \end{table}	
 
@@ -140,13 +140,13 @@ En esta segunda etapa de la experimentación se ejecutó el algoritmo de agrupamie
 
 Las muestras que se utilizaron fueron de 10, 20, 30, 40, 50. Para los casos del algoritmo con las mejoras implementadas se ejecutaron pruebas con muestras de 10, 30, 50 y 100. En cada caso se ejecutaron 10 veces, a excepción del caso con 100 muestras el que se ejecutaron cinco veces.
 
-En el gráfico \ref{fig:grafico1} muestra el total del tamaño en cada prueba realizada, en él se puede observa que aumentando las muestras mejoran los resultados de la compresión. Además, con las mejoras implementadas se puede observar que se tienen mejores resultados en la compresión que en los resultados sin las mejoras implementadas, por ejemplo, si se compara con las pruebas con 30 muestras se observa que el resultado con la mejora implementada representa un 86\% del resultado del algoritmo sin la mejora implementada. Otro punto que se puede observar del gráfico es cómo varían los resultados con el cambio de muestras, con esto se puede deducir que las muestras pueden influir en algún grado en el resultado de la compresión.
+En el gráfico \ref{fig:grafico1} muestra el total del tamaño en cada prueba realizada, las pruebas realizadas se dividen en dos grupos: sin cola de prioridad($s_n$) y con la cola de prioridad($S_n cola$), donde $n$ representa la cantidad de muestras utilizadas. En él se puede observa que aumentando las muestras mejoran los resultados de la compresión. Además, con las mejoras implementadas se puede observar que se tienen mejores resultados en la compresión que en los resultados sin las mejoras implementadas, por ejemplo, si se compara con las pruebas con 30 muestras se observa que el resultado con la mejora implementada representa un 86\% del resultado del algoritmo sin la mejora implementada. Otro punto que se puede observar del gráfico es cómo varían los resultados con el cambio de muestras, con esto se puede deducir que las muestras pueden influir en algún grado en el resultado de la compresión.
 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{./Figuras/grafico1}
-\caption{Legos.} \label{fig:grafico1}
+\caption{Tamaño de los resultados cambiando la cantidad de muestras. } \label{fig:grafico1}
 \end{figure}
 
 
@@ -178,7 +178,7 @@ Random & 77,04\% & 75,00\% & 70,49\% & 69,98\% & 69,16\% & 66,81\% & 60,95\% & 5
 \end{tabular}
 }
 \end{center}
-\caption{Distribución grupos.}
+\caption{Tabla de resultados cambiando las muestras.}
 
 \label{distribucion}
 

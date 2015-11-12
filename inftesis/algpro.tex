@@ -10,7 +10,7 @@ El Proceso que se utilizó para agrupar una colección de datos se describe en los
   \item Se elige un algoritmo de agrupamiento y se ejecuta sobre la colección. Cuando termina de ejecutar, la colección se encontrará repartida en diferentes directorios que representan los grupos formados por el algoritmo de agrupamiento.
 
   \item Por último, se comprime cada directorio utilizando algún método de compresión.
-  
+  	
 \end{enumerate}
 
 
@@ -24,7 +24,7 @@ A continuación se muestran las etapas que sigue el algoritmo implementado:
 \begin{enumerate}
   \item El algoritmo empieza con la selección de un algoritmo de agrupamiento jerárquico aglomerativo o diviso, ambas opciones son válidas, en este caso se elige el aglomerativo. Luego, se obtiene una muestra pequeña de la colección de datos, en lo posible la muestra debe ser lo suficientemente representativa de la colección de datos. Posteriormente, se calcula la distancia, utilizando alguna medida de distancia para cadenas de caracteres entre todas las muestras (ver ~\ref{Medida de similitud}). Si las muestras se mantienen el algoritmo es determinista, es decir, siempre entregará los mismos resultados, lo que implica una ventaja ya que puede replicarse en varias máquinas.
   
- \item  Con las distancias de todas las muestras se  ejecuta el algoritmo de agrupamiento aglomerativo hasta obtener los grupos deseaos. Por último se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en este caso los puntos representativos son todos los puntos del grupo.
+ \item \label{paso2delalg} Con las distancias de todas las muestras se  ejecuta el algoritmo de agrupamiento aglomerativo hasta obtener los grupos deseaos. Por último se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en este caso los puntos representativos son todos los puntos del grupo. La ventaja de elegir todos los puntos como representativos es asegurar que al momento de asignar una cadena de caracteres a un grupo se elija la mejor opción pagando  un costo en el tiempo de ejecución. En cambio, si se seleccionan algunos como puntos representativos puede existir la posibilidad de eliminar cadenas de caracteres con potencial para ser un punto representativo lo que puede significar que un documento se asigna a otro grupo, en consecuencia la calidad de los grupos formados por los puntos representativos puede empeorar.
 
   \item Con los grupos construidos, se asigna cada cadena de caracteres de la colección de datos al grupo que tenga el punto representativo  con la mejor medida de distancia. Uno de los objetivos de la memoria es el balance en términos de la carga de almacenamiento de los grupos, para esto la cadena de caracteres, antes de ser asignado al grupo, se comprueba que~\ref{eq3123}
 
@@ -43,7 +43,7 @@ Con esto, al momento de asignar una cadena de caracteres a un grupo, se busca ge
 
 A continuación se observa los pseucodigo del algoritmo implementado, el algoritmo~\ref{similitud} muestra la función distancia que representa el resultado de la medida de distancia entre dos cadenas de caracteres y el algoritmo~\ref{alg1} muestra el algoritmo de agrupamiento propuesto en la memoria.
 
-\begin{algorithm}[H]
+\begin{algorithm}
 \begin{algorithmic}[1]
 \REQUIRE $String1$
 \REQUIRE $String2$
@@ -94,24 +94,14 @@ A continuación se observa los pseucodigo del algoritmo implementado, el algoritm
 \end{algorithm}
 
 
+
 \section{Mejoras del Algoritmo de agrupamiento implementado}\label{mejoras123}
 
 \subsection{Paralelización}
 
-Unos de los problemas del algoritmo propuesto es al tiempo de ejecución cuando las muestras son demasiadas. Si se tiene $n$ documentos de largo $m$ cada uno y $s$ muestras, el tiempo de ejecución del algoritmo se divide en los siguientes pasos: 
+El tiempo de ejecución del algoritmo se hace importante cuando se manejan grandes volumenes de datos. Una de las ventajas del algoritmo de agrupamiento implementado permite la paralelización, es decir, ejecutar varios procesos paralelos en los que se consume el mayor tiempo de ejecución. Esto ocurre cuando se calculan las distancias entre las muestras para generar los grupos iniciales y al calcular las distancias entre los documentos que serán asignados con las muestras. En el algoritmo \ref{alg4} muestra las modificaciones necesarias para poder implementar el algoritmo con paralelización.
 
-\begin{enumerate}
-  \item \label{itm:first} Pritmero se calcula las distancias entre las muestras, su tiempo de ejecución es $ O(s^{2} \cdot m)$.
-  \item \label{itm:second} Con la lista de las distancias entre las muestras se forman los grupos y su tiempo de ejecución es $O(s)$.
-  \item \label{itm:third} Luego se asignan los documentos calculandolos con todas las muestras, su tiempo de ejecución es $O(n \cdot s \cdot m)$.
-  \item \label{itm:fourth} Por ultimo se comprime, como el metodo de compresión puede cambiar su tiempo de ejecución sera de $O(k)$
-\end{enumerate}
-
-Como resultado entre todos los pasos del algoritmo se obtiene el tiempo de ejecución de $O(s \cdot m \cdot (s + n)+ s +k)$. Como el objetivo de la memoria está orientado al manejo de datos de gran volumen, es importante que el algoritmo propuesto pueda ejecutarse en tiempos razonables. La mayor parte del tiempo de ejecución del algoritmo propuesto se utiliza para calcular las distancias entre las cadenas de caracteres.
-
-Una de las ventajas del algoritmo de agrupamiento implementado permite la paralelización, es decir, ejecutar varios procesos paralelos en los que se consume el mayor tiempo de ejecución. Esto ocurre cuando se calculan las distancias entre las muestras para generar los grupos iniciales y al calcular las distancias entre los documentos que serán asignados con las muestras. En el algoritmo \ref{alg4} muestra las modificaciones necesarias para poder implementar el algoritmo con paralelización.
-
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]
 \REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra, donde $n$ es la cantidad de cadenas de caracteres.}
 \REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colección de datos, donde $k$ es numero de cadenas de caracteres.}
@@ -146,11 +136,12 @@ Una de las ventajas del algoritmo de agrupamiento implementado permite la parale
 \caption{Algoritmo de agrupamiento propuesto Paralelización}\label{alg4} 
 \end{algorithm}
 
-Con el algoritmo paralelizado cambiaria el tiempo de ejecución en el paso \ref{itm:third} a $O(s \cdot m \cdot n \cdot \log n)$. Finalmente se obtiene un tiempo de ejecución de $O(s \cdot m \cdot ( n \cdot \log n + s) +k)$. 
 
 La mejora en los tiempos de ejecución está directamente relacionado con la cantidad de procesos que se quiera ejecutar, estos deben ser preferiblemente menor o igual a la cantidad de nucleos que cuenta el procesador de la máquina en la que se ejecutará el algoritmo. El tiempo de ejecución se divide por cada proceso adicional.
 
-Otra manera para mejorar el tiempo de ejecución es seleccionando algunas cadenas de caracteres como puntos representativos, pero se debe buscar el modo que los puntos representativos realmente representen todos las cadenas de caracteres del grupo. En el caso del espacio euclidiano es fácil de lograr, pero para cadenas de caracteres es muy difícil, ya que no asegura que representen todas las cadenas. Podría pasar el caso de que todas las cadenas de caracteres estén muy alejadas entre ellas, lo cual significa que todos deberían ser puntos representativos, por eso el algoritmo propuesto asegura todas las cadenas de caracteres del grupo como puntos representativos sacrificando tiempo de ejecución.
+Otra manera para mejorar el tiempo de ejecución es seleccionando algunas cadenas de caracteres como puntos representativos, pero se debe buscar el modo que los puntos representativos realmente representen todos las cadenas de caracteres del grupo, para ver más en detalle las desventajas y ventajas de este método ver Capitulo \ref{Algoritmo de agrupamiento implementado}. En el caso del espacio euclidiano es fácil de lograr, pero para cadenas de caracteres es muy difícil, ya que no asegura que representen todas las cadenas. Podría pasar el caso de que todas las cadenas de caracteres estén muy alejadas entre ellas, lo cual significa que todos deberían ser puntos representativos, por eso el algoritmo propuesto asegura todas las cadenas de caracteres del grupo como puntos representativos sacrificando tiempo de ejecución.
+
+\newpage
 
 \subsection{Estrategia Greedy}
 
@@ -162,7 +153,7 @@ El algoritmo \ref{alg5} muestra las modificaciones necesarias para poder impleme
 
 %------------------------------------%
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]
 \REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra, donde $n$ es la cantidad de cadenas de caracteres.}
 \REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colección de datos, donde $k$ es numero de cadenas de caracteres.}
@@ -200,3 +191,22 @@ El algoritmo \ref{alg5} muestra las modificaciones necesarias para poder impleme
 \end{algorithmic}
 \caption{Algoritmo de agrupamiento propuesto Estrategia Greedy }\label{alg5} 
 \end{algorithm}
+
+\newpage
+\subsection{Análisis}
+
+
+Unos de los problemas del algoritmo propuesto es al tiempo de ejecución cuando las muestras son demasiadas. Si se tiene $n$ documentos de largo $m$ cada uno y $s$ muestras, el tiempo de ejecución del algoritmo se divide en los siguientes pasos: 
+
+\begin{enumerate}
+  \item \label{itm:first} Pritmero se calcula las distancias entre las muestras, su tiempo de ejecución es $ O(s^{2} \cdot m)$.
+  \item \label{itm:second} Con la lista de las distancias entre las muestras se forman los grupos y su tiempo de ejecución es $O(s)$.
+  \item \label{itm:third} Luego se asignan los documentos calculandolos con todas las muestras, su tiempo de ejecución es $O(n \cdot s \cdot m)$.
+  \item \label{itm:fourth} Por ultimo se comprime, como el metodo de compresión puede cambiar su tiempo de ejecución sera de $O(k)$
+\end{enumerate}
+
+Como resultado entre todos los pasos del algoritmo se obtiene el tiempo de ejecución de $O(s \cdot m \cdot (s + n)+ s +k)$. Como el objetivo de la memoria está orientado al manejo de datos de gran volumen, es importante que el algoritmo propuesto pueda ejecutarse en tiempos razonables. La mayor parte del tiempo de ejecución del algoritmo propuesto se utiliza para calcular las distancias entre las cadenas de caracteres.
+
+
+Con el algoritmo Greedy cambiaria el tiempo de ejecución en el paso \ref{itm:third} a $O(s \cdot m \cdot n \cdot \log n)$. Finalmente se obtiene un tiempo de ejecución de $O(s \cdot m \cdot ( n \cdot \log n + s) +k)$. 
+

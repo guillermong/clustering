@@ -117,7 +117,7 @@ Similitud = \frac{(d_{1+2} - d_{2})}{d_{1}},
 
 donde $d_{1}$ es el tamaño comprimido del documento más grande,$d_{2}$ es el tamaño comprimido del documento más pequeño, y $d_{1+2}$ es el tamaño comprimido de la unión de $d_{1}$ y $d_{2}$ sin comprimir.
 
-El valor de la variable $d_{1+2}$ va a depender de la similitud de las cadenas de caracteres comprimidas. Si las cadenas de caracteres tienen un grado de similitud la compresión será mucho más efectiva, ya que se necesita un diccionario mucho menor para comprimir, al contrario ocurre cuando las cadenas de caracteres son muy distintas entre sí.
+El valor de la variable $d_{1+2}$ va a depender de que tan parecidas son las cadenas de caracteres $d_{1}$ y $d_{2}$. Si las cadenas de caracteres tienen un grado de similitud la compresión será mucho más efectiva como puede ocurrir en el caso de documentos versionados, ya que se necesita un diccionario mucho menor para comprimir, al contrario ocurre cuando las cadenas de caracteres son muy distintas entre sí.
 
 Entre más pequeño el valor de la variable $Similitud$, significa que ambas cadenas de caracteres son muy similares, y entre más grande los valores significa que las cadenas de caracteres son diferentes. En comparación con la distancia edición está obtiene una buena calidad de similitud, pero el tiempo de ejecución es lineal. Mejorando el tiempo $O(n\times m)$ de la distancia de edición. Esto hace una buena opción al momento de seleccionar una medida de similitud para grandes colecciones de datos. Esta medida de similitud como entrega solamente un valor $R^{n}$ es de una sola dimensión.
 
