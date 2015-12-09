@@ -9,11 +9,11 @@
 \usepackage[latin1]{inputenc}    % esto NO es portable
 \usepackage[spanish]{babel}
 \selectlanguage{spanish}
-
+\def\bibname{Referencias}%
 
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
-
+\usepackage{lscape}
 \usepackage{amsmath} %%% para split
 \usepackage{makeidx,color}  % allows for indexgeneration
 \usepackage{graphicx}
@@ -94,8 +94,6 @@ showstringspaces=false            %
 %\usepackage{fancyvrb}
 %\DefineVerbatimEnvironment{code}{Verbatim}{fontsize=\small}
 %\DefineVerbatimEnvironment{example}{Verbatim}{fontsize=\small}
-
-
 
 
 
@@ -190,6 +188,15 @@ Dedico esta memoria a todas las personas.                %
 Hoy en día la información crece rápidamente con nuevos contenidos provenientes de páginas Web, redes sociales, aplicaciones móviles entre otros. Cada vez es más difícil manejar esta gran cantidad de datos, demandando mayores recursos para las empresas y transformándose en un importante desafío en el futuro. Para esto, se debe buscar nuevos mecanismos que permitan de manera eficiente almacenar esta gran cantidad de datos.
 
 Está memoria intenta buscar un mecanismo eficiente de distribuir una colección de datos para maximizar la compresibilidad y mantener un balance en lo que respecta al uso de recursos en múltiples servidores. Primero, se explica la importancia de los documentos versionados en la actualidad y por que se hace necesario distribuir los datos, luego se implementa un mecanismo de distribución de la colección de datos y finalmente se forma una conclusión de los resultados obtenidos.
+
+En esta memoria se evalúa un mecanismo de distribución de datos basado en la similitud de los datos y un mecanismo de distribución aleatorio, realizando un estudio comparativo entre estos y las distintas versiones implementadas. De las pruebas realizadas en esta memoria se observaron resultados satisfactorios con respecto a los objetivos propuestos, logrando una compresibilidad del 53.11\% del tamaño del mecanismo de distribución  aleatoria, aun con margen de mejorar estos resultados. Además, mejorar los tiempos de ejecución y balance en la carga de almacenamiento en comparación con las distintas versiones implementadas, no obstante todavía no logra alcanzar el balance logrado en el mecanismo de distribución aleatorio posterior a la compresión. 
+
+Las conclusiones obtenidas de los resultados de esta memoria permiten generar varias líneas de trabajo para el mejoramiento del mecanismo de distribución de datos propuesto en la memoria. Se pretende mejorar el balance de la carga de almacenamiento. También buscar nuevos mecanismos que permitan generar una medida de similitud más eficiente en el sentido de los tiempos de ejecución como en la calidad de la medida de similitud de los datos, y así mejorar la compresión. 
+
+
+
+
+
 
 
 

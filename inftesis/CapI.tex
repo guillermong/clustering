@@ -20,19 +20,21 @@ Los algoritmos de agrupamiento se pueden dividir en dos grupos: jerárquicos  y n
 
 Cuando es aglomerativo, cada punto en el espacio euclidiano representa un grupo y en cada iteración se unen los grupos hasta llegar a los números de grupos deseados; en cambio cuando es divisivo todos los puntos se encuentran en un solo grupo y en cada iteración se dividen los grupos. El siguiente algoritmo~\ref{jerarquico} muestra el algoritmo de agrupamiento aglomerativo. Primero se debe determinar cuándo detener el algoritmo, una opción puede ser hasta tener el número deseados de grupos.
 
-\begin{algorithm}
+\begin{algorithm}[h!]
 \begin{algorithmic}
-\WHILE{No es tiempo para detenerse}
-\STATE Elegir los dos grupos más cercanos;
+\REQUIRE $C$ \COMMENT{Número de grupos deseados.}
+\REQUIRE $Puntos=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Lista de puntos que representan grupos, donde k es la cantidad de grupos.}
+\WHILE{$k \neq C$}
+\STATE Elegir los dos grupos más cercanos de $Puntos$;
 \STATE Unir ambos grupos en uno sólo;
 \ENDWHILE
 \end{algorithmic}
-\caption{Algoritmo Jerarquico aglomerativo}\label{jerarquico}
+\caption{Algoritmo Jerarquico aglomerativo.}\label{jerarquico}
 \end{algorithm}
 
 Este algoritmo de agrupamiento es muy lento en caso de que la colección de datos sea muy grande, existen algoritmo de agrupamiento para colecciones grandes, como CURE~\cite{superlibro}. 
 
-CURE asume un espacio euclidiano, el algoritmo de CURE empieza tomando una pequeña muestra de la colección principal y usa cualquier algoritmo de agrupamiento que asuma el espacio euclidiano sobre la muestra, por ejemplo, los algoritmo jerárquicos serían una buena opción. Luego, selecciona en cada grupo formado en la muestra, una pequeña cantidad de puntos que se llamarán ``puntos representativos'', estos serán los que estén más alejados del grupo y entre ellos mismos, la cantidad de puntos representativos es libre de elegirse. Después los puntos representativos se mueven al centro del grupo un porcentaje, por ejemplo, 10\%.
+CURE asume un espacio euclidiano, este algoritmo empieza tomando una pequeña muestra de la colección principal usando cualquier algoritmo de agrupamiento que asuma el espacio euclidiano sobre la muestra. Por ejemplo, los algoritmo jerárquicos serían una buena opción. Luego, selecciona en cada grupo formado en la muestra, una pequeña cantidad de puntos que se llamarán ``puntos representativos'', estos serán los que estén más alejados del grupo y entre ellos mismos, la cantidad de puntos representativos es libre de elegirse. Después los puntos representativos se mueven al centro del grupo un porcentaje, por ejemplo, 10\%.
 
 La siguiente etapa consiste en unir los grupos que tengan un punto representativo cerca de un punto representativo de otro grupo, la distancia entre ambos puntos representativos para unir ambos grupos es libre de elegirse. Por último los puntos de la colección se comparan con los puntos representativos y se asigna  al grupo que tenga la menor distancia.
 
@@ -55,7 +57,7 @@ Dado $k$ grupos se generan $k$ centros de grupos o centroides iniciales, los cen
 \ENDIF
 \ENDWHILE
 \end{algorithmic}
-\caption{Algoritmo K-means}\label{kmeans2}
+\caption{Algoritmo K-means.}\label{kmeans2}
 \end{algorithm}
 
 Se itera hasta que converja, es decir, ya no se asignan nuevas observaciones a los grupos o los centroides ya no se mueven.
@@ -132,14 +134,15 @@ La compresión de datos es la reducción del volumen de datos. Existe dos tipos de
 
 En nuestro caso estudiaremos el caso particular LZ78~\cite{profe2}, el cual es un compresor sin pérdida basado en diccionario. Es un algoritmo greedy adaptativo. En el diccionario guarda un índice y un carácter, el índice entrega la posición de su  prefijo de una secuencia y el carácter es el último de la subcadena. El algoritmo empieza recorriendo la cadena de texto desde el principio, carácter por carácter, revisa si el carácter nuevo ya se encuentra en el diccionario o si pertenece a una subcadena del diccionario, si ya se encuentra sigue con el siguiente carácter, en caso de que no se encuentre, ingresa al diccionario ese nuevo carácter seguido con el índice de su prefijo.
 
-Por ejemplo, se tiene la cadena de texto S= ``abracadabra'', el resultado de la compresión con LZ78 se muestra en la tabla\ref{clz78}.
+Por ejemplo, se tiene la cadena de texto S= ``abracadabra'', el resultado de la compresión con LZ78 se muestra en la tabla~\ref{clz78}.
 
 
 \begin{table}[H]
+\large
 \begin{center}
-\resizebox{2cm}{!} {
+\resizebox{4cm}{!} {
 
-\begin{tabular}{|p{1cm}|p{1cm}|}
+\begin{tabular}{|p{2cm}|p{2cm}|}
 
 \hline
 Nº& S1 \\

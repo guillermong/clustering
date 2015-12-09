@@ -38,7 +38,7 @@ La entropía empírica de orden cero $H_{0}$ es el número promedio de bits necesar
   \end{aligned}\label{entropia0}
 \end{equation}
 
-donde el alfabeto $\sum =\{c_{0}, \ldots, c_{\sigma}\}$ de tamaño $\sigma$ y $n_{i}$ es el número de ocurrencias de caracteres $c_{i}$ en $T$. 
+donde el alfabeto $\sum =\{c_{0}, \ldots, c_{\sigma}\}$ de tamaño $l$ y $n_{i}$ es el número de ocurrencias de caracteres $c_{i}$ en $T$. 
 
 \subsection{Punto}\label{Punto}
 \sloppy{Un Punto se define como un vector de $n$ dimensiones, $P= \{ v_{1}, v_{2},...., v_{n} \}$. Un punto $P \in R^{n}$ se dice que es un punto de cluster para un subconjunto $A$ si para cada $\delta > 0 $, $\delta$ vecindad de $P$, tenemos $B(P;\delta)\cap A \not= \emptyset $, 
@@ -65,7 +65,7 @@ El objetivo general de esta memoria es maximizar la compresibilidad de la colecc
 \begin{itemize}
   \item Realizar un estudio de mecanismos de clustering  para agrupar conjuntos de cadenas de caracteres.
   \item Generar un repositorio de datos distribuido basado en clustering simulando un ambiente de varios computadores.
-  \item Medir la efectividad de usar clustering previo a la compresión para el almacenamiento distribuido de datos, en términos de la compresibilidad de la colección.
+  \item Evaluar la efectividad de usar clustering previo a la compresión para el almacenamiento distribuido de datos, en términos de la compresibilidad de la colección.
 \end{itemize}
 
 
@@ -75,14 +75,14 @@ La organización de la memoria se define en los siguientes capítulos:
 
 \begin{enumerate}
 
-  \item En el primer capitulo, Capitulo \ref{ch:capitulo3}, se realiza un estudio del estado del arte de los algoritmo de agrupamiento más utilizados y las medidas de distancias para poder calcular la similitud entre cadenas de caracteres.
+  \item En el primer capítulo, capítulo \ref{ch:capitulo3}, se realiza un estudio del estado del arte de los algoritmo de agrupamiento más utilizados y las medidas de distancias para poder calcular la similitud entre cadenas de caracteres.
   
   
-  \item En el siguiente Capitulo, Capitulo \ref{Algoritmo de agrupamiento propuesto}, se muestra el análisis y diseño de una propuesta de un algoritmo de agrupamiento frente al problema que se quiere abordar en la memoria.
+  \item En el siguiente capítulo, capítulo \ref{Algoritmo de agrupamiento propuesto}, se muestra el análisis y diseño de una propuesta de un algoritmo de agrupamiento frente al problema que se quiere abordar en la memoria.
   
-  \item En el Capitulo \ref{ch:capitulo2} se presenta el diseño de los experimentos y los resultados de la ejecución del algoritmo propuesto. Además se realiza una comparación entre las distintas versiones del algoritmo propuesto y un algoritmo de agrupamiento aleatorio.
+  \item En el capítulo \ref{ch:capitulo2} se presenta el diseño de los experimentos y los resultados de la ejecución del algoritmo propuesto. Además se realiza una comparación entre las distintas versiones del algoritmo propuesto y un algoritmo de agrupamiento aleatorio.
   
-  \item Por ultimo, en el Capitulo \ref{ch:capitulo4} se realiza las conclusiones que se obtuvo a partir de los resultados del Capitulo \ref{ch:capitulo2}.
+  \item Por último, en el capítulo \ref{ch:capitulo4} se realiza las conclusiones que se obtuvo a partir de los resultados del Capitulo \ref{ch:capitulo2}.
 
  
 \end{enumerate}

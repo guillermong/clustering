@@ -22,7 +22,7 @@ El algoritmo de agrupación implementado para la distribución de las cadenas de c
 A continuación se muestran las etapas que sigue el algoritmo implementado:
 
 \begin{enumerate}
-  \item El algoritmo empieza con la selección de un algoritmo de agrupamiento jerárquico aglomerativo o diviso, ambas opciones son válidas, en este caso se elige el aglomerativo. Luego, se obtiene una muestra pequeña de la colección de datos, en lo posible la muestra debe ser lo suficientemente representativa de la colección de datos. Posteriormente, se calcula la distancia, utilizando alguna medida de distancia para cadenas de caracteres entre todas las muestras (ver ~\ref{Medida de similitud}). Si las muestras se mantienen el algoritmo es determinista, es decir, siempre entregará los mismos resultados, lo que implica una ventaja ya que puede replicarse en varias máquinas.
+  \item El algoritmo empieza con la selección de un algoritmo de agrupamiento jerárquico aglomerativo o diviso, ambas opciones son válidas, en este caso se elige el aglomerativo. Luego, se obtiene una muestra pequeña de la colección de datos, en lo posible la muestra debe ser lo suficientemente representativa de la colección de datos. Posteriormente, se calcula la distancia, utilizando alguna medida de distancia para cadenas de caracteres entre todas las muestras, ver capítulo ~\ref{Medida de similitud}. Si las muestras se mantienen el algoritmo es determinista, es decir, siempre entregará los mismos resultados, lo que implica una ventaja ya que puede replicarse en varias máquinas.
   
  \item \label{paso2delalg} Con las distancias de todas las muestras se  ejecuta el algoritmo de agrupamiento aglomerativo hasta obtener los grupos deseaos. Por último se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en este caso los puntos representativos son todos los puntos del grupo. La ventaja de elegir todos los puntos como representativos es asegurar que al momento de asignar una cadena de caracteres a un grupo se elija la mejor opción pagando  un costo en el tiempo de ejecución. En cambio, si se seleccionan algunos como puntos representativos puede existir la posibilidad de eliminar cadenas de caracteres con potencial para ser un punto representativo lo que puede significar que un documento se asigna a otro grupo, en consecuencia la calidad de los grupos formados por los puntos representativos puede empeorar.
 
@@ -43,7 +43,7 @@ Con esto, al momento de asignar una cadena de caracteres a un grupo, se busca ge
 
 A continuación se observa los pseucodigo del algoritmo implementado, el algoritmo~\ref{similitud} muestra la función distancia que representa el resultado de la medida de distancia entre dos cadenas de caracteres y el algoritmo~\ref{alg1} muestra el algoritmo de agrupamiento propuesto en la memoria.
 
-\begin{algorithm}
+\begin{algorithm}[ht!]
 \begin{algorithmic}[1]
 \REQUIRE $String1$
 \REQUIRE $String2$
@@ -53,13 +53,13 @@ A continuación se observa los pseucodigo del algoritmo implementado, el algoritm
 \RETURN $size(s12)-size(s2)/size(s1)$
 
 \end{algorithmic}
-\caption{Funcion DISTANCIA}\label{similitud}
+\caption{Función DISTANCIA.}\label{similitud}
 \end{algorithm}
 
 
 %------------------------------------%
 
-\begin{algorithm}[H]
+\begin{algorithm}[ht!]
 \begin{algorithmic}[1]
 \REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra, donde $n$ es la cantidad de cadenas de caracteres.}
 \REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colección de datos, donde $k$ es numero de cadenas de caracteres.}
@@ -90,30 +90,28 @@ A continuación se observa los pseucodigo del algoritmo implementado, el algoritm
 \ENDFOR
 
 \end{algorithmic}
-\caption{Algoritmo de agrupamiento propuesto}\label{alg1} 
+\caption{Algoritmo de agrupamiento propuesto.}\label{alg1} 
 \end{algorithm}
 
-
+\newpage
 
 \section{Mejoras del Algoritmo de agrupamiento implementado}\label{mejoras123}
 
 \subsection{Paralelización}
 
-El tiempo de ejecución del algoritmo se hace importante cuando se manejan grandes volumenes de datos. Una de las ventajas del algoritmo de agrupamiento implementado permite la paralelización, es decir, ejecutar varios procesos paralelos en los que se consume el mayor tiempo de ejecución. Esto ocurre cuando se calculan las distancias entre las muestras para generar los grupos iniciales y al calcular las distancias entre los documentos que serán asignados con las muestras. En el algoritmo \ref{alg4} muestra las modificaciones necesarias para poder implementar el algoritmo con paralelización.
+El tiempo de ejecución del algoritmo se hace importante cuando se manejan grandes volumenes de datos. Una de las ventajas del algoritmo de agrupamiento implementado permite la paralelización, es decir, ejecutar varios procesos paralelos en los que se consume el mayor tiempo de ejecución. Esto ocurre cuando se calculan las distancias entre las muestras para generar los grupos iniciales y al calcular las distancias entre los documentos que serán asignados con las muestras. En el algoritmo \ref{alg4} muestra las modificaciones necesarias para poder implementar el algoritmo con paralelización, el algoritmo hace mension a la función $PARALELIZAR$, esta función recibe como parametros: una función que se ejecutará en cada proceso, datos, cantidad de veces que ejecutará la función en un proceso y la cantidad de procesos que se quiera utilizar.
 
-\begin{algorithm}[H]
+\begin{algorithm}[h!]
 \begin{algorithmic}[1]
 \REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra, donde $n$ es la cantidad de cadenas de caracteres.}
 \REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colección de datos, donde $k$ es numero de cadenas de caracteres.}
 \REQUIRE $C$ \COMMENT{Número de grupos deseados.}
+\REQUIRE $P$ \COMMENT{Número de Procesos.}
+
 \STATE $S \leftarrow \langle\ \rangle$
-\STATE $PARALELIZAR \{$
-\FOR{\textbf{each} s1 in $Sampling$}
-\FOR{\textbf{each} s2 in $Sampling$} 
-			\STATE $S \cup  (DISTANCIA(Sampling[s1],Sampling[s2]) , s1 ,s2)$
-		\ENDFOR
-\ENDFOR
-\STATE $\}$
+\STATE $Combinaciones \leftarrow \langle\$$ Combinaciones Muestras $\rangle$
+\STATE $S = PARALELIZAR(psim,Combinaciones, len(Combinaciones)/P, P)$ 
+
 \STATE Sort($S$)
 \STATE $i = 0$
 \WHILE {$Sampling$ > $C$}
@@ -122,26 +120,39 @@ El tiempo de ejecución del algoritmo se hace importante cuando se manejan grande
 \ENDWHILE
 
 \STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tamaño $C$}
-\STATE $PARALELIZAR \{$
-\STATE $i = 0$
+
+
+\STATE $Todo = PARALELIZAR(pasignar, k , 100 , P)$ 
+
+\hrulefill
+
+\STATE $\textbf{function}$ $psim$
+\REQUIRE $Combinacion$		 
+		\STATE\hspace{\algorithmicindent} $Comp = DISTANCIA(Combinacion[0],Combinacion[1])$
+		\STATE\hspace{\algorithmicindent} $\textbf{return}$ Comp,Combinaciones[0],Combinaciones[0]
+
+
+\hrulefill
+
+\STATE $\textbf{function}$ $pasignar$
+\REQUIRE $documento$
 \FOR{$s=0$ to $n$}
-	\IF{$DISTANCIA(Sampling[s],d) > i$}
-		\STATE $i = DISTANCIA(Sampling[s],d)$
-	\ENDIF
+		\IF{$DISTANCIA(Sampling[s],documento) > i$}
+			\STATE $i = DISTANCIA(Sampling[s],d)$
+		\ENDIF
 \ENDFOR
 \STATE $Grupo[i] \cup d$
-\STATE $\}$
 
 \end{algorithmic}
-\caption{Algoritmo de agrupamiento propuesto Paralelización}\label{alg4} 
+\caption{Algoritmo de agrupamiento propuesto Paralelización.}\label{alg4} 
 \end{algorithm}
 
-
+\newpage
 La mejora en los tiempos de ejecución está directamente relacionado con la cantidad de procesos que se quiera ejecutar, estos deben ser preferiblemente menor o igual a la cantidad de nucleos que cuenta el procesador de la máquina en la que se ejecutará el algoritmo. El tiempo de ejecución se divide por cada proceso adicional.
 
 Otra manera para mejorar el tiempo de ejecución es seleccionando algunas cadenas de caracteres como puntos representativos, pero se debe buscar el modo que los puntos representativos realmente representen todos las cadenas de caracteres del grupo, para ver más en detalle las desventajas y ventajas de este método ver Capitulo \ref{Algoritmo de agrupamiento implementado}. En el caso del espacio euclidiano es fácil de lograr, pero para cadenas de caracteres es muy difícil, ya que no asegura que representen todas las cadenas. Podría pasar el caso de que todas las cadenas de caracteres estén muy alejadas entre ellas, lo cual significa que todos deberían ser puntos representativos, por eso el algoritmo propuesto asegura todas las cadenas de caracteres del grupo como puntos representativos sacrificando tiempo de ejecución.
 
-\newpage
+
 
 \subsection{Estrategia Greedy}
 
@@ -153,7 +164,7 @@ El algoritmo \ref{alg5} muestra las modificaciones necesarias para poder impleme
 
 %------------------------------------%
 
-\begin{algorithm}[H]
+\begin{algorithm}[ht!]
 \begin{algorithmic}[1]
 \REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra, donde $n$ es la cantidad de cadenas de caracteres.}
 \REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colección de datos, donde $k$ es numero de cadenas de caracteres.}
@@ -175,21 +186,21 @@ El algoritmo \ref{alg5} muestra las modificaciones necesarias para poder impleme
 
 
 \STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tamaño $C$}
-\STATE $Cola_prioridad \leftarrow \langle\ \rangle$ 
+\STATE $Cola\_prioridad \leftarrow \langle\ \rangle$ 
 
 \FOR{\textbf{each} $d$ in $Collection$}
 \FOR{$s=0$ to $n$}
-	\STATE $Cola_prioridad.add(DISTANCIA(Sampling[s],d),d,s)$	
+	\STATE $Cola\_prioridad.add(DISTANCIA(Sampling[s],d),d,s)$	
 \ENDFOR
 \ENDFOR
 
-\WHILE {$Cola_prioridad$}
-	\STATE $i = Cola_prioridad.pop()$
+\WHILE {$Cola\_prioridad$}
+	\STATE $i = Cola\_prioridad.pop()$
 	\STATE $Grupo[i[2]] \cup i$
 \ENDWHILE
 
 \end{algorithmic}
-\caption{Algoritmo de agrupamiento propuesto Estrategia Greedy }\label{alg5} 
+\caption{Algoritmo de agrupamiento propuesto Estrategia Greedy. }\label{alg5} 
 \end{algorithm}
 
 \newpage
