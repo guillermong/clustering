@@ -1,0 +1,6 @@
+\select@language {spanish}
+\select@language {spanish}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Tama\~no de los resultados modificando la cantidad de muestras para el algoritmo de agrupamiento propuesto con y sin cola de prioridad. }}{28}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Las figuras muestran el promedio, minimo y el maximo tama\~no de las pruebas realizadas al algoritmo propuesto modificando la cantidad de muestras.}}{30}{figure.4.2}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Figura de los resultados con el algoritmo de agrupamiento propuesto sin cola de prioridad }}}{30}{figure.4.2}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Figura de los resultados con el algoritmo de agrupamiento propuesto con cola de prioridad }}}{30}{figure.4.2}

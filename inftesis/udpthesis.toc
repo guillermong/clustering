@@ -1,0 +1,37 @@
+\select@language {spanish}
+\select@language {spanish}
+\contentsline {chapter}{Lista de figuras}{\es@scroman {v}}{chapter*.2}
+\contentsline {chapter}{Lista de tablas}{\es@scroman {vii}}{chapter*.3}
+\contentsline {chapter}{Resumen}{\es@scroman {ix}}{chapter*.4}
+\contentsline {chapter}{{Cap\'{i}tulo 1\ \ Introducci\'on}}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Antecedentes generales }{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Conceptos B\'asicos }{2}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}String o cadena de caracteres }{2}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Colecci\'on de documentos}{2}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Entrop\IeC {\'\i }a de un texto}{3}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {1.2.4}Punto}{3}{subsection.1.2.4}
+\contentsline {subsection}{\numberline {1.2.5}Medida de similitud}{3}{subsection.1.2.5}
+\contentsline {subsection}{\numberline {1.2.6}Agrupamiento}{3}{subsection.1.2.6}
+\contentsline {section}{\numberline {1.3}Objetivos }{4}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Objetivo espec\IeC {\'\i }ficos}{4}{subsection.1.3.1}
+\contentsline {section}{\numberline {1.4}Organizaci\'on de la memoria}{4}{section.1.4}
+\contentsline {chapter}{{Cap\'{i}tulo 2\ \ Estado del arte}}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Algoritmo de agrupamiento }{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Medida de similiud para Cadenas de caracteres }{8}{section.2.2}
+\contentsline {section}{\numberline {2.3}Metodos de compresi\'on de datos }{10}{section.2.3}
+\contentsline {chapter}{{Cap\'{i}tulo 3\ \ Algoritmo de agrupamiento propuesto}}{13}{chapter.3}
+\contentsline {section}{\numberline {3.1}Proceso de agrupamiento}{13}{section.3.1}
+\contentsline {section}{\numberline {3.2}Algoritmo de agrupamiento implementado}{13}{section.3.2}
+\contentsline {section}{\numberline {3.3}Mejoras del Algoritmo de agrupamiento implementado}{17}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Paralelizaci\'on}{17}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Estrategia Greedy}{19}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}An\'alisis}{20}{subsection.3.3.3}
+\contentsline {chapter}{{Cap\'{i}tulo 4\ \ Experimento}}{23}{chapter.4}
+\contentsline {section}{\numberline {4.1}Dise\~no}{23}{section.4.1}
+\contentsline {section}{\numberline {4.2}Resultados}{25}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Resultados iniciales}{25}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Resultados Finales}{27}{subsection.4.2.2}
+\contentsline {chapter}{{Cap\'{i}tulo 5\ \ Conclusiones}}{31}{chapter.5}
+\contentsline {chapter}{Referencias bibliogr\'{a}ficas}{33}{chapter*.5}
+\contentsline {chapter}{{Anexo A\ \ CODIGO ALGORITMO DE AGRUPAMIENTO BASE}}{37}{appendix.Alph1}
+\contentsline {chapter}{{Anexo B\ \ CODIGO ALGORITMO DE AGRUPAMIENTO ALEATORIO}}{41}{appendix.Alph2}
