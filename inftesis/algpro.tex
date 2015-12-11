@@ -2,14 +2,14 @@
 
 \section{Proceso de agrupamiento}\label{Proceso de agrupamiento}
 
-El Proceso que se utilizÛ para agrupar una colecciÛn de datos se describe en los siguientes pasos:
+El Proceso que se utiliz√≥ para agrupar una colecci√≥n de datos se describe en los siguientes pasos:
 
 \begin{enumerate}
-  \item Primero se recibe la colecciÛn de datos que puede ser cualquier cadena de caracteres, por ejemplo, secuencias de ADN o informaciÛn de Wikipedia.
+  \item Primero se recibe la colecci√≥n de datos que puede ser cualquier cadena de caracteres, por ejemplo, secuencias de ADN o informaci√≥n de Wikipedia.
   
-  \item Se elige un algoritmo de agrupamiento y se ejecuta sobre la colecciÛn. Cuando termina de ejecutar, la colecciÛn se encontrar· repartida en diferentes directorios que representan los grupos formados por el algoritmo de agrupamiento.
+  \item Se elige un algoritmo de agrupamiento y se ejecuta sobre la colecci√≥n. Cuando termina de ejecutar, la colecci√≥n se encontrar√° repartida en diferentes directorios que representan los grupos formados por el algoritmo de agrupamiento.
 
-  \item Por ˙ltimo, se comprime cada directorio utilizando alg˙n mÈtodo de compresiÛn.
+  \item Por √∫ltimo, se comprime cada directorio utilizando alg√∫n m√©todo de compresi√≥n.
   	
 \end{enumerate}
 
@@ -17,16 +17,16 @@ El Proceso que se utilizÛ para agrupar una colecciÛn de datos se describe en los
 \section{Algoritmo de agrupamiento implementado}\label{Algoritmo de agrupamiento implementado}
 
 
-El algoritmo de agrupaciÛn implementado para la distribuciÛn de las cadenas de caracteres es una variante del algoritmo CURE~\ref{Algoritmo de agrupamiento1}, que utiliza un algoritmo jer·rquicos para formar los grupos iniciales.
+El algoritmo de agrupaci√≥n implementado para la distribuci√≥n de las cadenas de caracteres es una variante del algoritmo CURE~\ref{Algoritmo de agrupamiento1}, que utiliza un algoritmo jer√°rquicos para formar los grupos iniciales.
 
-A continuaciÛn se muestran las etapas que sigue el algoritmo implementado:
+A continuaci√≥n se muestran las etapas que sigue el algoritmo implementado:
 
 \begin{enumerate}
-  \item El algoritmo empieza con la selecciÛn de un algoritmo de agrupamiento jer·rquico aglomerativo o diviso, ambas opciones son v·lidas, en este caso se elige el aglomerativo. Luego, se obtiene una muestra pequeÒa de la colecciÛn de datos, en lo posible la muestra debe ser lo suficientemente representativa de la colecciÛn de datos. Posteriormente, se calcula la distancia, utilizando alguna medida de distancia para cadenas de caracteres entre todas las muestras, ver capÌtulo ~\ref{Medida de similitud}. Si las muestras se mantienen el algoritmo es determinista, es decir, siempre entregar· los mismos resultados, lo que implica una ventaja ya que puede replicarse en varias m·quinas.
+  \item El algoritmo empieza con la selecci√≥n de un algoritmo de agrupamiento jer√°rquico aglomerativo o diviso, ambas opciones son v√°lidas, en este caso se elige el aglomerativo. Luego, se obtiene una muestra peque√±a de la colecci√≥n de datos, en lo posible la muestra debe ser lo suficientemente representativa de la colecci√≥n de datos. Posteriormente, se calcula la distancia, utilizando alguna medida de distancia para cadenas de caracteres entre todas las muestras, ver cap√≠tulo ~\ref{Medida de similitud}. Si las muestras se mantienen el algoritmo es determinista, es decir, siempre entregar√° los mismos resultados, lo que implica una ventaja ya que puede replicarse en varias m√°quinas.
   
- \item \label{paso2delalg} Con las distancias de todas las muestras se  ejecuta el algoritmo de agrupamiento aglomerativo hasta obtener los grupos deseaos. Por ˙ltimo se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en este caso los puntos representativos son todos los puntos del grupo. La ventaja de elegir todos los puntos como representativos es asegurar que al momento de asignar una cadena de caracteres a un grupo se elija la mejor opciÛn pagando  un costo en el tiempo de ejecuciÛn. En cambio, si se seleccionan algunos como puntos representativos puede existir la posibilidad de eliminar cadenas de caracteres con potencial para ser un punto representativo lo que puede significar que un documento se asigna a otro grupo, en consecuencia la calidad de los grupos formados por los puntos representativos puede empeorar.
+ \item \label{paso2delalg} Con las distancias de todas las muestras se  ejecuta el algoritmo de agrupamiento aglomerativo hasta obtener los grupos deseaos. Por √∫ltimo se elige en cada grupo los puntos representativos, a diferencia de CURE que selecciona algunos puntos, en este caso los puntos representativos son todos los puntos del grupo. La ventaja de elegir todos los puntos como representativos es asegurar que al momento de asignar una cadena de caracteres a un grupo se elija la mejor opci√≥n pagando  un costo en el tiempo de ejecuci√≥n. En cambio, si se seleccionan algunos como puntos representativos puede existir la posibilidad de eliminar cadenas de caracteres con potencial para ser un punto representativo lo que puede significar que un documento se asigna a otro grupo, en consecuencia la calidad de los grupos formados por los puntos representativos puede empeorar.
 
-  \item Con los grupos construidos, se asigna cada cadena de caracteres de la colecciÛn de datos al grupo que tenga el punto representativo  con la mejor medida de distancia. Uno de los objetivos de la memoria es el balance en tÈrminos de la carga de almacenamiento de los grupos, para esto la cadena de caracteres, antes de ser asignado al grupo, se comprueba que~\ref{eq3123}
+  \item Con los grupos construidos, se asigna cada cadena de caracteres de la colecci√≥n de datos al grupo que tenga el punto representativo  con la mejor medida de distancia. Uno de los objetivos de la memoria es el balance en t√©rminos de la carga de almacenamiento de los grupos, para esto la cadena de caracteres, antes de ser asignado al grupo, se comprueba que~\ref{eq3123}
 
 \begin{equation}
 \begin{aligned}
@@ -34,14 +34,14 @@ A continuaciÛn se muestran las etapas que sigue el algoritmo implementado:
    \end{aligned}\label{eq3123}
 \end{equation}
 
-donde $Grupo_{i}$ es el tamaÒo en disco del grupo m·s cercano a la cadena de caracteres seleccionada, $C$ es el tamaÒo en disco de la ColecciÛn de cadenas de caracteres y $k$ es el n˙mero de grupos.
+donde $Grupo_{i}$ es el tama√±o en disco del grupo m√°s cercano a la cadena de caracteres seleccionada, $C$ es el tama√±o en disco de la Colecci√≥n de cadenas de caracteres y $k$ es el n√∫mero de grupos.
 
-Con esto, al momento de asignar una cadena de caracteres a un grupo, se busca generar un balance en cada grupo, si el $Grupo_{i}$ es mayor, entonces se comprueba el siguiente grupo m·s cercano a la cadena de caracteres seleccionada, hasta encontrar un grupo que sea menor. Si bien se genera un balance en el espacio de memoria la comprobaciÛn se realiza antes de la compresiÛn y puede ocurrir que al momento de la compresiÛn no asegura un balance en todas las agrupaciones. TambiÈn puede pasar que un grupo contenga documentos que fueron asignados no por la medida de distancia sino por la falta de espacio en los dem·s grupos, lo que podri· provocar que el resultado de la compresiÛn sea mayor al resto de los grupos.
+Con esto, al momento de asignar una cadena de caracteres a un grupo, se busca generar un balance en cada grupo, si el $Grupo_{i}$ es mayor, entonces se comprueba el siguiente grupo m√°s cercano a la cadena de caracteres seleccionada, hasta encontrar un grupo que sea menor. Si bien se genera un balance en el espacio de memoria la comprobaci√≥n se realiza antes de la compresi√≥n y puede ocurrir que al momento de la compresi√≥n no asegura un balance en todas las agrupaciones. Tambi√©n puede pasar que un grupo contenga documentos que fueron asignados no por la medida de distancia sino por la falta de espacio en los dem√°s grupos, lo que podri√° provocar que el resultado de la compresi√≥n sea mayor al resto de los grupos.
 
 \end{enumerate}
 
 
-A continuaciÛn se observa los pseucodigo del algoritmo implementado, el algoritmo~\ref{similitud} muestra la funciÛn distancia que representa el resultado de la medida de distancia entre dos cadenas de caracteres y el algoritmo~\ref{alg1} muestra el algoritmo de agrupamiento propuesto en la memoria.
+A continuaci√≥n se observa los pseucodigo del algoritmo implementado, el algoritmo~\ref{similitud} muestra la funci√≥n distancia que representa el resultado de la medida de distancia entre dos cadenas de caracteres y el algoritmo~\ref{alg1} muestra el algoritmo de agrupamiento propuesto en la memoria.
 
 \begin{algorithm}[ht!]
 \begin{algorithmic}[1]
@@ -53,7 +53,7 @@ A continuaciÛn se observa los pseucodigo del algoritmo implementado, el algoritm
 \RETURN $size(s12)-size(s2)/size(s1)$
 
 \end{algorithmic}
-\caption{FunciÛn DISTANCIA.}\label{similitud}
+\caption{Funci√≥n DISTANCIA.}\label{similitud}
 \end{algorithm}
 
 
@@ -62,8 +62,8 @@ A continuaciÛn se observa los pseucodigo del algoritmo implementado, el algoritm
 \begin{algorithm}[ht!]
 \begin{algorithmic}[1]
 \REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra, donde $n$ es la cantidad de cadenas de caracteres.}
-\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{ColecciÛn de datos, donde $k$ es numero de cadenas de caracteres.}
-\REQUIRE $C$ \COMMENT{N˙mero de grupos deseados.}
+\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colecci√≥n de datos, donde $k$ es numero de cadenas de caracteres.}
+\REQUIRE $C$ \COMMENT{N√∫mero de grupos deseados.}
 \STATE $S \leftarrow \langle\ \rangle$
 \FOR{\textbf{each} s1 in $Sampling$}
 \FOR{\textbf{each} s2 in $Sampling$} 
@@ -78,7 +78,7 @@ A continuaciÛn se observa los pseucodigo del algoritmo implementado, el algoritm
 	\STATE $i = i +1$
 \ENDWHILE
 
-\STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tamaÒo $C$}
+\STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tama√±o $C$}
 \FOR{\textbf{each} $d$ in $Collection$}
 \STATE $i = 1$
 \FOR{$s=0$ to $n$}
@@ -97,16 +97,16 @@ A continuaciÛn se observa los pseucodigo del algoritmo implementado, el algoritm
 
 \section{Mejoras del Algoritmo de agrupamiento implementado}\label{mejoras123}
 
-\subsection{ParalelizaciÛn}
+\subsection{Paralelizaci√≥n}
 
-El tiempo de ejecuciÛn del algoritmo se hace importante cuando se manejan grandes volumenes de datos. Una de las ventajas del algoritmo de agrupamiento implementado permite la paralelizaciÛn, es decir, ejecutar varios procesos paralelos en los que se consume el mayor tiempo de ejecuciÛn. Esto ocurre cuando se calculan las distancias entre las muestras para generar los grupos iniciales y al calcular las distancias entre los documentos que ser·n asignados con las muestras. En el algoritmo \ref{alg4} muestra las modificaciones necesarias para poder implementar el algoritmo con paralelizaciÛn, el algoritmo hace menciÛn a una funciÛn $PARALELIZAR$, esta funciÛn recibe como par·metros: una funciÛn que se ejecutar· en cada proceso, datos, cantidad de veces que ejecutar· la funciÛn en un proceso y la cantidad de procesos que se quiera utilizar. 
+El tiempo de ejecuci√≥n del algoritmo se hace importante cuando se manejan grandes volumenes de datos. Una de las ventajas del algoritmo de agrupamiento implementado permite la paralelizaci√≥n, es decir, ejecutar varios procesos paralelos en los que se consume el mayor tiempo de ejecuci√≥n. Esto ocurre cuando se calculan las distancias entre las muestras para generar los grupos iniciales y al calcular las distancias entre los documentos que ser√°n asignados con las muestras. En el algoritmo \ref{alg4} muestra las modificaciones necesarias para poder implementar el algoritmo con paralelizaci√≥n, el algoritmo hace menci√≥n a una funci√≥n $PARALELIZAR$, esta funci√≥n recibe como par√°metros: una funci√≥n que se ejecutar√° en cada proceso, datos, cantidad de veces que ejecutar√° la funci√≥n en un proceso y la cantidad de procesos que se quiera utilizar. 
 
 \begin{algorithm}[h!]
 \begin{algorithmic}[1]
 \REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra, donde $n$ es la cantidad de cadenas de caracteres.}
-\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{ColecciÛn de datos, donde $k$ es numero de cadenas de caracteres.}
-\REQUIRE $C$ \COMMENT{N˙mero de grupos deseados.}
-\REQUIRE $P$ \COMMENT{N˙mero de Procesos.}
+\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colecci√≥n de datos, donde $k$ es numero de cadenas de caracteres.}
+\REQUIRE $C$ \COMMENT{N√∫mero de grupos deseados.}
+\REQUIRE $P$ \COMMENT{N√∫mero de Procesos.}
 
 \STATE $S \leftarrow \langle\ \rangle$
 \STATE $Combinaciones \leftarrow \langle\$$ Combinaciones Muestras $\rangle$
@@ -119,7 +119,7 @@ El tiempo de ejecuciÛn del algoritmo se hace importante cuando se manejan grande
 	\STATE $i = i +1$
 \ENDWHILE
 
-\STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tamaÒo $C$}
+\STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tama√±o $C$}
 
 
 \STATE $Todo = PARALELIZAR(pasignar, k , 100 , P)$ 
@@ -144,21 +144,21 @@ El tiempo de ejecuciÛn del algoritmo se hace importante cuando se manejan grande
 \STATE $Grupo[i] \cup d$
 
 \end{algorithmic}
-\caption{Algoritmo de agrupamiento propuesto ParalelizaciÛn.}\label{alg4} 
+\caption{Algoritmo de agrupamiento propuesto Paralelizaci√≥n.}\label{alg4} 
 \end{algorithm}
 
 \newpage
-La mejora en los tiempos de ejecuciÛn est· directamente relacionado con la cantidad de procesos que se quiera ejecutar, estos deben ser preferiblemente menor o igual a la cantidad de nucleos que cuenta el procesador de la m·quina en la que se ejecutar· el algoritmo. El tiempo de ejecuciÛn se divide por cada proceso adicional.
+La mejora en los tiempos de ejecuci√≥n est√° directamente relacionado con la cantidad de procesos que se quiera ejecutar, estos deben ser preferiblemente menor o igual a la cantidad de nucleos que cuenta el procesador de la m√°quina en la que se ejecutar√° el algoritmo. El tiempo de ejecuci√≥n se divide por cada proceso adicional.
 
-Otra manera para mejorar el tiempo de ejecuciÛn es seleccionando algunas cadenas de caracteres como puntos representativos, pero se debe buscar el modo que los puntos representativos realmente representen todos las cadenas de caracteres del grupo, para ver m·s en detalle las desventajas y ventajas de este mÈtodo ver Capitulo \ref{Algoritmo de agrupamiento implementado}. En el caso del espacio euclidiano es f·cil de lograr, pero para cadenas de caracteres es muy difÌcil, ya que no asegura que representen todas las cadenas. PodrÌa pasar el caso de que todas las cadenas de caracteres estÈn muy alejadas entre ellas, lo cual significa que todos deberÌan ser puntos representativos, por eso el algoritmo propuesto asegura todas las cadenas de caracteres del grupo como puntos representativos sacrificando tiempo de ejecuciÛn.
+Otra manera para mejorar el tiempo de ejecuci√≥n es seleccionando algunas cadenas de caracteres como puntos representativos, pero se debe buscar el modo que los puntos representativos realmente representen todos las cadenas de caracteres del grupo, para ver m√°s en detalle las desventajas y ventajas de este m√©todo ver Capitulo \ref{Algoritmo de agrupamiento implementado}. En el caso del espacio euclidiano es f√°cil de lograr, pero para cadenas de caracteres es muy dif√≠cil, ya que no asegura que representen todas las cadenas. Podr√≠a pasar el caso de que todas las cadenas de caracteres est√©n muy alejadas entre ellas, lo cual significa que todos deber√≠an ser puntos representativos, por eso el algoritmo propuesto asegura todas las cadenas de caracteres del grupo como puntos representativos sacrificando tiempo de ejecuci√≥n.
 
 
 
 \subsection{Estrategia Greedy}
 
-Una posible mejora que se puede emplear al algoritmo de agrupamiento propuesto es al problema que se genera cuando se asignan los documentos a un grupo con la restricciÛn de un m·ximo de documentos asignados a cada grupo, utilizado para balancear la carga de estos. El algoritmo selecciona un documento y se asigna a un grupo, sin tomar en cuenta los documentos que ser·n asignados posteriormente. En consecuencia, el documento asignado a un grupo podrÌa no ser la mejor opciÛn frente a un posible candidato con una mejor distancia para ese mismo grupo.
+Una posible mejora que se puede emplear al algoritmo de agrupamiento propuesto es al problema que se genera cuando se asignan los documentos a un grupo con la restricci√≥n de un m√°ximo de documentos asignados a cada grupo, utilizado para balancear la carga de estos. El algoritmo selecciona un documento y se asigna a un grupo, sin tomar en cuenta los documentos que ser√°n asignados posteriormente. En consecuencia, el documento asignado a un grupo podr√≠a no ser la mejor opci√≥n frente a un posible candidato con una mejor distancia para ese mismo grupo.
 
-Para solucionar este problema se puede utilizar la estrategia greedy, lo que significa que siempre toma la mejor opciÛn local para lograr la mejor soluciÛn, aunque no implica que siempre llegue a la mejor soluciÛn. La mejora se implementÛ ocupando una cola de prioridad, basado en la distancias de cada documento a todos los grupos, para luego asignar los documentos en el orden que la cola de prioridad entrega.
+Para solucionar este problema se puede utilizar la estrategia greedy, lo que significa que siempre toma la mejor opci√≥n local para lograr la mejor soluci√≥n, aunque no implica que siempre llegue a la mejor soluci√≥n. La mejora se implement√≥ ocupando una cola de prioridad, basado en la distancias de cada documento a todos los grupos, para luego asignar los documentos en el orden que la cola de prioridad entrega.
 
 El algoritmo \ref{alg5} muestra las modificaciones necesarias para poder implementar esta mejora.
 
@@ -167,8 +167,8 @@ El algoritmo \ref{alg5} muestra las modificaciones necesarias para poder impleme
 \begin{algorithm}[ht!]
 \begin{algorithmic}[1]
 \REQUIRE $Sampling=\{d_{1}, \dots, d_{n} \}$\COMMENT{Muestra, donde $n$ es la cantidad de cadenas de caracteres.}
-\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{ColecciÛn de datos, donde $k$ es numero de cadenas de caracteres.}
-\REQUIRE $C$ \COMMENT{N˙mero de grupos deseados.}
+\REQUIRE $Collection=\{d_{1}, \dots, d_{k} \}$ \COMMENT{Colecci√≥n de datos, donde $k$ es numero de cadenas de caracteres.}
+\REQUIRE $C$ \COMMENT{N√∫mero de grupos deseados.}
 \STATE $S \leftarrow \langle\ \rangle$
 \FOR{\textbf{each} s1 in $Sampling$}
 \FOR{\textbf{each} s2 in $Sampling$} 
@@ -185,7 +185,7 @@ El algoritmo \ref{alg5} muestra las modificaciones necesarias para poder impleme
 
 
 
-\STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tamaÒo $C$}
+\STATE $Grupo \leftarrow \langle\ \rangle$  \COMMENT{Grupo lista de tama√±o $C$}
 \STATE $Cola\_prioridad \leftarrow \langle\ \rangle$ 
 
 \FOR{\textbf{each} $d$ in $Collection$}
@@ -204,20 +204,20 @@ El algoritmo \ref{alg5} muestra las modificaciones necesarias para poder impleme
 \end{algorithm}
 
 \newpage
-\subsection{An·lisis}
+\subsection{An√°lisis}
 
 
-Unos de los problemas del algoritmo propuesto es al tiempo de ejecuciÛn cuando las muestras son demasiadas. Si se tiene $n$ documentos de largo $m$ cada uno y $s$ muestras, el tiempo de ejecuciÛn del algoritmo se divide en los siguientes pasos: 
+Unos de los problemas del algoritmo propuesto es al tiempo de ejecuci√≥n cuando las muestras son demasiadas. Si se tiene $n$ documentos de largo $m$ cada uno y $s$ muestras, el tiempo de ejecuci√≥n del algoritmo se divide en los siguientes pasos: 
 
 \begin{enumerate}
-  \item \label{itm:first} Pritmero se calcula las distancias entre las muestras, su tiempo de ejecuciÛn es $ O(s^{2} \cdot m)$.
-  \item \label{itm:second} Con la lista de las distancias entre las muestras se forman los grupos y su tiempo de ejecuciÛn es $O(s)$.
-  \item \label{itm:third} Luego se asignan los documentos calculandolos con todas las muestras, su tiempo de ejecuciÛn es $O(n \cdot s \cdot m)$.
-  \item \label{itm:fourth} Por ultimo se comprime, como el metodo de compresiÛn puede cambiar su tiempo de ejecuciÛn sera de $O(k)$
+  \item \label{itm:first} Primero se calcula las distancias entre las muestras, su tiempo de ejecuci√≥n es $ O(s^{2} \cdot m)$.
+  \item \label{itm:second} Con la lista de las distancias entre las muestras se forman los grupos y su tiempo de ejecuci√≥n es $O(s^2)$.
+  \item \label{itm:third} Luego se asignan los documentos calcul√°ndolos contra todas las muestras, su tiempo de ejecuci√≥n es $O(n \cdot s \cdot m)$.
+  \item \label{itm:fourth} Por ultimo se comprime, como el m√©todo de compresi√≥n puede cambiar, denotaremos su tiempo de ejecuci√≥n como $O(k)$
 \end{enumerate}
 
-Como resultado entre todos los pasos del algoritmo se obtiene el tiempo de ejecuciÛn de $O(s \cdot m \cdot (s + n)+ s +k)$. Como el objetivo de la memoria est· orientado al manejo de datos de gran volumen, es importante que el algoritmo propuesto pueda ejecutarse en tiempos razonables. La mayor parte del tiempo de ejecuciÛn del algoritmo propuesto se utiliza para calcular las distancias entre las cadenas de caracteres.
+Como resultado entre todos los pasos del algoritmo se obtiene el tiempo de ejecuci√≥n de $O(s \cdot m \cdot (s + n)+ s +k)$. Como el objetivo de la memoria est√° orientado al manejo de datos de gran volumen, es importante que el algoritmo propuesto pueda ejecutarse en tiempos razonables. La mayor parte del tiempo de ejecuci√≥n del algoritmo propuesto se utiliza para calcular las distancias entre las cadenas de caracteres.
 
 
-Con el algoritmo Greedy cambiaria el tiempo de ejecuciÛn en el paso \ref{itm:third} a $O(s \cdot m \cdot n \cdot \log n)$. Finalmente se obtiene un tiempo de ejecuciÛn de $O(s \cdot m \cdot ( n \cdot \log n + s) +k)$. 
+Con el algoritmo Greedy cambiaria el tiempo de ejecuci√≥n en el paso \ref{itm:third} a $O(s \cdot m \cdot n \cdot \log n)$. Finalmente se obtiene un tiempo de ejecuci√≥n de $O(s \cdot m \cdot ( n \cdot \log n + s) +k)$. 
 
